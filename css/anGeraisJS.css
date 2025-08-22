@@ -1,0 +1,46 @@
+@import url(reset.css);
+@import url(variaveis.css);
+@import url(card.css);
+@import url(padrao.css);
+
+main > section{
+  background-color: azure;
+  padding: 0.5rem;
+  margin: 1rem 0.3rem;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+}
+p{
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+h1{
+  padding: 0.5rem;
+}
+pre{
+  width: 95vw;
+}
+.fundoCodigo{
+  font-size: small;
+  padding: 0.3em;
+  color: cyan;
+  background-color: #292828;
+}
+.exemplo{
+  color: green;
+}
+.atencao{
+  color: red;
+}
+
+@media (min-width: 768px ) {
+  pre{
+    width: 60vw;
+  }
+  main > section{
+    background-color: azure;
+    padding: 1.5rem;
+    margin: 1rem 0.3rem;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+  }
+}

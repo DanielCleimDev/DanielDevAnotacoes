@@ -1,0 +1,45 @@
+@import url(reset.css);
+@import url(variaveis.css);
+@import url(card.css);
+@import url(padrao.css);
+
+section a{
+  color: var(--cor-secundaria);
+  font-weight: bolder;
+  cursor: pointer;
+}
+img{
+  width: 80vw;
+  padding: 1rem 0;
+}
+p{
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+section{
+  margin: 1rem;
+}
+h1{
+  margin: 0 0 1rem 0;
+}
+section h1{
+  font-size: 1.5rem;
+}
+strong{
+  font-weight:bolder;
+}
+li{
+  margin:0.5rem;
+}
+
+@media (min-width: 768px ) {
+  body{
+    line-height: 1.5rem;
+    font-size: 1.5rem;
+  }
+  section h1{
+    font-size: 2rem;
+  }
+  img{
+    width: 90vw;
+  }
+}

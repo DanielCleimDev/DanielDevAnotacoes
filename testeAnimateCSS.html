@@ -1,0 +1,29 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animate CSS</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+</head>
+<body>
+  <h1 class="animate__animated animate__slideInDown" >An animated element</h1>
+  <a href="https://animate.style/">Animate CSS</a>
+  <p>Para usar basta adicionar uma classe a um elemento, junto com o prefixo, exemplo: </p>
+  <p>Prefixo: animate__animated + animate__zoomInRight = class="animate__animated animate__zoomInRight" </p>
+  <p id="zomm" class="animate__animated animate__zoomInRight"><strong>animate__zoomInRight</strong></p>
+</body>
+<script>
+  let botao = document.getElementById("zomm")
+  botao.style.cursor = "pointer";
+  botao.addEventListener("click", ()=>{
+    botao.classList.remove("animate__zoomInRight");
+    setTimeout(() => {
+        botao.classList.add("animate__zoomInRight");
+      }, 100);
+    
+    })
+</script>
+</html>

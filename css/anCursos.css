@@ -1,0 +1,59 @@
+@import url(reset.css);
+@import url(variaveis.css);
+@import url(card.css);
+@import url(padrao.css);
+
+ul{
+  padding: 1rem;
+}
+.artigos__div{
+  padding: 0.5rem;
+}
+p{
+  margin-left: 1rem;
+}
+pre{
+  width: 96%;
+  padding: 0.5rem;
+  margin: 1rem auto;
+  color: azure;
+  background-color: #292828; 
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.pre1{
+  color: rgb(0, 132, 255);
+}
+.preAmarelo{
+  color: rgb(217, 255, 0);
+}
+.prePropriedade{
+  color: rgb(180, 51, 4);
+}
+.efeitoSombra{
+  background: cornflowerblue;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 1rem;
+  display: inline-block;
+}
+img{
+  width: 80vw;
+  margin: 0.5rem auto;
+  display: block;
+}
+main{
+  padding: 1rem;
+}
+@media (min-width: 768px ) {
+    .artigos__div{
+    padding: 0.5rem 1rem;
+  }
+  pre{
+    width: 50%;
+    margin: 1rem;
+  }
+  img{
+    width: 70vw;
+  }
+}

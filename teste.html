@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copiar Código</title>
+  <style>
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Exemplo de Código com Copiar</h1>
+  <pre id="codigo">
+    &lt;div&gt;
+        &lt;h1&gt;Olá, Mundo!&lt;/h1&gt;
+        &lt;p&gt;Este é um exemplo de código HTML.&lt;/p&gt;
+    &lt;/div&gt;
+  </pre>
+  <button onclick="copiarCodigo('codigo')">Copiar Código</button>
+
+  <script>
+
+    function copiarCodigo(idElemento) {
+      const codigo = document.getElementById(idElemento).innerText;
+      navigator.clipboard.writeText(codigo).then(() => {
+        alert('Código copiado para a área de transferência!');
+      }).catch(err => {
+        console.error('Erro ao copiar o código: ', err);
+      });
+    }
+
+    /*
+    outra opção é utilizar uma string 
+    Exemplo
+    let string= `Código
+    Meu código identado
+       testado`;
+    function copiarCodigo() {
+      navigator.clipboard.writeText(string).then(() => {
+        alert('Código copiado para a área de transferência!');
+      }).catch(err => {
+        console.error('Erro ao copiar o código: ', err);
+      });
+    }
+    */
+  </script>
+</body>
+</html>
