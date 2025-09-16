@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistemas Operacionais</title>
+</head>
+<body>
+  <main>
+    <section>
+      <div>
+        <h1>Sistemas Operacionais</h1>
+        <section>
+          <h2>Tipos de Sistemas Operacionais</h2>
+          <ul>
+            <li>
+              <h3>Sistemas Monolíticos</h3>
+              <p>Kernel Único, código Compartilhado</p>
+            </li>
+            <li>
+              <h3>Sistemas Modulares</h3>
+              <p>Kernel Modular, Drivers Separados</p>
+              <p>um Kernel para interface de entrada e saída, um para conexão de rede etc...</p>
+            </li>
+            <li>
+              <h3>Sistemas Distribuídos</h3>
+              <p>Recursos compartilhados em múltiplos computadores</p>
+              <p>Sistemas distribuídos que rodam sobre uma interface de rede, como AWS, que compartilha recurso por meio da internet</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>kernel - Core ( Centro do Sistema Operacional)</h2>
+          <p>Programa responsável por controlar todas as partes importantes de um SO</p>
+          <ul>
+            <li>Interface de entrada e Saída</li>
+            <li>Segurança</li>
+            <li>Decidir qual processo irá executar</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Estrutura Básica</h2>
+          <ul>
+            <li>
+              <h3>1 - kernel</h3>
+              <p>Núcleo do sistema, Gerencia Recursos.</p>
+            </li>
+            <li>
+              <h3>2 - Chamadas de Sistema</h3>
+              <p>Interface entre aplicações e kernel.</p>
+            </li>
+            <li>
+              <h3>3 - Gerenciamento de Processos</h3>
+              <p>Criação, término, escalonamento.</p>
+            </li>
+            <li>
+              <h3>4 - Gerenciamento de Memória</h3>
+              <p>Alicação, organização, proteção.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Conceitos Fundamentais</h2>
+          <ul>
+            <li>
+              <h2>Processos</h2>
+              <p>Programas em execução.</p>
+            </li>
+            <li>
+              <h2>Threads</h2>
+              <p>Unidades de execução dentro de um processo.</p>
+            </li>
+            <li>
+              <h2>Sincronização</h2>
+              <p>Coordenação entre processos e Threads.</p>
+            </li>
+            <li>
+              <h2>Comunicação</h2>
+              <p>Troca de dados entre processos.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Observação - interface de acesso ao sistema operaciona</h2>
+          <p>O programa que serve para a interação dos usuários na realidade não faz parte do sistema operacional em si, embora use o SO para realizar seu trabalho. Na realidade, o que usuário utiliza diretamente é uma interface de acesso ao sistema operacional. Essa interface pode ser baseada em texto (shell, ou interpretador de comandos), ou baseada em interface gráfica com ícones (GUI - Graphical User Interface).</p>
+          <h2>Programas podem ser executados em modo usuário ou kernel</h2>
+          <ul>
+            <li>
+              <h3>Modo usuário</h3>
+              <p>Os softwares têm acesso limitado ao hardware e normalmente os programas e aplicativos são utilizados diretamente pelos usuários.</p>
+            </li>
+            <li>
+              <h3>Modo kernel</h3>
+              <p>O SO é o único programa executado em modo núcleo, ou kernel. Significa que o SO possui o acesso completo ao hardware e consegue executar qualquer instrução possível.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h1>Máquina de níveis ou máquina de camadas</h1>
+          <p>Visões de usuário, que representam conjuntos de serviços ou funções, a abstração do hardware, ou seja, qualquer camada acima do hardware, pode ser chamada de máquina virtual</p>
+
+          <h3>Máquina de níveis</h3>
+          <ul>
+            <li>Aplicativos</li>
+            <li>Utilitários</li>
+            <li>Sistema Operacional</li>
+            <li>Linguagem de Máquina</li>
+            <li>Microprogramação</li>
+            <li>Circuitos Eletrônicos</li>
+          </ul>
+        </section>
+      </div>
+      <div>
+        <section>
+          <h1>Componentes básicos de um sistema computacional -SC</h1>
+          <ul>
+            <li>
+              <h2>Hardware</h2>
+              <p>Fornece recursos básicos de computação CPU, memória, dispositivos de E/S.</p>
+            </li>
+            <li>
+              <h2>Aplicativos</h2>
+              <p>Definem as maneiras como os recursos são usados, para resolver os problemas de computação dos usuários, como compiladores, banco de dados, jogos de videogames, programas comerciais e outros.</p>
+            </li>
+            <li>
+              <h2>Usuários</h2>
+              <p>São as pessoas, máquinas ou outros computadores.</p>
+            </li>
+            <li>
+              <h2>Sistema operacional</h2>
+              <p>Controla e coordena o uso do hardware entre os vários programas de aplicação, para os diversos usuários.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h1>Lista de inovações referentes a computadores e sistemas operacionais da quarta geração</h1>
+          <ul>
+            <li>Surgimento dos computadores pessoais</li>
+            <li>Integração em larga escala (LSI e VLSI) – Miniaturização e barateamento dos componentes eletrônicos</li>
+            <li>Intel produz seu primeiro microprocessador – Intel 4004</li>
+            <li>Intel 8080 – Primeiro microcomputador</li>
+            <li>1976: Apple II (8 bits)</li>
+            <li>Surgimento da Microsoft</li>
+            <li>Redes distribuídas</li>
+            <li>Protocolos de redes</li>
+            <li>Redes locais</li>
+            <li>SO intimamente relacionados com o software de rede</li>
+            <li>Surgimento da linguagem Pascal e C</li>
+            <li>Surgimento do IBM PC – Intel 8088 de 16 bits com DOS (Disk Operating System)</li>
+            <li>Sistemas multiusuários foram impulsionados</li>
+            <li>Protocolos da internet TCP/IP</li>
+            <li>Surgimento das estações de trabalho</li>
+            <li>1982: Surgimento da Sun Microsystems e das primeiras estações RISC</li>
+            <li>Surgimento das interfaces gráficas</li>
+            <li>Avanços de hardware, software e telecomunicações</li>
+            <li>Processadores e dispositivos de E/S mais rápidos e menores</li>
+            <li>Integração em ultra larga escala (ULSI)</li>
+            <li>Internet: Problemas de gerência, segurança e desempenho</li>
+            <li>Arquitetura Cliente – Servidor</li>
+            <li>Software aberto (Open Source)</li>
+            <li>Demanda cada vez maior de processamento</li>
+            <li>Arquiteturas paralelas</li>
+            <li>Processamento distribuído</li>
+            <li>SO em celulares, tablets e outros</li>
+          </ul>
+        </section>
+        <!-- 
+          Tema 2 - Conceitos Básicos de so
+          Evolução histórica dos sistemas operacionais
+        -->
+      </div>
+    </section>
+  </main>
+  
+</body>
+</html>
