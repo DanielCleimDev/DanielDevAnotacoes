@@ -1,0 +1,29 @@
+@import url(reset.css);
+@import url(variaveis.css);
+@import url(card.css);
+@import url(padrao.css);
+.card{
+  width: 90vw;
+  margin: 1rem auto;
+  text-align:left;
+}
+section{
+  padding: 1rem;
+}
+ul{
+  display: flex;
+  flex-direction: column;
+}
+
+.tabela{
+  margin: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center ;
+}
+
+.tabela-titulo{
+  background-color: var(--cor-primaria);
+  color: var(--cor-clara);
+  font-weight: 550;
+}
