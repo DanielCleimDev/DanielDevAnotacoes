@@ -320,12 +320,141 @@
           </section>
           <p>Os sistemas com múltiplos processadores também podem ser chamados de sistemas avançados de processamento. Eles podem ser constituídos de computadores com vários processadores, processadores com vários núcleos e sistemas distribuídos. O SO deve estar adaptado para operar esses sistemas.</p>
         </section>
-        <!-- 
+      </div>
+      <section>
+        <h1>Sistemas de Grande Porte</h1>
+        <section>
+          <h2>Sistemas de Tempo Real</h2>
+          <h3>Definição e Aplicações</h3>
+          <ul>
+            <li>
+              <h3>Tempo Crítico</h3>
+              <p>Responde a eventos dentro de um limite de tempo específico.</p>
+            </li>
+            <li>
+              <h3>Aplicações</h3>
+              <p>Controladores industriais, sistemas de navegação, dispositivos médicos.</p>
+            </li>
+            <li>
+              <h3>Segurança</h3>
+              <p>Falhas podem ter concequências graves e até fatais.</p>
+            </li>
+            <li>
+              <h3>Exemplos</h3>
+              <p>sistemas de controle de tráfego aéreo, carros autônomos, robôs industriais.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Características e Serviços</h2>
+          <ul>
+            <li>
+              <h3>Capacidade</h3>
+              <p>Alto desempenho e capacidade de armazenamento</p>
+              <p>Gerenciam grandes capacidades de dados</p>
+            </li>
+            <li>
+              <h2>Disponibilidade</h2>
+              <p>Operam continuamente com alta confiabilidade</p>
+              <p>Minimização de interrupções e falhas</p>
+            </li>
+            <li>
+              <h2>Escalabilidade</h2>
+              <p>Capacidade de expanção para atender demandas crescentes</p>
+              <p>Adaptação a diferentes necessidades e tamanhos</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Execução de tarefas em tempo compartilhado</h2>
+          <ul>
+            <li>
+              <h3>Multiprogramação</h3>
+              <p>Múltiplas tarefas compartilham os recursos do sistema.</p>
+            </li>
+            <li>
+              <h3>Escalonamento</h3>
+              <p>Alocação de tempo de CPU para cada tarefa.</p>
+            </li>
+            <li>
+              <h3>Comunicação</h3>
+              <p>Mecanismos para troca de informações entre tarefas.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h1>Alguns serviços oferecidos pelos sistemas operacionais de computadores de grande porte</h1>
+          <ul>
+            <li>
+              <h2>Sistemas em lote</h2>
+              <p>O sistema em lote (batch) processa tarefas de rotina sem a presença interativa do usuário. Por exemplo: processamento de apólices de companhia de seguro; relatório de vendas de uma cadeia de lojas.</p>
+            </li>
+            <li>
+              <h2>Sistemas de processamento de transações</h2>
+              <p>Os sistemas de processamento de transações administram grandes quantidades de pequenas requisições. Cada unidade de trabalho é pequena, mas o sistema precisa tratar centenas ou milhares delas por segundo. </p>
+              <p>Por exemplo: processamento de verificações em um banco ou em reservas de passagens aéreas.</p>
+            </li>
+            <li>
+              <h2>Sistemas de tempo compartilhado</h2>
+              <p>Os sistemas de tempo compartilhado permitem que múltiplos usuários remotos executem suas tarefas simultaneamente no computador. Por exemplo: realização de consultas a um banco de dados.</p>
+            </li>
+          </ul>
+          <section>
+            <p>Os serviços de <strong>sistemas de tempo real</strong> são aqueles que possuem o <strong>tempo</strong> como parâmetro fundamental. Podemos citar, como exemplo, a linha de montagem de um carro. Esses sistemas podem ser de dois tipos:</p>
+            <ul>
+              <li>
+                <h2>Sistema de tempo real crítico</h2>
+                <p>Neste sistema, as ações precisam ocorrer em determinados instantes. Como exemplos, podemos citar processos industriais, de aviônica e militares.</p>
+              </li>
+              <li>
+                <h2>Sistema de tempo real não crítico</h2>
+                <p>Neste tipo de sistema, o descumprimento de um prazo não causa dano permanente. Como exemplos, podemos citar sistema de áudio digital, multimídia, telefones digitais.</p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <p>Os sistemas operacionais variam quanto aos tipos de licenças, ou seja, o conjunto de ações que o usuário do SO pode ou não fazer. Vamos conhecer a seguir alguns tipos:</p>
+          <ul>
+            <li>
+              <h2>Software Proprietário</h2>
+              <ul>
+                <li>Licenciado sob direitos legais exclusivos – copyright.</li>
+                <li>Usualmente o código-fonte total ou parcial não é disponibilizado para modificação por qualquer pessoa, apenas a fabricante possui o acesso.</li>
+              </ul>
+            </li>
+            <li>
+              <h2>Software livre (Free software)</h2>
+              <p>Software livre se refere à liberdade dos usuários executarem, copiarem, distribuírem, estudarem, modificarem e aperfeiçoarem o software. </p>
+              <p>Por exemplo, a licença GNU da Free Software Foundation (FSF) possui as seguintes liberdades:</p>
+              <ul>
+                <li>Liberdade nº 0: Executar o programa, para qualquer propósito.</li>
+                <li>Liberdade nº 1: Liberdade de estudar como o programa funciona, e adaptá-lo para as suas necessidades. Acesso ao código-fonte é um pré-requisito para esta liberdade.</li>
+                <li>Liberdade nº 2: Liberdade de redistribuir cópias de modo que você possa ajudar ao seu próximo.</li>
+                <li>Liberdade nº 3: Liberdade de aperfeiçoar o programa e liberar os seus aperfeiçoamentos, de modo que toda a comunidade se beneficie. Acesso ao código-fonte é um pré-requisito para esta liberdade.</li>
+              </ul>
+            </li>
+            <li>
+              <h2>Software de código aberto (Open source)</h2>
+              <p>O código-fonte é disponibilizado por meio de uma licença de código aberto para modificação ou melhoria por qualquer pessoa. O termo "código aberto" foi criado pela OSI (Open Source Initiative).</p>
+              <p>O software de código aberto difere-se de um software livre por não respeitar as 4 liberdades definidas pela Free Software Foundation (FSF), compartilhadas também pelo projeto Debian em "Debian Free Software Guidelines (DFSG)". Vale ressaltar que qualquer licença de software livre é também uma licença de código aberto (Open Source), mas o contrário nem sempre é verdade.</p>
+              <p>São exemplos de licenças de código aberto:</p>
+              <ul>
+                <li>Apache License.</li>
+                <li>MIT License.</li>
+                <li>Mozilla Public License.</li>
+                <li>Common Development and Distribution License.</li>
+                <li>Eclipse Public License.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <!-- 
           Tema 2 - Conceitos Básicos de so
           Tipos de sistemas operacionais
           Outras classificações dos sistemas operacionais
         -->
-      </div>
     </section>
   </main>
   
