@@ -2,10 +2,20 @@
 @import url(variaveis.css);
 @import url(card.css);
 @import url(padrao.css);
-.card{
-  width: 90vw;
+body{
+  max-width: 97vw;
+}
+h1{
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: var(--cor-primaria);
+  text-align: center;
+  color: var(--cor-clara);
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
   margin: 1rem auto;
-  text-align:left;
+  padding: 1rem;
+  width: 100%;
 }
 section{
   padding: 1rem;
@@ -13,6 +23,9 @@ section{
 ul{
   display: flex;
   flex-direction: column;
+}
+strong{
+  font-weight: 500;
 }
 
 .tabela{
