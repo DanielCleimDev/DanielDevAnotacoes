@@ -450,6 +450,146 @@
           </ul>
         </section>
       </section>
+      <section>
+        <section>
+          <h1>Componetes Principais do sistema operacional</h1>
+          <ul>
+            <li>
+              <h2>Kernel</h2>
+              <p>Núcleo do sistema operacional</p>
+            </li>
+            <li>
+              <h2>Gerenciador de arquivos</h2>
+              <p>Organiza e gerencia arquivos do sistema</p>
+            </li>
+            <li>
+              <h2>Interface de usuário</h2>
+              <p>Permite a interação com o sistema operacional</p>
+            </li>
+            <li>
+              <h2>Utilitários</h2>
+              <p>Ferramentas para gereniamento e manutenção do sistema</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h1>O Kernel: Definição e Funcionalidades</h1>
+          <p>Parte central do sistema operacional, responsável por gerenciar o hardware e recursos.</p>
+          <ul>
+            <li>
+              <h2>Gerenciamento de processos</h2>
+              <p>Cria, executa e encerra processos</p>
+            </li>
+            <li>
+              <h2>Gerenciamento de memória</h2>
+              <p>Aloca e dasaloca memória para processos</p>
+            </li>
+            <li>
+              <h2>Gerenciamento de dispositivos</h2>
+              <p>Controla acesso a dispositivos de hardware</p>
+            </li>
+            <li>
+              <h2>Gerenciamento de arquivos</h2>
+              <p>Controla acesso e organização de arquivos</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h1>System Calls: Conceito e importância</h1>
+          <p>Interface entre processos de usuário e o kernel.</p>
+          <ul>
+            <li>
+              <h2>Processo de usuário</h2>
+              <p>Solicita serviços do kernel</p>
+            </li>
+            <li>
+              <h2>Kernel</h2>
+              <p>Fornece serviços ao processo de usuário.</p>
+            </li>
+            <li>
+              <h2>System Calls</h2>
+              <p>Meio de comunicação entre kernel e processos.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h1>Tratamento de interrupções pelo kernel</h1>
+          <p>O kernel responde a eventos inesperados, como interrupções de hardware</p>
+          <ul>
+            <li>
+              <h2>Evento</h2>
+              <p>Interrução de hardware, como precionar uma tecla.</p>
+            </li>
+            <li>
+              <h2>Processamento</h2>
+              <p>O kernel interrompe a execução atual e processa a interrupção.</p>
+            </li>
+            <li>
+              <h2>Retorno</h2>
+              <p>O kernel retorna a execução anterior</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h1>Gerência de memória pelo kernel</h1>
+          <p>O kernel gerencia a alocação e o uso da memória RAM.</p>
+          <ul>
+            <li>
+              <h2>Alocação</h2>
+              <p>Aloca memória para processos.</p>
+            </li>
+            <li>
+              <h2>Desalcação</h2>
+              <p>Libera memória quando processos terminam.</p>
+            </li>
+            <li>
+              <h2>Gerenciamento de páginas</h2>
+              <p>Organiza a memória em páginas para acesso eficiente.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h1>Suporte a rede pelo kernel</h1>
+          <p>O kernel gerencia a comunicação de rede entre dispositivos.</p>
+          <ul>
+            <li>
+              <h2>Roteamento</h2>
+              <p>Encaminha pacotes de rede para dispositivos específicos.</p>
+            </li>
+            <li>
+              <h2>Gerenciamento de interfaces</h2>
+              <p>Controla as intefaces de rede, como Ethernet e Wi-Fi.</p>
+            </li>
+            <li>
+              <h2>Protocolos de Comunicação</h2>
+              <p>Implementa protocolos de comunicação, como TCP/IP.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <p>O sistema operacional funciona com algumas particularidades quanto à execução das rotinas:</p>
+          <ul>
+            <li>- Tarefas não sequenciais, ou seja, as rotinas são executadas concorrentemente.</li>
+            <li>- Sem ordem predefinida.</li>
+            <li>- Eventos assíncronos.</li>
+            <li>- Eventos relacionados ao hardware e eventos relacionados às tarefas internas do próprio SO.</li>
+          </ul>
+          <p>Já o núcleo do SO deve atuar considerando essas particularidades, e para isso implementa funções como:</p>
+          <ul>
+            <li>- Tratamento de interrupções e exceções.</li>
+            <li>- Criação e eliminação de processos e threads.</li>
+            <li>- Sincronização e comunicação entre processos e threads.</li>
+            <li>- Escalonamento e controle de processos e threads.</li>
+            <li>- Gerência de memória.</li>
+            <li>- Gerência do sistema de arquivos.</li>
+            <li>- Gerência dos dispositivos de E/S.</li>
+            <li>- Suporte a redes locais e distribuídas.</li>
+            <li>- Contabilização do uso do sistema.</li>
+            <li>- Auditoria e segurança do sistema.</li>
+          </ul>
+          <p>A execução das rotinas no sistema operacional é controlada pelo mecanismo denominado system call ou chamada ao sistema, que é um mecanismo de proteção por software que garante a execução somente de rotinas previamente autorizadas.</p>
+        </section>
+      </section>
       <!-- 
           Tema 2 - Conceitos Básicos de so
           A estrutura do SO
