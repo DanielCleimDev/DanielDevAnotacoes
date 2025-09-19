@@ -590,10 +590,21 @@
           <p>A execução das rotinas no sistema operacional é controlada pelo mecanismo denominado system call ou chamada ao sistema, que é um mecanismo de proteção por software que garante a execução somente de rotinas previamente autorizadas.</p>
         </section>
       </section>
+      <section>
+        <h1>System Calls</h1>
+        <p>A system call é uma “porta de entrada” para o acesso ao núcleo do SO e aos seus serviços. Cada serviço possui uma system call associada, e cada SO possui seu próprio conjunto de chamadas, com nomes, parâmetros e formas de ativação específicas.</p>
+        <p>Em geral, para qualquer situação, o funcionamento da system call consiste:</p>
+        <ul>
+          <li>-  Na realização da chamada ao sistema pela aplicação que deseja executar rotina(s).</li>
+          <li>- No processamento da solicitação pelo kernel.</li>
+          <li>- No retorno, para a aplicação solicitante, de uma resposta, com um estado de conclusão, indicando se houve algum erro.</li>
+        </ul>
+        <p>Um exemplo de conjunto de chamadas de sistema é o <strong>POSIX</strong> (Portable Operating System Interface for Unix), padrão internacional ISO/IEC/IEEE 9945 que foi uma tentativa de padronizar as system calls.</p>
+      </section>
       <!-- 
           Tema 2 - Conceitos Básicos de so
           A estrutura do SO
-          Kernel, system calls, modos de acesso
+          System calls
         -->
     </section>
   </main>
