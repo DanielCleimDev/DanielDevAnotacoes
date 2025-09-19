@@ -600,11 +600,53 @@
           <li>- No retorno, para a aplicação solicitante, de uma resposta, com um estado de conclusão, indicando se houve algum erro.</li>
         </ul>
         <p>Um exemplo de conjunto de chamadas de sistema é o <strong>POSIX</strong> (Portable Operating System Interface for Unix), padrão internacional ISO/IEC/IEEE 9945 que foi uma tentativa de padronizar as system calls.</p>
+        <p>O objetivo inicial foi unificar as diversas versões existentes do sistema operacional UNIX, permitindo um aplicativo utilizando o padrão POSIX teoricamente poder ser executado em qualquer SO que possua suporte. É incorporado, atualmente, pela maioria dos sistemas operacionais modernos.</p>
+        <p>Já o conjunto de chamadas de sistemas <strong>Win32 </strong>é suportada desde o Windows 95. Cada nova versão do Windows traz novas chamadas que não existiam anteriormente, buscando não invalidar os programas existentes.</p>
+        <p>A API Win32 possui um grande número de chamadas para gerenciar aspectos da interface gráfica (como janelas, figuras geométricas, textos, fontes de caracteres, caixas de diálogos, menus etc.) e possui diferenças em relação ao POSIX. Veja algumas de suas características:</p>
+        <ul>
+          <li>
+            <h2>Desacoplamento de chamadas</h2>
+            <p>Uma característica é o desacoplamento das chamadas de biblioteca e das chamadas reais ao sistema, o que pode dificultar a identificação do que é uma chamada ao sistema, e do que é uma chamada de biblioteca no espaço do usuário.</p>
+          </li>
+          <li>
+            <h2>Acesso aos serviços do SO</h2>
+            <p>A API Win32 também permite aos programadores acesso aos serviços do SO mesmo quando trabalhando em uma versão diferente com chamadas ao sistema modificadas. As chamadas Win32 chegam a milhares.</p>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h1>Modos de Acesso</h1>
+        <section>
+          <h2>Modo Kernel</h2>
+          <p>O núcleo do sistema operacional, também conhecido como kernel, opera nesse modo. Ele tem acesso completo ao hardwaree aos recursos do sistema.</p>
+          <h2>Modo Usuário</h2>
+          <p>Aplicações e programas que você usa normalmente operam nesse modo. Eles tem acesso limitado, sendo impedidos de acessar diretamente o hardware para evitar erros ou acesso indevido.</p>
+        </section>
+        <section>
+          <h1>Escalonamento de Processos e threds</h1>
+          <h2>Planejamento</h2>
+          <p>O sistema operacional decide qual processo deve ser executado em determinad momento, distribuindo o tempo de processamento entre os processos.</p>
+          <h2>Escalonamento</h2>
+          <p>O sistema determina a ordem de execução dos processos, preiorizando processos importantes e garantindo que todos os procesos tenham oportunidade de executar.</p>
+          <h2>Gerenciamento de Threds</h2>
+          <p>O sistema gerencia a execução de threds dentro de um processo, permitindo que um processo execute váras tarefas simultaneamente.</p>
+        </section>
+        <section>
+          <h1>Comunicação entre processos e sincronização</h1>
+          <h2>Mensagens</h2>
+          <p>Processos podem se comunicar trocando mensagens, permitindo que eles compartilhem dados e coordenem suas ações.</p>
+          <h2>Sincronização</h2>
+          <p>O sistema fornece mecanismos para sincronizar o acesso a recursos compartilhados, evitando conflitos entre processos que acessam os mesmos dados.</p>
+          <h2>Semáforos</h2>
+          <p>Uma estrutura de dados que permite controlar o acesso a recursos compartilhados, garantindo que apenas um processo tenha acesso ao recurso por vez.</p>
+          <h2>Mutex</h2>
+          <p>Um mecanismo de exclusão mútua que permite que apenas um processo tenha acesso a um recurso compartilhado por vez, garantindo a integridade de dados.</p>
+        </section>
       </section>
       <!-- 
           Tema 2 - Conceitos Básicos de so
           A estrutura do SO
-          System calls
+          Arquiteturas de kernel
         -->
     </section>
   </main>
