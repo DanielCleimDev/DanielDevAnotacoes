@@ -643,10 +643,85 @@
           <p>Um mecanismo de exclusão mútua que permite que apenas um processo tenha acesso a um recurso compartilhado por vez, garantindo a integridade de dados.</p>
         </section>
       </section>
+      <hr>
+      <section>
+        <h1>Arquiteturas de Kernel</h1>
+        <section>
+          <h2>Arquitetura Monolítica</h2>
+          <h3>Vantagens</h3>
+          <p>Simples de implementar e depurar, com alta performace para tarefas de baixo nível, como gerenciamento de memória.</p>
+          <h3>Desvantagens</h3>
+          <p>Menos segurança, pois falhas em um módulo podem afetar todo o sistema. Dificuldade para adicionar novos recursos.</p>
+        </section>
+        <section>
+          <h2>Arquitetura em Camadas</h2>
+          <h3>Estrutura em camadas</h3>
+          <p>Organiza o kernel em  camadas, com cada camada responsável por um conjunto expecífico de funções.</p>
+          <h3>Segurança aprimorada</h3>
+          <p>Falhas em uma camada geralmente não impactam em outras camadas, melhorando a segurança.</p>
+          <h3>Modularidade</h3>
+          <p>Facilidade para adicionar novos recursos, pois cada camada pode ser modificada independentemente.</p>
+        </section>
+        <section>
+          <h2>Arquitetura de Máquina Virtual</h2>
+          <h3>Virtualização</h3>
+          <p>Permite que um sistema operacional rode em cima de outro sistema operacional, em uma camada de abstração.</p>
+          <h3>Flexibilidade</h3>
+          <p>Facilita a utilização de vários sistemas operacionais em um único hardware.</p>
+          <h3>Isolamento</h3>
+          <p>Os sistemas operacionais virtualizados são separados entre si, aumentando a segurança.</p>
+        </section>
+        <section>
+          <h2>Arquitetura de Microkernel</h2>
+          <h3>Kernel mínimo</h3>
+          <p>Oferece apenas os serviços essenciais, como gerenciamento de processos e comunicação entre processos.</p>
+          <h3>Serviços como processos</h3>
+          <p>Outros serviços, como drivers de dispositivos e gerenciamento de arquivos, são executados como processos separados.</p>]
+          <h3>Segurança Aprimorada</h3>
+          <p>Falhas em um serviço não afetam o microkernel, proporcionando maior segurança.</p>
+        </section>
+        <section>
+          <h2>Arquitetura Exokernel</h2>
+          <h3>Menos Abstração</h3>
+          <p>O exokernel oferece menos abstração que o microkernel, expondo o hardware diretamente aos aplicativos.</p>
+          <h3>Controle direto</h3>
+          <p>Os aplicativos tem controle direto aos recursos do hardware, permitindo otimizações e melhor desempenho.</p>
+          <h3>Segurança e desempenho</h3>
+          <p>A segurança depende da confiabilidade dos aplicativos, que tem controle direto sobre o hardware.</p>
+        </section>
+        <h1>Impacto no desempenho e na segurança</h1>
+        <section class="tabela">
+          <div>
+            <p class="tabela-titulo">Arquitetura</p>
+            <p>Monolítica</p>
+            <p>Camadas</p>
+            <p>Máquina Virtual</p>
+            <p>Microkernel</p>
+            <p>Exokernel</p>
+          </div>
+          <div>
+            <p class="tabela-titulo">Desempenho</p>
+            <p>Alta</p>
+            <p>Média</p>
+            <p>Baixa</p>
+            <p>Baixa</p>
+            <p>Alta</p>
+          </div>
+          <div>
+            <p class="tabela-titulo">Segurança</p>
+            <p>Baixa</p>
+            <p>Média</p>
+            <p>Alta</p>
+            <p>Alta</p>
+            <p>Baixa</p>
+          </div>
+        </section>
+      </section>
+
       <!-- 
           Tema 2 - Conceitos Básicos de so
           A estrutura do SO
-          Arquiteturas de kernel
+          Instalação
         -->
     </section>
   </main>
