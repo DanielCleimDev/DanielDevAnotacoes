@@ -744,12 +744,114 @@
           <p>Armazenam arquivos que variam durante o uso do sistema, como logs, caches, arquivos temporários e bancos de dados.</p>
         </section>
       </section>
+      <section>
+        <h1>Linux Comandos Básicos</h1>
+        <section>
+          <p><strong>cls </strong>: Limpa a tela</p>
+          <p>Para parar um programas temos as opções:</p>
+          <ul>
+            <li><strong>Ctrl+c</strong></li>
+            <li><strong>Ctrl+d</strong></li>
+            <li><strong>Shift+z</strong></li>
+          </ul>
+          <p><strong>sudo</strong>: Para executar um comando em modo super usuário</p>
+          <p><strong>sudo apt install python3</strong>: Instala o Python 3</p>
+          <p><strong>ls -lah</strong>: Lista os arquivos, "l" com detalhes, "a" com arquivos ocultos e "h" com as permições.</p>
+          <p><strong>pwd</strong>: Mostra o diretório atual.</p>
+          <section>
+            <p><strong>vi "nome do arquivo"</strong>: Abre o editor vi</p>
+            <p>para entrar no modo edição devemos apertar <strong>a</strong></p>
+            <p>para sair <strong>Ctr+C</strong> depois <strong>Shift+:wq!</strong> "wq!" significa "escreve sai agora".</p>
+            <p>para visualizar o arquivo <strong>cat "nome do arquivo"</strong></p>
+          </section>
+        </section>
+        <p>Alguns aplicativos são obtidos na forma de código-fonte aberto, implicando na necessidade de compilação do código. Os passos gerais para compilação de código-fonte são:</p>
+        <ul>
+          <li>Realizar o download do arquivo-fonte (por exemplo, .tar.gz).</li>
+          <li>Descompactar o arquivo-fonte.</li>
+          <li>Acessar o diretório contendo os arquivos do código-fonte.</li>
+        </ul>
+        <p>Por fim, deve-se executar os seguintes comandos:</p>
+        <section>
+          <code>
+            <p>./configure</p>
+            <p>make</p>
+            <p>make install</p>
+          </code>
+        </section>
+        <section>
+          <h1>Comandos básicos para uso via terminal </h1>
+          <p><strong>• pwd →</strong> Mostra o diretório no qual o usuário está no momento. </p>
+          <p><strong>• sudo</strong> "comando" → Permite que o usuário execute comandos como ‘root’, sem ter que usar a conta de ‘root’.  </p>
+          <p><strong>• su →</strong> Permite que o usuário entre no modo Super Usuário. Aconselha-se usar esse comando somente quando for necessário, não sendo aconselhado usar o modo super usuário para executar suas ações de rotina. Configure primeiramente usando o comando sudo passwd para poder usar o comando su. A linha de comandos, então, ficará da seguinte maneira: </p>
+          <p>root@teste-VirtualBox:/# </p>
+          <p>root: Usuário ‘root’ </p>
+          <p>teste-VirtualBox: Nome da máquina </p>
+          <p>/#: Usuário que possui nível de acesso privilegiado a partir da raiz do sistema Depois que tiver realizado o procedimento que demandou o uso da conta ‘root’, volte para o usuário padrão digitando exit. </p>
+          <p><strong>• cd [opções] "caminho" → </strong>Navega entre as pastas do sistema. </p>
+          <p><strong>o cd .. ➔</strong> Acessa um diretório de nível acima do atual. </p>
+          <p><strong>o cd / ➔ </strong>Vai para o diretório raiz. </p>
+          <p><strong>o cd ~ ➔</strong> Vai para o seu diretório pessoal. </p>
+          <p><strong>o cd – ➔</strong> Volta para o diretório no qual o usuário se encontrava antes de mudar. </p>
+          <P><strong>• ls →</strong> Lista arquivos e diretórios. A opção –a mostra arquivos ocultos e a opção –l mostra mais informações (detalhes). Exemplo: “ls” ou “ls –l” ou “ls –a” ou “ls –la” </P>
+          <P><strong>• Símbolo ~ →</strong> Representa o diretório pessoal (home) do usuário, também chamado de diretório de login. </P>
+          <p>• Exemplos: </p>
+          <p><strong>o ~teste →</strong> Caminho para a pasta pessoal do usuário ‘teste’ </p>
+          <p><strong>• cd ~teste </strong></p>
+          <p>o Acessa a pasta pessoal do usuário ‘usuário’. </p>
+          <p><strong>• ls ~teste/documentos </strong></p>
+          <p>o Lista os arquivos na pasta ‘documentos’, contida na pasta pessoal do usuário. </p>
+          <p><strong>• cat →</strong> Exibe o conteúdo de um arquivo na tela do terminal. Exemplo: “cat /etc/resolv.conf” </p>
+          <p><strong>• head [opção] → </strong>Exibe o conteúdo do início de um arquivo. </p>
+          <p><strong>o -n →</strong> Exibe as n primeiras linhas </p>
+          <p>o Ex.: “head -3 /etc/hosts” </p>
+          <p><strong>• tail → </strong> Exibe o conteúdo do final de um arquivo. </p>
+          <p><strong>o -n → </strong>Exibe as n primeiras linhas </p>
+          <p>o Exemplo: “tail -3 /etc/hosts” </p>
+          <p><strong></strong>Limpa a tela do terminal. </p>
+          <p><strong>• cp → </strong>Copia arquivos. </p>
+          <p>o Exemplo: “cp arquivo1 arquivo2” </p>
+          <p>▪ Observação: Origem e destino no mesmo diretório. </p>
+          <p>o Ex.: “cp arquivo1 /dir/arquivo2” </p>
+          <p>▪ Obs.: Destino em diretório diferente. </p>
+          <p>o Exemplo: “cp /dir/arquivo1 /dir/arquivo2” </p>
+          <p>▪ Observação: Origem e destino em diretórios diferentes. </p>
+          <p><strong>• mv → </strong>Move arquivos. </p>
+          <p>o Exs.: “mv /home/teste/resolv.conf /tmp/” </p>
+          <p>o  “mv /home/teste/resolv.conf /tmp/” </p>
+          <p><strong>• rm → </strong>Remove arquivos/diretórios. Opção –rf remove de forma recursiva e forçada (muito cuidado ao usar, pois poderá apagar tudo acidentalmente). </p>
+          <p>o Exemplo: “rm /tmp/musica.mp3” </p>
+          <p><strong>• mkdir → </strong>Cria um diretório.</p>
+          <p>o Exemplo: “mkdir /home/teste/musicas” </p>
+          <p><strong>• rmdir → </strong>Remove um diretório, apenas se ele estiver vazio. </p>
+          <p>• Exemplo: “rmdir /home/teste/musicas” </p>
+          <p><strong>• man "comando" → </strong>Exibe uma página de instruções para um comando ou arquivo de configuração. </p>
+          <p>• Exemplo: “man head”. </p>
+          <p><strong>• exit ou logout → </strong>Sai da sessão atual, ou realiza o logout do usuário. </p>
+          <p>o Pode-se encerrar a sessão também com a combinação de teclas CTRL+D. </p>
+          <p><strong>• reboot → </strong>Reinicia a máquina. </p>
+          <p><strong>• poweroff ou halt → </strong>Desliga a máquina de forma segura. </p>
+          <p><strong>• shutdown "opção" "quando" [Mensagem] → </strong>Reinicia ou desliga a máquina. </p>
+          <p>o Exemplo: ‘shutdown –h +5 “Aviso: Servidor desligando”’: O servidor desligará em 5 minutos e será enviada a mensagem aos demais usuários conectados. </p>
+          <p>o Lembre-se de usar “sudo”. </p>
+          <p><strong>• date →</strong> Mostra a data e hora do sistema. </p>
+          <p>o Exemplo: “sudo date 082013502020”: Altera a data e hora para 13:50h de 20/08/2020. </p>
+          <p><strong>• history →</strong> Exibe o histórico de comandos já digitados no terminal. </p>
+          <p><strong>• touch "nome" → </strong>Cria o arquivo <nome> vazio. Se o arquivo já existe, sua hora é atualizada. </p>
+          <p><strong>• apt →</strong> Gerenciador de pacotes do Ubuntu, evolução do Apt-Get. </p>
+            <section>
+              <p><strong>o apt update ➔ </strong>Atualiza a lista de fontes. </p>
+              <p><strong>o apt install "nome_pacote" ➔ </strong>Instala um novo pacote. </p>
+              <p><strong>o apt remove "nome_pacote" ➔ </strong>Remove um pacote. </p>
+              <p><strong>o apt upgrade ➔ </strong>Atualiza todos os pacotes instalados. </p>
+              <p><strong>o apt full-upgrade➔ </strong>Atualiza o sistema todo para uma nova versão.</p>
+            </section>
+        </section>
+      </section>
     </section>
   </main>
   <!-- 
-    Tema 2 - Conceitos Básicos de so
-    Arquitetura, instalação do Linux e comandos básicos
-    Comandos do Linux
+    Tema 2 - conclusão
   -->
 </body>
 </html>
