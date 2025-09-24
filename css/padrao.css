@@ -12,14 +12,17 @@ body{
 
 h1{
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.1rem;
 }
 h2{
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
+  margin: 0.5rem 0;
 }
 h3{
   font-weight: 500;
+  margin: 0.3rem 0;
 }
 p{
   padding: 0.3rem;
@@ -60,6 +63,30 @@ p{
   margin: 1rem 0.3rem;
   box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.35);
   border-radius: 10px;
+}
+.codigo{
+  display: inline-block;
+  background-color: #292828; 
+  color: white;
+  border-radius: 10px;
+  padding: 0.8rem;
+}
+
+strong{
+  font-weight: 500;
+}
+
+.tabela{
+  margin: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center ;
+}
+
+.tabela-titulo{
+  background-color: var(--cor-primaria);
+  color: var(--cor-clara);
+  font-weight: 550;
 }
 
 @media (min-width: 768px ) {

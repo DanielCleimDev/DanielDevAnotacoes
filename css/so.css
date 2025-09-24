@@ -7,7 +7,6 @@ body{
 }
 h1{
   font-size: 1.1rem;
-  font-weight: 600;
   background-color: var(--cor-primaria);
   text-align: center;
   color: var(--cor-clara);
@@ -24,19 +23,6 @@ ul{
   display: flex;
   flex-direction: column;
 }
-strong{
-  font-weight: 500;
-}
-
-.tabela{
-  margin: 1rem;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: center ;
-}
-
-.tabela-titulo{
-  background-color: var(--cor-primaria);
-  color: var(--cor-clara);
-  font-weight: 550;
+.codigo{
+  margin: 0.4rem 0;
 }
