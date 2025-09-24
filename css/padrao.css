@@ -89,6 +89,25 @@ strong{
   font-weight: 550;
 }
 
+pre{
+  width: 96%;
+  padding: 0.5rem;
+  margin: 1rem auto;
+  color: azure;
+  background-color: #292828; 
+  border-radius: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.pre1{
+  color: rgb(0, 132, 255);
+}
+.preAmarelo{
+  color: rgb(217, 255, 0);
+}
+.prePropriedade{
+  color: rgb(180, 51, 4);
+}
+
 @media (min-width: 768px ) {
   .cardConteudo{
     margin: 1rem 2rem;
