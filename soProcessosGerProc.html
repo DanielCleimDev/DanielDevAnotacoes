@@ -28,10 +28,81 @@
             <p>Para compilar um programa e escolher o nome do arquivo executável que será gerado, utilize o parâmetro <strong>-o</strong>. Por exemplo, para compilar o programa <strong>prog.c</strong> e gerar como saída um arquivo executável <strong>prog</strong>, utilize o comando:</p>
             <p class="codigo">gcc prog.c -o prog</p>
           </li>
+          <li>
+            <h2>Executando o programa</h2>
+            <p>Para executar o programa <strong>prog</strong> que acabou de ser compilado, execute o comando:</p>
+            <p class="codigo">./prog</p>
+          </li>
         </ul>
+      </section>
+      <section>
+        <h2>Modelo de processo</h2>
+        <h2>Sistema multiprogramável</h2>
+        <p>A unidade central de processamento (UCP) alterna entre processos, dedicando um pouco de seu tempo a cada um, dando a ilusão de paralelismo. Este esquema costuma ser chamado de pseudoparalelismo.</p>
+        <p>Um processo é um programa em execução, incluindo os valores atuais dos registradores e variáveis, assim como seu espaço de endereçamento. Um programa por si só não é um processo, mas uma entidade passiva. Um processo é uma entidade ativa, com um contador de instruções e um conjunto de registradores a ele associado.</p>
+        <section>
+          <h3>Espaço de endereçamento</h3>
+          <p>Conjunto de endereços de memória que um processo pode acessar.</p>
+        </section>
+        <section>
+          <h3>Contador de instruções</h3>
+          <p>Registrador de uma unidade central de processamento que indica qual é a posição atual na sequência de execução de um processo. Dependendo dos detalhes da arquitetura, ele armazena o endereço da instrução que está sendo executada ou o endereço da próxima instrução.</p>
+        </section>
+        <h3>Daemons</h3>
+        <p>São processos que ficam em segundo plano.</p>
+        <p>Em todos esses casos, um novo processo é criado por outro já existente, executando uma chamada de sistema de criação de processo. O que esse processo faz é executar uma chamada de sistema para criar o processo.</p>
+        <p>No Linux, um processo especial chamado <strong>systemd</strong> (ou <strong>init</strong>, dependendo da versão) está presente na imagem de inicialização do sistema. É o primeiro processo a ser executado e é responsável por iniciar a execução dos demais processos do sistema operacional. Cada um desses processos pode iniciar mais processos. Desse modo, todos os processos no Linux pertencem a uma única árvore, com o systemd (ou init) em sua raiz.</p>
+        <section>
+          <h2>Estados de um processo</h2>
+          <p>Um processo pode ter vários estados, geralmente são eles: <strong>Novo, Pronto, Bloqueado, Terminado.</strong></p>
+        </section>
+        <h2>Bloco de Controle de Processo</h2>
+        <p>Para implementar o modelo de processos, o Linux mantém uma tabela de processos, com uma entrada por processo. Esta entrada é chamada de Bloco de Controle de Processo - <strong> BCP (Process Control Block - PCB)</strong> e contém todas as informações do processo. Algumas entradas do BCP são:</p>
+        <h2>Escalonador</h2>
+        <p>O nível mais baixo do sistema operacional é o escalonador (também conhecido como agendador). Ele cuida do gerenciamento de interrupções e dos detalhes de como iniciar e parar processos. Também costuma ser muito pequeno.</p>
+        <p>Um processo passa pelas várias filas de seleção durante sua execução. Cabe ao escalonador selecionar processos destas filas e decidir qual será o próximo a ser executado.</p>
+        <section>
+          <h2>Mudança de contexto</h2>
+          <p>Para transferir o controle da UCP de um processo a outro, é necessário guardar o estado do processo em execução e carregar o estado do processo a entrar em execução. Esta tarefa é conhecida como mudança de contexto (ou troca de contexto).</p>
+          <h2>O contexto de um processo pode ser dividido em três elementos básicos:</h2>
+          <ul>
+            <li>
+              <h3>Contexto de hardware</h3>
+              <p>O contexto de hardware constitui-se basicamente do conteúdo dos registradores. No momento em que o processo perde a UCP, o sistema salva suas informações. Ele é fundamental para a implementação dos sistemas multiprogramáveis.</p>
+            </li>
+            <li>
+              <h3>Contexto de software</h3>
+              <p>O contexto de software especifica características do processo que influenciarão na execução de um programa. Ele define basicamente três grupos de informações sobre um processo: identificação, quotas e privilégios. A identificação define o processo para o sistema de forma única, através de seu PID, UID e GID. Quotas são os limites de cada recurso que o sistema operacional pode alocar, como número de arquivos abertos, quantidade de memória, quantidade de subprocessos que podem ser criados etc. Privilégio é o que o processo pode ou não fazer em relação ao sistema e outros processos.</p>
+            </li>
+            <li>
+              <h3>Espaço de endereçamento</h3>
+              <p>O espaço de endereçamento é a área de memória do processo em que o programa será executado e a área de memória onde os dados do processo serão armazenados. Cada processo possui seu próprio espaço de endereçamento, que deve ser protegido dos demais.</p>
+            </li>
+          </ul>
+        </section>
+        <h2>Algumas chamadas de sistema do Linux para o gerenciamento de processos são:</h2>
+        <section class="tabela-grid">
+          <p class="tabela-titulo">Chamada de sistema</p>
+          <p class="tabela-titulo">Descrição</p>
+          
+          <p>fork()</p>
+          <p>Cria um processo filho idêntico ao processo pai. Para o processo pai, retorna o PID do processo filho e, para o processo filho, retorna o valor 0.</p>
+          
+          <p>waitpid()</p>
+          <p>Espera até que o processo filho passado como parâmetro termine sua execução.</p>
+          
+          <p>execve()</p>
+          <p>Substitui a imagem de execução de um processo, fazendo com que, no lugar do processo corrente, seja executado o código do programa passado como parâmetro.</p>
+          
+          <p>exit()</p>
+          <p>Termina a execução do processo e retorna como status o valor passado como parâmetro.</p>
+      </section>
       </section>
     </section>
   </main>
-  
+  <!--
+    Tema 3 - Processos e Gerencia de Processador
+    video - processos no linux
+  -->
 </body>
 </html>

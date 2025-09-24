@@ -83,6 +83,14 @@ strong{
   justify-content: center ;
 }
 
+.tabela-grid {
+    display: grid;
+    /* Define duas colunas: a primeira se ajusta ao conteúdo, a segunda ocupa o resto do espaço */
+    grid-template-columns: auto 1fr; 
+    gap: 10px 0;
+    align-items: center;
+}
+
 .tabela-titulo{
   background-color: var(--cor-primaria);
   color: var(--cor-clara);
