@@ -86,7 +86,7 @@
           <p class="tabela-titulo">Descrição</p>
           
           <p>fork()</p>
-          <p>Cria um processo filho idêntico ao processo pai. Para o processo pai, retorna o PID do processo filho e, para o processo filho, retorna o valor 0.</p>
+          <p>A chamada de sistema fork() cria um subprocesso que é cópia exata do processo pai, mas que compartilha com ele apenas os arquivos abertos. Portanto, não há compartilhamento do espaço de endereçamento com o processo pai. Para executar o código de outro programa, é necessário utilizar a chamada de sistema execve() após a chamada de sistema fork(). Retorna o PID do processo filho e, para o processo filho, retorna o valor 0. </p>
           
           <p>waitpid()</p>
           <p>Espera até que o processo filho passado como parâmetro termine sua execução.</p>
@@ -96,7 +96,52 @@
           
           <p>exit()</p>
           <p>Termina a execução do processo e retorna como status o valor passado como parâmetro.</p>
-      </section>
+        </section>
+        <section>
+          <h1>Subprocesso</h1>
+          <p>Quando um processo (processo pai) cria um outro processo, ele é conhecido como subprocesso ou processo filho. O subprocesso, por sua vez, pode criar outros subprocessos.</p>
+          <p>A utilização de subprocessos permite dividir uma aplicação em partes que podem trabalhar de forma concorrente.</p>
+          <section>
+            <h2>Exemplo</h2>
+            <p>Um servidor web que aceite requisições de clientes da internet e coloque as requisições em uma fila. Uma forma simples de implementar este servidor seria criar um processo que pegue a primeira requisição da fila, processe a requisição e devolva o resultado do processamento ao cliente que a solicitou. Após isso, ele pegaria a próxima requisição e faria o mesmo trabalho.</p>
+          </section>
+          <p>O problema com essa solução é que ela não aproveita a capacidade de multiprocessamento dos sistemas atuais. Como existe apenas um processo em execução, somente um dos processadores do sistema é utilizado para atendimento das requisições. Além disso, se houver várias requisições complexas e demoradas e uma requisição simples, como uma pequena página HTML, entrar no final da fila, esta requisição mais simples, que poderia ser respondida rapidamente, será atendida somente depois que todas as demais forem processadas.</p>
+          <p>A utilização de subprocessos resolve bem estes problemas. Se o servidor, no lugar de responder sequencialmente a cada requisição, criar um subprocesso para cada uma delas, tirará proveito da capacidade de multiprocessamento do sistema. Como cada requisição será tratada por um processo diferente, as requisições serão espalhadas pelos processadores do sistema, aproveitando sua capacidade de multiprocessamento. Além disso, como as requisições serão tratadas por diferentes processos, elas serão executadas concorrentemente.</p>
+        </section>
+        <section>
+          <h2>Threads</h2>
+          <p>Na tentativa de diminuir o tempo gasto na criação/eliminação de processos, bem como economizar recursos do sistema, foi introduzido o conceito de thread. Em um ambiente com múltiplos threads, não é necessário haver vários processos para implementar aplicações concorrentes.</p>
+          <p>Threads compartilham o processador da mesma maneira que um processo. Cada thread possui seu próprio conjunto de registradores (contexto de hardware), porém compartilha o mesmo espaço de endereçamento com os demais threads do processo. No momento em que um thread perde a utilização do processador, o sistema salva suas informações. Threads passam pelos mesmos estados que um processo.</p>
+          <p>A grande diferença entre subprocessos e threads é em relação ao espaço de endereçamento.</p>
+          <section>
+            <p><strong>Subprocessos</strong> possuem, cada um, espaços independentes e protegidos.</p>
+            <p><strong>Threads</strong>, por outro lado, compartilham o mesmo espaço de endereçamento do processo, sem nenhuma proteção, permitindo que um thread possa alterar dados de outro thread. São desenvolvidos para trabalharem de forma cooperativa, voltados para desempenhar uma tarefa em conjunto, e são conhecidos como <strong> processos leves</strong>.</p>
+            <section>
+              <p>Threads são muito úteis em sistemas com múltiplas UCP, nos quais o paralelismo real é possível. Elas permitem que ocorram múltiplas execuções no mesmo ambiente, fazendo com que várias partes de um mesmo processo estejam em execução concorrente em diferentes processadores.</p>
+            </section>
+            <p>Além de compartilhar o espaço de endereçamento, os threads podem compartilhar o mesmo conjunto de arquivos abertos, processos filhos, alarmes e sinais.</p>
+            <p>É importante perceber que cada thread tem a sua própria pilha, que contém uma estrutura para cada rotina chamada, mas ainda não retornada. Essa estrutura contém as variáveis locais da rotina e o endereço de retorno para serem usados quando a chamada de rotina for encerrada.</p>
+            <p>No Linux, os threads são criados com a chamada de sistema <strong>clone()</strong>. Sua sintaxe é:</p>
+            <p class="codigo">int clone(int (*fn)(void *), void *stack, int flags, void *arg)</p>
+          </section>
+        </section>
+        <section>
+          <h2>Tipos de processos</h2>
+          <p>Existem basicamente dois tipos de processos relacionados ao tipo de processamento que executam</p>
+          <h3>CPU-bound</h3>
+          <p>Os processos do tipo CPU-bound passam a maior parte do tempo no estado executando, realizando poucas operações de E/S. Costumam ser encontrados em aplicações científicas.</p>
+          <h3>I/O-bound</h3>
+          <p>Os processos do tipo I/O-bound passam a maior parte do tempo no estado bloqueado, por realizar elevado número de operações de E/S. Costumam ser encontrados em aplicações comerciais. Processos interativos também são exemplos deste tipo de processo.</p>
+        </section>
+        <section>
+          <h2>Processos e threads no Linux</h2>
+          <p>O Linux pode duplicar um processo por meio da chamada de sistema <strong>fork()</strong>, mas também pode criar threads pela chamada de sistema <strong>clone()</strong>. No entanto, ele não faz distinção entre processos e threads. Toda entidade em execução, processo ou thread, será considerada como uma <strong>tarefa (task)</strong>. Um processo com um único thread será considerado como uma tarefa, e um processo com n threads terá n estruturas de tarefas.</p>
+          <section>
+            <p>As chamas de sistema fork() e clone() são bastante semelhantes. De fato, se clone() for invocada sem nenhum flag passado como parâmetro, seu comportamento será idêntico ao fork().</p>
+          </section>
+          <h3>Cópia do segmento compartilhado - copy on write</h3>
+          <p>Se os processos se limitarem à operação de consulta nos segmentos, não haverá problema, mas, se algum dos processos tentar escrever em um dos segmentos, neste momento, haverá a cópia do segmento compartilhado (mecanismo conhecido como cópia na escrita – copy on write). Além de aumentar o desempenho do sistema, esse mecanismo ajuda a diminuir o consumo de memória física.</p>
+        </section>
       </section>
     </section>
   </main>
