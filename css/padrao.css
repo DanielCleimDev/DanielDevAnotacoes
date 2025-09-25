@@ -91,6 +91,14 @@ strong{
     align-items: center;
 }
 
+.tabela-grid_cl_3 {
+    display: grid;
+    grid-template-columns: auto auto 1fr; 
+    gap: 10px 0;
+    align-items: center;
+}
+
+
 .tabela-titulo{
   background-color: var(--cor-primaria);
   color: var(--cor-clara);

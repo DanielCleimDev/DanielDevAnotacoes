@@ -143,11 +143,147 @@
           <p>Se os processos se limitarem à operação de consulta nos segmentos, não haverá problema, mas, se algum dos processos tentar escrever em um dos segmentos, neste momento, haverá a cópia do segmento compartilhado (mecanismo conhecido como cópia na escrita – copy on write). Além de aumentar o desempenho do sistema, esse mecanismo ajuda a diminuir o consumo de memória física.</p>
         </section>
       </section>
+      <section>
+        <h1>PROCESSOS DE APLICAÇÕES CONCORRENTES</h1>
+        <p>Os mecanismos que garantem a comunicação entre processos concorrentes e o acesso a recursos compartilhados são chamados <strong>mecanismos de sincronização</strong>. Os mesmos mecanismos se aplicam a threads.</p>
+        <h3>Condição de corrida</h3>
+        <p>Ocorre quando dois ou mais processos estão acessando dados compartilhados e o resultado do processamento depende de quem executa e quando é executado.</p>
+        <h2>Região Crítica</h2>
+        <h3>Exclusão mútua</h3>
+        <p>Quando um processo estiver acessando o recurso compartilhado, os demais deverão esperar.</p>
+        <h3>Seção crítica ou região crítica (RC)</h3>
+        <p>É quando parte do programa acessa memória compartilhada. Quando um processo é executado dentro de sua região crítica, nenhum outro processo pode entrar lá.</p>
+        <p>Não é suficiente evitar que o processo seja interrompido dentro da região crítica. São quatro as condições para uma boa solução:</p>
+        <ul>
+          <li>Não pode haver mais de um processo simultaneamente dentro de suas regiões críticas.</li>
+          <li>Nenhuma suposição pode ser feita sobre a velocidade ou o número de UCP.</li>
+          <li>Nenhum processo que execute fora de sua região crítica pode bloquear outro processo.</li>
+          <li>Nenhum processo deve ter de esperar eternamente para entrar em sua região crítica (starvation).</li>
+        </ul>
+        <p>Para garantir a implementação da exclusão mútua, os processos envolvidos devem fazer acesso aos recursos compartilhados de forma sincronizada.</p>
+        <section>
+          <h2>Semáfotos</h2>
+          <ul>
+            <li>
+              <h3>down</h3>
+              <p>A operação down decrementa o valor do semáforo se ele for maior que 0, senão o processo é bloqueado.</p>
+            </li>
+            <li>
+              <h3>up</h3>
+              <p>A operação up incrementa o valor do semáforo caso não haja processos que tenham sido bloqueados pela operação down, senão um processo é desbloqueado.</p>
+            </li>
+          </ul>
+          <p>No caso da exclusão mútua, as instruções down e up funcionam como protocolos para que um processo possa entrar e sair de sua região crítica. O semáforo fica associado a um recurso compartilhado, indicando quando o recurso está sendo acessado por um dos processos concorrentes. Se seu valor for maior que 0, nenhum processo está utilizando o recurso. Caso contrário, o processo fica impedido de acessar o recurso.</p>
+          <p><strong>As operações up e down são realizadas pelo sistema operacional, que deve garantir que elas sejam executadas atomicamente.</strong></p>
+        </section>
+        <section>
+          <h2>Monitores</h2>
+          <p>Um monitor é uma coleção de variáveis, procedimentos e estruturas de dados que são agrupados em um pacote. Em determinado instante, somente um processo pode estar ativo em um monitor. Toda vez que algum processo chama um procedimento do monitor, ele verifica se já existe outro processo executando qualquer procedimento do monitor. Caso exista, o processo ficará aguardando a sua vez, até que tenha permissão para executar.</p>
+        </section>
+        <section>
+          <h2>SINCRONIZAÇÃO NO LINUX</h2>
+          <p>O Linux oferece suporte à utilização de semáforos para sincronização de tarefas por meio da chamada de sistema <strong>sem_wait()</strong>, que realiza a operação <strong>up()</strong>, e da chamada de sistema <strong>sem_post()</strong>, que realiza a operação <strong>down()</strong>. Porém, em algumas situações, a tarefa pode querer apenas verificar se é possível prosseguir, mas não é interessante bloquear, caso não possa prosseguir. Para esses casos, pode ser utilizada a chamada de sistema <strong>sem_trywait()</strong>, que tem funcionamento parecido com a sem_wait(), exceto pelo fato de que, se o decremento não puder ser executado imediatamente, a chamada de sistema retorna um erro sem bloqueio.</p>
+          <p>A <strong>troca de mensagens</strong> pode ser implementada pelo mecanismo de pipe. O <strong>pipe</strong> ( | ) é um mecanismo especial de redirecionamento utilizado para conectar a saída padrão de um processo à entrada padrão de outro processo. Por exemplo, os comandos a seguir juntam todos os arquivos com extensão “.txt”, ordenando suas linhas e retirando as duplicadas.</p>
+          <p class="codigo">cat *.txt | sort | uniq</p>
+          <p>Entenda o significado de cada um deles:</p>
+          <ul>
+            <li><p>O comando “cat *.txt” joga na saída padrão (tela) o conteúdo de todos os arquivos presentes no diretório e que possuem extensão “.txt”.</p></li>
+            <li><p>O comando “sort” recebe linhas por sua entrada padrão (inicialmente, o teclado), ordena as linhas e envia as linhas devidamente ordenadas para a saída padrão.</p></li>
+            <li><p>O comando “uniq” recebe linhas por sua entrada padrão e elimina as linhas duplicadas, enviando para a saída padrão somente as linhas que não estão em duplicidade.</p></li>
+          </ul>
+          <p>Quando é utilizada a barra vertical ( | ) entre os comandos, é introduzido um pipe entre as tarefas, ou seja, as tarefas são colocadas em execução concorrente, e a saída padrão da tarefa à esquerda do pipe é conectada à entrada padrão da tarefa à direita do pipe. Assim, no exemplo, a saída do comando “cat *.txt” é enviada para a entrada do comando “sort”, que faz a ordenação, e sua saída é enviada à entrada do comando “uniq”, que elimina as linhas repetidas e, finalmente, joga o resultado de seu processamento para a saída padrão (o monitor, por padrão).</p>
+          <p>Outra forma de comunicação entre processos no Linux ocorre por meio de envio de sinais, que são enviados na ocorrência de eventos, como a chegada de uma informação pela rede, o fim de um temporizador, o término da execução de um processo filho etc. São eventos que chegam ao processo e precisam ser tratados de alguma forma. Para isso, é necessário definir uma rotina para o tratamento do evento.</p>
+          <section>
+            <p>São exemplos de sinais do Linux:</p>
+            <div class="tabela-grid_cl_3">
+              <p class="tabela-titulo">Sinal</p>
+              <p class="tabela-titulo">Ação padrão</p>
+              <p class="tabela-titulo">Comentário</p>
+
+              <p>SIGHUP</p>
+              <p>Terminar</p>
+              <p>Gerado pelo fim do terminal controlador.</p>
+
+              <p>SIGTERM</p>
+              <p>Terminar</p>
+              <p>Informa que deve parar a execução.</p>
+
+              <p>SIGINT</p>
+              <p>Terminar</p>
+              <p>Recebeu uma interrupção + pelo terminal controlador.</p>
+
+              <p>SIGKILL</p>
+              <p>Terminal</p>
+              <p>	Força a finalização do processo.</p>
+
+              <p>SIGTSTP</p>
+              <p>Suspender</p>
+              <p>Processo deve ser suspenso (+).</p>
+
+              <p>SIGSTOP</p>
+              <p>Suspender</p>
+              <p>Processo deve ser suspenso. Semelhante ao SIGTSTP, mas não pode ser sobrescrito.</p>
+
+              <p>SIGCONT</p>
+              <p> </p>
+              <p>Retornar à execução se estiver suspenso.</p>
+
+              <p>SIGCHLD</p>
+              <p>Ignorar</p>
+              <p>Informa ao processo pai que um processo filho terminou ou foi suspenso.</p>
+
+              <p>SIGALRM</p>
+              <p>Terminar</p>
+              <p>Fim de temporizador.</p>
+
+              <p>SIGURG</p>
+              <p>Ignorar</p>
+              <p>Condição urgente no socket. Normalmente, aviso de chegada de pacote de rede.</p>
+
+              <p>SIGUSR1</p>
+              <p>Terminar</p>
+              <p>Sinal definido pelo usuário.</p>
+
+              <p>SIGUSR2</p>
+              <p>Terminar</p>
+              <p>Sinal definido pelo usuário.</p>
+            </div>
+          </section>
+          <section>
+            <p>As principais chamadas de sistema relativas ao tratamento de sinais são:</p>
+            <div class="tabela-grid">
+              <p class="tabela-titulo">Chamada de sistema</p>
+              <p class="tabela-titulo">Descrição</p>
+
+              <p>signal()</p>
+              <p>Instala rotina para tratamento do sinal.</p>
+
+              <p>sigaction()</p>
+              <p>Define a ação a ser tomada nos sinais.</p>
+
+              <p>sigreturn()</p>
+              <p>Retorna de um sinal.</p>
+
+              <p>sigpending()</p>
+              <p>	Obtém o conjunto de sinais bloqueados.</p>
+
+              <p>kill ()</p>
+              <p>Envia um sinal para um processo.</p>
+
+              <p>alarm()</p>
+              <p>	Ajusta o alarme do relógio para envio de um sinal.</p>
+
+              <p>pause()</p>
+              <p>Suspende o chamador até o próximo sinal.</p>
+            </div>
+          </section>
+        </section>
+      </section>
     </section>
   </main>
   <!--
     Tema 3 - Processos e Gerencia de Processador
-    video - processos no linux
+    ESCALONAMENTO
   -->
 </body>
 </html>
