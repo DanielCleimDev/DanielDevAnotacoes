@@ -2,10 +2,10 @@
 
 html, body{
   width: 100%;
+  box-sizing: border-box;
 }
 
 body{
-  box-sizing: border-box;
   font-family: var(--fonte-principal);
   background-color: var(--cor-clara);
 }
