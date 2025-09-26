@@ -279,6 +279,105 @@
           </section>
         </section>
       </section>
+      <section>
+        <h1>Escalonamento</h1>
+        <p>Deve existir um critério para determinar a ordem da escolha dos processos para execução dentre os vários que concorrem pela UCP.</p>
+        <p>O procedimento de seleção é conhecido como <strong>escalonamento (scheduling)</strong>. A parte do sistema operacional responsável pelo escalonamento é o <strong>escalonador (scheduler)</strong>, às vezes chamado de <strong>agendador</strong>. Sempre que a UCP se torna ociosa, o escalonador seleciona um processo dentre aqueles que estão na memória prontos para serem executados (na fila de processos no estado pronto) e aloca a UCP para que ele possa ser executado.</p>
+        <p>A principal função de um <strong>algoritmo de escalonamento</strong> é decidir qual dos processos prontos deve ser alocado à UCP.</p>
+        <p>O escalonamento afeta somente os processos prontos na fila de espera, pode ser classificado como preemptivo ou não preemptivo.</p>
+        <section>
+          <h2>Preemtivo</h2>
+          <p>O escalonamento preemptivo permite que o sistema dê atenção imediata a processos mais prioritários, além de proporcionar melhor tempo de resposta em sistemas de tempo compartilhado. Outro benefício decorrente é o compartilhamento do processador de maneira mais uniforme.</p>
+          <p>Quando o sistema pode interromper um processo durante sua execução para colocá-lo no estado pronto e colocar outro processo no estado executando, coso o contrário será um sistema <strong>não preemptivo</strong></p>
+        </section>
+        <p>Sistemas que usam escalonamento preemptivo têm o problema da condição de corrida, o que não ocorre com sistemas que usam escalonamento não preemptivo. No escalonamento não preemptivo, quando um processo ganha o direito de utilizar a UCP, nenhum outro processo pode tirar dele esse recurso.</p>
+        <section>
+          <ul>
+            <li>
+              <p class="tabela-titulo">Escalonamento First In First Out (FIFO)</p>
+              <p>Algoritmo de escalonamento também conhecido como <strong>primeiro a chegar, primeiro a ser servido (first come, first served)</strong>.</p>
+              <p>A grande força deste algoritmo é que ele é fácil de aprender e de programar.</p>
+              <p>Nesse escalonamento, o processo que chegar primeiro é o primeiro a ser selecionado para execução. É preciso apenas uma fila, em que os processos que passam para o estado pronto entram no seu final. Quando um processo ganha a UCP, ele a utiliza sem ser interrompido, caracterizando-o como um <strong>algoritmo não preemptivo.</strong></p>
+              <p>O problema do escalonamento FIFO é a impossibilidade de se prever quando um processo terá sua execução iniciada. Outro problema é a possibilidade de processos CPU-bound de menor importância prejudicarem processos I/O-bound mais prioritários.</p>
+              <p>Este algoritmo foi inicialmente implementado em <strong>sistemas batch.</strong></p>
+            </li>
+              <p class="tabela-titulo">Escalonamento Shortest Job First (SJF)</p>
+              <p>O algoritmo SJF (tarefa mais curta primeiro) associa a cada processo seu tempo de execução. Quando a UCP está livre, o processo no estado pronto que precisar de menos tempo para terminar é selecionado para execução.</p>
+              <p>O escalonamento SJF beneficia processos que necessitam de pouco processamento e reduzem o tempo médio de espera em relação ao FIFO. O problema é determinar quanto tempo de UCP cada processo necessita para terminar seu processamento. Em ambientes de produção, é possível estimar o tempo de execução, mas, em ambientes de desenvolvimento, é muito difícil. Imagine quatro tarefas A, B, C e D com tempos de execução de 14, 8, 6 e 4 minutos, respectivamente. Ao executá-las nessa ordem, o tempo de retorno para A é 14 minutos, para B, 22 minutos, para C, 28 minutos e, para D, 32 minutos, resultando em uma média de 24 minutos. Agora, considere executar essas quatro tarefas usando o algoritmo da tarefa mais curta primeiro. Os tempos de retorno são agora 4, 10, 18 e 32 minutos, o que resulta em uma média de 16 minutos. É um algoritmo de escalonamento não preemptivo e, assim como o FIFO, também foi utilizado nos primeiros sistemas operacionais com processamento batch.</p>
+            <li>
+              <p class="tabela-titulo">Escalonamento Shortest Remaining Time Next (SRTN)</p>
+              <p>O <strong>SRTN (tempo restante mais curto em seguida)</strong> é uma versão <strong>preemptiva</strong> do SJF. Nele, o escalonador escolhe o processo cujo tempo de execução restante é o mais curto. Para o seu funcionamento, o tempo de execução precisa ser conhecido antecipadamente.</p>
+              <p>Quando uma nova tarefa chega, seu tempo total é comparado ao tempo restante do processo atual. Se a nova tarefa precisar de menos tempo para terminar do que o processo atual, ela é suspensa, e a nova tarefa é iniciada. Esse esquema permite que novas tarefas curtas tenham um bom desempenho.</p>
+            </li>
+            <li>
+              <p class="tabela-titulo">Escalonamento cooperativo</p>
+              <p>O SJF e o FIFO não são algoritmos de escalonamento aplicáveis a sistemas de tempo compartilhado, onde um tempo de resposta razoável deve ser garantido a usuários interativos.</p>
+              <p>No escalonamento cooperativo, quando um processo já está em execução por determinado tempo, ele voluntariamente libera a UCP, retornando para a fila de processos prontos.</p>
+              <p>Sua principal característica está no fato de a liberação da UCP ser uma tarefa realizada exclusivamente pelo processo em execução, que a libera para um outro processo. Não existe nenhuma intervenção do sistema operacional na execução do processo. Isto pode ocasionar sérios problemas na medida em que um programa pode não liberar a UCP ou um programa mal escrito pode entrar em loop, monopolizando a UCP.</p>
+              <p>É um algoritmo de escalonamento <strong>não preemptivo.</strong></p>
+            </li>
+            <li>
+              <p class="tabela-titulo">Escalonamento circular (Round Robin)</p>
+              <p>Esse algoritmo é bem semelhante ao FIFO. Entretanto, quando um processo passa para o estado executando, existe um tempo limite (conhecido como time-slice ou quantum) para utilização da UCP de forma contínua. Quando esse tempo expira, o processo volta ao estado pronto, dando a vez a outro processo.</p>
+              <p>A fila de processos no estado pronto é tratada como uma fila circular. O escalonamento é realizado alocando a UCP para cada processo da fila no intervalo de tempo determinado pelo quantum.</p>
+              <p>Se o quantum for muito pequeno, gasta-se muito tempo de UCP com trabalho administrativo. Se o quantum for muito grande, a interatividade fica prejudicada, já que um processo que sai de execução pode demorar muito a voltar. Em geral, o quantum varia de 10 a 100ms.</p>
+              <p>Através do escalonamento circular, nenhum processo poderá monopolizar a UCP, caracterizando-o como um algoritmo de escalonamento <strong>preemptivo.</strong></p>
+              <p>Um problema do escalonamento circular é que ele não oferece qualquer tratamento diferenciado a processos I/O-bound. Assim, processos CPU-bound terão a tendência de monopolizar a utilização da UCP, enquanto processos I/O-bound permanecem à espera.</p>
+            </li>
+            <li>
+              <p class="tabela-titulo">Escalonamento por prioridade</p>
+              <p>O escalonamento circular consegue melhorar a distribuição do tempo de UCP em relação aos escalonamentos não preemptivos, porém ainda não consegue implementar um compartilhamento equitativo entre os diferentes tipos de processos.</p>
+              <p>Para solucionar esse problema, os processos I/O-bound devem levar alguma vantagem no escalonamento, a fim de compensar o tempo excessivo gasto no estado bloqueado. Como alguns processos devem ser tratados de maneira diferente dos outros, é preciso associar a cada um deles uma prioridade de execução. Assim, processos de maior prioridade são escalonados preferencialmente.</p>
+              <p>A preempção por prioridade é implementada mediante um relógio que interrompe o processador periodicamente, para que a rotina de escalonamento reavalie prioridades e, possivelmente, escalone outro processo, caracterizando-o como um algoritmo de escalonamento preemptivo.</p>
+              <p>Todos os sistemas de tempo compartilhado implementam algum esquema de prioridade, que é uma característica do contexto de software de um processo, podendo ser estática ou dinâmica.</p>
+              <p>Tem-se a prioridade estática quando a prioridade não é modificada durante a existência do processo. Apesar da simplicidade de implementação, a prioridade estática pode ocasionar tempos de resposta elevados.</p>
+              <p>Na prioridade dinâmica, a prioridade do processo pode ser ajustada de acordo com o tipo de processamento realizado pelo processo ou pela carga do sistema. Quando o processo sai do estado bloqueado, recebe um acréscimo à sua prioridade. Dessa forma, os processos I/O-bound terão mais chance de ser escalonados e de compensar o tempo que passam no estado bloqueado.</p>
+              <p>Para evitar que processos com maior prioridade sejam executados indefinidamente, a prioridade é diminuída com o passar do tempo.</p>
+              <p>Outra forma de obter prioridade dinâmica é fazer com que o quantum do processo seja inversamente proporcional à fração do último quantum utilizado.</p>
+              <p>Embora os sistemas de prioridade dinâmica sejam mais complexos e gerem um overhead maior, o tempo de resposta oferecido compensa.</p>
+            </li>
+            <li>
+              <p class="tabela-titulo">Escalonamento por múltiplas filas</p>
+              <p>Como os processos de um sistema possuem diferentes características de processamento, é difícil que um único mecanismo de escalonamento seja adequado a todos. Uma boa política seria classificar os processos em função do tipo de processamento realizado e aplicar a cada grupo mecanismos de escalonamentos distintos.</p>
+              <p>O escalonamento por múltiplas filas implementa diversas filas de processo no estado pronto, onde cada processo é associado exclusivamente a uma delas. Cada fila possui um mecanismo próprio de escalonamento em função das características do processo. Nesse esquema, os processos devem ser classificados, previamente, em função do tipo de processamento para poderem ser encaminhados à determinada fila.</p>
+              <p>Cada fila possui uma prioridade associada, que estabelece quais são prioritárias em relação às outras. O sistema só pode escalonar processos de uma fila se todas as outras filas de prioridade maior estiverem vazias.</p>
+              <p>Para exemplificar esse escalonamento, considere que os processos, em função de suas características, sejam divididos em três grupos: sistema, interativo e batch. Os processos do sistema devem ser colocados em uma fila de prioridade superior aos outros processos, implementando um algoritmo de escalonamento baseado em prioridades. Os processos de usuários interativos devem estar em uma fila de prioridade intermediária, implementando, por exemplo, o escalonamento circular. O mesmo mecanismo de escalonamento pode ser utilizado na fila de processos batch, com a diferença de que esta fila deverá possuir uma prioridade mais baixa.</p>
+            </li>
+            <li>
+              <p class="tabela-titulo">Escalonamento em sistemas de tempo real</p>
+              <p>Um sistema de tempo real é aquele em que o tempo tem um papel essencial. Tipicamente, um ou mais dispositivos físicos externos ao computador geram estímulos. O computador tem de reagir em conformidade dentro de um montante de tempo fixo. Exemplos de sistemas de tempo real são equipamentos que estão monitorando pacientes em uma UTI, o piloto automático de um avião e o controle de robôs em uma fábrica automatizada. Em todos esses casos, ter a resposta certa tarde demais é, muitas vezes, tão ruim quanto não tê-la.</p>
+              <p>Sistemas em tempo real geralmente são categorizados como tempo real crítico, significando que há prazos absolutos que devem ser cumpridos, e tempo real não crítico, significando que descumprir um prazo ocasional é indesejável, mas, mesmo assim, tolerável. Em ambos os casos, o comportamento em tempo real é conseguido com a divisão do programa em uma série de processos, cada um dos quais é previsível e conhecido antecipadamente. Esses processos geralmente têm vida curta e podem ser concluídos em curto espaço de tempo. Quando um evento externo é detectado, cabe ao escalonador programar os processos de maneira que todos os prazos sejam atendidos.</p>
+              <p>Os eventos a que um sistema de tempo real talvez tenha de responder podem ser categorizados ainda como periódicos (significando que eles ocorrem em intervalos regulares) ou aperiódicos (significando que eles ocorrem de maneira imprevisível). Dependendo de quanto tempo cada evento exige para o processamento, tratar de todos talvez não seja possível.</p>
+              <p>Diz-se de um sistema de tempo real que atende a esse critério que ele é escalonável, o que significa que ele realmente pode ser implementado. Um processo que não atende a esse critério não pode ser escalonado, pois o montante total de tempo de UCP que os processos querem coletivamente é maior do que a UCP pode proporcionar.</p>
+              <p>Algoritmos de escalonamento de tempo real podem ser estáticos ou dinâmicos. Algoritmos estáticos tomam suas decisões de escalonamento antes de o sistema começar a ser executado. Algoritmos dinâmicos tomam suas decisões no tempo de execução, após ela ter começado. O escalonamento estático funciona apenas quando há uma informação perfeita disponível antecipadamente sobre o trabalho a ser feito e sobre os prazos que precisam ser cumpridos. Algoritmos de escalonamento dinâmico não têm essas restrições.</p>
+            </li>
+            <li>
+              <p class="tabela-titulo">Escalonamento de threads</p>
+              <p>Quando vários processos têm, cada um, múltiplos threads, há dois níveis de paralelismo presentes: processos e threads. O escalonamento nesses sistemas vai diferir, ainda, se são threads de usuário ou threads de núcleo.</p>
+              <p>Sendo threads de usuário, o núcleo não tem ciência da existência dos threads. Assim, ele opera como sempre fez, escolhendo um processo A e dando a A o controle de seu quantum. O escalonador de thread dentro de A decide qual thread executar (A1, por exemplo). Dado que não há interrupções para multiprogramar threads, esse thread pode continuar a ser executado por quanto tempo quiser. Se ele utilizar todo o quantum do processo, o núcleo selecionará outro processo para executar. Quando o processo A executar novamente, o thread A1 retomará a execução. Ele continuará a consumir todo o tempo de A até que termine. No entanto, seu comportamento não afetará outros processos. Eles receberão o que quer que o escalonador considere sua fração apropriada, não importa o que estiver acontecendo dentro do processo A.</p>
+              <p>Agora, considere o caso em que os threads de A tenham relativamente pouco trabalho para fazer, por exemplo, 5ms de trabalho dentro de um quantum de 50ms. Em consequência, cada um é executado por um tempo. Então, cede a UCP de volta ao escalonador de threads. Isso pode levar à sequência A1, A2, A3, A1, A2, A3, A1, A2, A3, A1, antes que o núcleo chaveie para o processo B.</p>
+              <p>O algoritmo de escalonamento usado pelo sistema de tempo de execução pode ser qualquer um dos descritos anteriormente. A única restrição é a ausência de um relógio para interromper um thread que esteja sendo executado há tempo demais. Como os threads cooperam, isso normalmente não é um problema.</p>
+              <p>Vejamos agora a situação com threads de núcleo. Aqui, o núcleo escolhe um thread em particular para executar. Ele não precisa levar em conta a qual processo o thread pertence, mas pode fazer isso. O thread recebe um quantum e é suspenso compulsoriamente se o exceder. Com um quantum de 50ms e threads que são bloqueados após 5ms, a ordem do thread por algum período de 30ms pode ser A1, B1, A2, B2, A3, B3, algo que não é possível com esses parâmetros e threads de usuário. Uma diferença importante entre threads de usuário e de núcleo é o desempenho. Realizar um chaveamento de thread com threads de usuário exige um punhado de instruções de máquina. Com threads de núcleo, é necessário um chaveamento de contexto completo, mudar o mapa de memória e invalidar o cache, o que representa uma demora bem maior. Por outro lado, com threads de núcleo, ter um bloqueio de thread na E/S não suspende todo o processo, como ocorre com threads de usuário. Como o núcleo sabe que chavear de um thread no processo A para um thread no processo B é mais caro do que executar um segundo thread no processo A, ele pode levar essa informação em conta quando toma uma decisão.</p>
+              <p>Outro fator importante é que os threads de usuário podem empregar um escalonador de thread específico de uma aplicação.</p>
+            </li>
+          </ul>
+        </section>
+        <h2>ESCALONAMENTO NO LINUX</h2>
+        <p>O Linux suporta a multitarefa preemptiva, em que o escalonador decide que processo deve ser executado e quando executá-lo.</p>
+        <p>Tomar essas decisões de modo que mantenha o equilíbrio entre justiça e desempenho para muitas cargas de trabalho diferentes é um dos desafios mais complicados dos sistemas operacionais modernos.</p>
+        <p>O Linux é baseado em tarefas do núcleo. São definidas três classes de tarefas:</p>
+        <div class="container">
+          <p>FIFO em tempo real</p>
+          <p>Escalonamento circular em tempo real</p>
+          <p>Tempo compartilhado</p>
+        </div>
+        <p>Entre essas três classes, é utilizado um escalonamento por múltiplas filas, em que a classe FIFO em tempo real é a fila de maior prioridade e a classe tempo compartilhado é a classe de menor prioridade.</p>
+        <p>O escalonamento circular em tempo real funciona com algoritmo de <strong>escalonamento circular (Round Robin)</strong>, com um quantum associado a cada tarefa. Sempre que uma tarefa excede seu quantum, ocorre uma preempção, e a tarefa é colocada no final da fila de processos prontos.</p>
+        <p>Apesar do nome “tempo real”, nenhuma dessas classes é realmente de tempo real, pois o sistema não tem como garantir os limites de tempo necessários ao funcionamento de um sistema de tempo real.</p>
+        <p>As tarefas de tempo real recebem prioridade de 0 a 99, sendo 0 o nível de prioridade mais alto e 99 o nível de prioridade mais baixo.</p>
+        <p>As tarefas de tempo compartilhado não competem com as tarefas de tempo real. Elas são escalonadas somente se não houver nenhuma tarefa de tempo real no estado pronto. As tarefas de tempo compartilhado recebem prioridade de 100 a 139, sendo 100 a prioridade mais alta e 139 a prioridade mais baixa desta fila. Dessa forma, o Linux possui um total de 140 níveis de prioridade.</p>
+        <p>Existe um utilitário de linha de comando chamado <strong>nice</strong>, que pode ser utilizado para alterar a prioridade de uma tarefa. O nice recebe como parâmetro um valor (de -20 a +19), que é somado à prioridade do thread. Apenas a conta root (administrator do Linux) pode fornecer um valor negativo como parâmetro do nice. Isso significa que um usuário comum pode solicitar apenas diminuição na prioridade de suas tarefas, nunca aumento de prioridade.</p>
+      </section>
     </section>
   </main>
   <!--

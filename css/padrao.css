@@ -21,7 +21,7 @@ h2{
   margin: 0.5rem 0;
 }
 h3{
-  font-weight: 540;
+  font-weight: 550;
   margin: 0.3rem 0;
 }
 p{
@@ -73,7 +73,7 @@ p{
 }
 
 strong{
-  font-weight: 500;
+  font-weight: 550;
 }
 
 .tabela{
@@ -122,6 +122,11 @@ pre{
 }
 .prePropriedade{
   color: rgb(180, 51, 4);
+}
+
+.container{
+  display: flex;
+  justify-content: space-around;
 }
 
 @media (min-width: 768px ) {
