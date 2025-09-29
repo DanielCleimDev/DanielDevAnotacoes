@@ -21,6 +21,9 @@ ul{
   display: flex;
   flex-direction: column;
 }
+li{
+  padding: 0.3rem 0;
+}
 .codigo{
   margin: 0.4rem 0;
 }

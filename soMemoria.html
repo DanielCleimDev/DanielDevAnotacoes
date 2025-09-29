@@ -7,18 +7,203 @@
   <title>Memória</title>
 </head>
 <body>
-  <header class="p1">
-    <h1>Memória</h1>
-  </header>
+  <header class="titulo">Memória</header>
   <main>
     <section>
       <h1>Gerência de memória</h1>
       <p>A memória do computador é um recurso extremamente importante e que exige um gerenciamento apurado. Ela é composta por vários elementos, tais como: registradores e cache (armazenamento interno); memória principal RAM (armazenamento primário) e armazenamento secundário; discos de estado sólido, magnéticos e óticos; e fitas magnéticas.</p>
+      <h3>Tipos de memória</h3>
+      <ul>
+        <li>
+          <h3>Armazenamento interno</h3>
+          <p>É constituído pela memória interna do processador e engloba os registradores e o cache. É a memória de trabalho efetiva do processador. Trata-se de uma memória volátil.</p>
+        </li>
+        <li>
+          <h3>Armazenamento Primário</h3>
+          <p>É constituído pela memória principal do computador, normalmente referenciada como memória RAM. Armazena o código dos programas e seus dados. Pode ser acessada diretamente pelo processador, que solicita a transferência de seu conteúdo para os registradores da CPU durante o processamento. É uma memória volátil.</p>
+        </li>
+        <li>
+          <h3>Armazenamento Secundário</h3>
+          <p>Também chamado de Armazenamento de Massa, é a memória que armazena os dados para uso posterior, já que é não volátil. Para que seu conteúdo possa ser manipulado, é necessário que seja transferido antes para a memória primária por meio de uma operação de leitura.</p>
+        </li>
+      </ul>
+      <h3>O sistema operacional é o responsável por realizar a gerência da memória. Entre suas funções estão:</h3>
+      <ul>
+        <li>Alocar e desalocar os processos na memória.</li>
+        <li>Controlar os espaços disponíveis.</li>
+        <li>Impedir que um processo acesse o conteúdo da memória de outro processo.</li>
+        <li>Transferir dados entre o armazenamento primário e secundário e vice-versa.</li>
+      </ul>
+    </section>
+    <section>
+      <h1>Como os processos enxergam a memória</h1>
+      <p>Como já sabemos, a memória de um computador é composta por um conjunto de circuitos eletrônicos que são capazes de armazenar bits. Podemos considerar então que, do ponto vista do hardware, ela é um conjunto de bytes, que podem, por meio de um circuito eletrônico, ser acessados individualmente. Essa memória é denominada memória física, onde efetivamente os dados serão armazenados, e corresponde a um espaço de endereçamento físico, normalmente representado em hexadecimal.</p>
+      <p>Do ponto de vista processual, entretanto, ela é vista como um conjunto de endereços lógicos que podem ser acessados diretamente por comandos da linguagem de máquina do processador. Essa memória lógica corresponde ao espaço de endereçamento do processo e, normalmente, nos sistemas atuais, é muitas vezes maior que a memória física disponível na máquina, gerando a chamada memória virtual.</p>
+      <p>Dessa forma, podemos notar que os processos não enxergam a memória física, mas apenas a memória lógica. Portanto, todas as referências a endereço para o processo correspondem ao seu espaço de endereçamento lógico, que lhe foi atribuído durante o processo de sua carga e que é independente do espaço de endereçamento de qualquer outro processo.</p>
+      <h2>O modelo de memória de um processo:</h2>
+      <ul>
+        <li><strong>Text:</strong> Área da memória que armazena o código do programa.</li>
+        <li><strong>Data:</strong> Área de memória onde residem as variáveis do programa.</li>
+        <li><strong>Heap:</strong> Área de trabalho do programa onde são alocadas variáveis temporárias e variáveis dinâmicas.</li>
+        <li><strong>Pilha:</strong> Área onde ficam os registros de ativação de procedimentos, variáveis locais etc.</li>
+      </ul>
+      <p>Dentro do espaço de endereçamento do programa, entre o Heap e a Pilha, temos uma área livre que permite que eles cresçam um em direção ao outro.</p>
+      <p>Como o processo enxerga apenas os seus endereços lógicos e o circuito eletrônico enxerga somente os endereços físicos, é necessário, então, que se faça a tradução do endereço lógico para o físico, pois, dessa forma, um programa que referencia os seus endereços lógicos pode apontar para os respectivos endereços físicos.</p>
+      <p>O componente responsável por este mapeamento é o MMU (Memory Management Unit) que consiste em um conjunto de chips que realiza seu trabalho a partir das seguintes regras:</p>
+      <ul>
+        <li>
+          <h2>Regra 1</h2>
+          <p>Se o endereço lógico é maior que o limite inferior e menor que o limite superior, o endereço é valido. Nesse caso, o endereço lógico é igual ao endereço físico.</p>
+        </li>
+        <li>
+          <h2>Regra 2</h2>
+          <p>Se o endereço lógico é menor que o limite superior, adiciona o endereço base ao endereço lógico e realiza o acesso no endereço resultante. Nesse caso, o endereço lógico é diferente do endereço físico.</p>
+        </li>
+        <li>
+          <h2>Regra 3</h2>
+          <p>Se o endereço lógico for maior que o limite superior ou menor que o limite inferior, o endereço é inválido e é gerada uma exceção.</p>
+        </li>
+      </ul>
+      <p>Para um processo, a memória é exclusiva para as suas demandas, no entanto, a memória é sempre dividida entre outros processos. Mesmo quando o sistema é monotarefa, a memória terá uma área dedicada para o sistema operacional. Enquanto nos sistemas multiprogramados, a utilização e concorrência da memória ocorre inclusive entre outros programas.</p>
+    </section>
+    <section>
+      <h1>Proteção de memória</h1>
+      <p>Para realizar a proteção de forma eficiente, temos que nos certificar que cada processo tenha um espaço de memória separado. Isso é fundamental para que possamos carregar vários processos na memória ao mesmo tempo, permitindo a execução concorrente deles, além de protegê-los uns dos outros.</p>
+      <p>A ideia básica da separação é que seja determinado um intervalo de endereços legais que possam ser acessados pelo processo, de forma a assegurar que esse acesso seja realizado exclusivamente por ele.</p>
+      <p>É possível fornecer essa proteção usando dois registradores, geralmente um registrador base e um registrador limite.</p>
+      <p>Quando um processo é alocado na memória, ele recebe um endereço inicial de carregamento (endereço base) e outro que corresponde ao tamanho total da área alocada ao processo (endereço limite). Ambos são armazenados, respectivamente, nos registradores base e limite.</p>
+      <p>O registrador base estabelece o limite inferior da área do processo, e a soma do limite com o endereço base define o limite superior da área do processo.</p>
+      <P class="p1">A proteção do espaço da memória é assegurada pela <strong>MMU</strong>, que, ao receber um endereço da CPU de um programa rodando em modo usuário, verifica se ele se encontra no intervalo legal do processo. Se estiver, permite o acesso; caso contrário, gera um erro fatal.</P>
+      <p>Esse esquema impede que um programa rodando em modo usuário, de forma deliberada ou acidental, modifique o código ou as estruturas de dados do sistema operacional ou de outros processos de usuários.</p>
+      <p>O carregamento dos registradores base e limite exige a execução de uma instrução privilegiada pelo Sistema Operacional (SO), concedida pelo SO estar em modo Kernel. Sendo assim, não é possível modificá-lo sem este acesso privilegiado.</p>
+      <p class="p1">Por sua vez, o sistema operacional, em modo kernel, pode acessar qualquer endereço de memória, sendo seu ou de qualquer outro processo de usuário.</p>
+      <p>Assim, permite a carga de programas do usuário, a descarga destes em caso de erros, o acesso e a alteração de argumentos de chamadas de sistema, a execução de operações de entrada e saída a partir da memória principal e vários outros serviços. Em um sistema multiprocessado, por exemplo, é possível executar mudanças de contexto, transferindo o estado de um processo dos registradores para a memória principal, antes de carregar o contexto do próximo processo da memória principal para os registradores.</p>
+      <p>O esquema de proteção aqui descrito é básico e, dependendo da política de alocação adotada, poderá sofrer modificações conforme veremos no próximo módulo.</p>
+    </section>
+    <section>
+      <h1>Relocação</h1>
+      <p>Um processo, quando alocado na memória principal, faz referências às suas posições, ou seja, aos endereços físicos dessa memória. Por essa razão, quando um módulo foi link-editado e seus endereços já estão associados às posições físicas do espaço de memória onde ele será alocado, diz-se que esse módulo está em <strong>Imagem de Memória</strong>, ou que ele está com <strong>Endereçamento Absoluto</strong>.</p>
+      <p>Para que um processo possa ser alocado em qualquer posição da memória, ele não pode estar com endereçamento absoluto e, nesse caso, um mapeamento de endereços deverá ser feito entre os endereços dos objetos referenciados pelo processo (lógicos) e os endereços absolutos (físicos) no espaço ocupado por eles na memória principal. </p>
+      <p>Chamamos de Espaço de Endereçamento o conjunto de endereços, sejam eles de dados ou de instruções, referenciados por um processo, podendo este ser:</p>
+      <ul>
+        <li>
+          <h3>Espaço Lógico de endereçamento</h3>
+          <p>O conjunto de objetos ou endereços lógicos referenciados.</p>
+        </li>
+        <li>
+          <h3>Espaço Físico de endereçamento</h3>
+          <p>O conjunto de endereços físicos correspondentes.</p>
+        </li>
+      </ul>
+      <p><strong>A relocação de memória é, portanto, a função que mapeia os endereços lógicos em endereços físicos.</strong> Ela pode ser realizada pelo link-editor durante a resolução das referências em aberto, na geração do módulo de carga. Os endereços são resolvidos em relação a uma base inicial e o processo só poderá ser alocado a partir dessa base, ou seja, sempre rodará no mesmo lugar da memória.</p>
+      <p>Alguns sistemas deixam essa tarefa de relocação para o carregador (loader) ou ligador-carregador (link-loader), que faz a resolução das referências externas e a relocação de endereços no instante de carregar o processo na memória para sua execução.</p>
+      <p>No primeiro caso (link-editor), a carga em imagem de memória sempre roda no mesmo lugar da memória, enquanto no segundo caso ela pode rodar em qualquer lugar.</p>
+      <p>Quando esse mapeamento de endereços é feito antes do carregamento do módulo, o processo é denominado <strong>Relocação Estática</strong>.</p>
+      <p>Para que a tradução dinâmica de endereços possa ser efetuada, é preciso que toda referência seja lógica, isto é, nenhum endereço no programa poderá estar representando uma posição física, pois será mapeado pelo hardware. Esse outro processo é chamado de Relocação Dinâmica.</p>
+      <p>Para a relocação, o nosso registrador base será agora chamado de registrador de relocação e ele receberá o endereço inicial da área de memória do processo.</p>
+      <p>E como fica a proteção de memória nesse caso? Como a base agora é o registrador de relocação, isso significa que não existirá endereço menor que este, portanto, a proteção deve ser realizada apenas para verificar se o endereço lógico não é maior que o valor do registrador limite, pois, assim, o programa estaria ultrapassando o limite superior de sua memória.</p>
+    </section>
+    <section>
+      <h1>Políticas de alocação</h1>
+      <p>As políticas de alocação de memória compreendem dois tipos básicos:</p>
+      <ul>
+        <li><strong>1:</strong> Manter os processos na memória principal durante toda a sua execução.</li>
+        <li><strong>2:</strong> Mover os processos entre a memória principal e a secundária (tipicamente disco), utilizando técnicas de swapping (Permuta)ou de paginação.</li>
+      </ul>
+      <section>
+        <h2>Gerenciamento de memória sem permuta</h2>
+        <section>
+          <h2>Alocação contígua</h2>
+          <p>Os primeiros sistemas computacionais eram monoprogramados, ou seja, somente um processo de usuário por vez estava na memória. Para melhorar essa situação, foi desenvolvido um esquema muito simples, no qual a memória principal era compartilhada entre o sistema operacional e o processo de usuário.</p>
+          <p>Essa técnica apresenta como desvantagem a limitação do tamanho máximo do programa ao tamanho da memória disponível. Para superar essa limitação, foi desenvolvida a primeira técnica de permuta, a overlay.</p>
+        </section>
+        <section>
+          <h2>Overlay</h2>
+          <p>A técnica de overlay utiliza o conceito de sobreposição, ou seja, a mesma região da memória será ocupada por módulos diferentes do processo.</p>
+          <ul>
+            <li>
+              <h3>Módulo principal e secundários</h3>
+              <p>Quando um programa escedia a memória disponível, o programador dividia o código em módulos, principal e vários módulos secundários. Para que a técnica pudesse funcionar, era necessário que os módulos secundários fossem independentes entre si e qualquer dependência seria apenas em relação ao módulo principal.</p>
+            </li>
+            <li>
+              <h3>Carga de Módulo principal</h3>
+              <p>Nesse modelo, o primeiro passo era carregar apenas o módulo principal na memória, permanecendo os módulos secundários no disco.</p>
+            </li>
+            <li>
+              <h3>Carga do módulo 1</h3>
+              <p>O módulo 1 é um módulo secundário, tal como o 2. estes podem ser requisitados pelo módulo principal, e o SO os carregará em memória assim que forem demandados.</p>
+            </li>
+            <li>
+              <h3>Carga do Módulo 2</h3>
+              <p>Após o término da execução do módulo 1, o controle retorna ao módulo principal, que volta a executar. Ao necessitar de um recurso do módulo 2, ele solicita sua carga na área de overlay e é colocado em execução.</p>
+            </li>
+          </ul>
+          <p>Nesse tipo de estrutura, um módulo fica sempre residente (módulo principal) e os demais são organizados em uma árvore hierárquica de módulos, mutuamente exclusivos, em relação a sua execução, e colocados lado a lado num mesmo nível da árvore, de modo que o mesmo espaço possa ser alocado para mais de um módulo, os quais permanecem no disco e serão executados um de cada vez por meio de comandos de chamada (call).</p>
+          <p>Esse foi o primeiro uso de permuta, mas cabe ao programador escrever o código de forma correta e determinar o endereçamento de carregamento dos módulos de overlay.</p>
+        </section>
+        <section>
+          <h2>Alocação particionada fixa</h2>
+          <p>Com o advento da multitarefa, apareceu também a necessidade de se manter mais de um processo de usuário na memória ao mesmo tempo. Surgiu então a ideia de dividir a memória em partições fixas, podendo ser de tamanhos diferentes e, em cada uma, seria alocado um processo de usuário que ali coubesse.</p>
+          <p>Essas partições eram fixas, estabelecidas na configuração do sistema, e o processo nela permanecia até o seu término, quando então ela era liberada para o uso de outro processo que estivesse na fila esperando alocação.</p>
+          <p>Duas estratégias podem ser adotadas para alocar o processo:</p>
+          <ul>
+            <li><strong>A: </strong>Uma fila por partição: os processos são divididos em várias filas de acordo com o seu tamanho e são alocados quando a partição atendida pela fila está disponível.</li>
+            <li><strong>B: </strong>Uma única fila de entrada: todos os processos ficam na mesma fila e vão sendo alocados na menor partição livre que possa acomodá-los.</li>
+          </ul>
+          <p>Este método de gerência de memória baseado em partições fixas gera, de uma forma ou de outra, um grande desperdício de memória. Isso acontece porque quando um processo é carregado em uma partição sem ocupar todo o seu espaço, o espaço restante não poderá ser utilizado por nenhum outro processo.</p>
+          <p>Para evitar esse desperdício foi desenvolvido um esquema de gerenciamento e alocação de memória dinamicamente, dependendo da necessidade do processo. Esse esquema é conhecido como alocação com partições variáveis.</p>
+        </section>
+        <section>
+          <h2>Alocação com partições variáveis</h2>
+          <ul>
+            <li>
+              <h3>Área de memória livre</h3>
+              <p>A memória de usuário é inicialmente considerada uma única partição livre.</p>
+            </li>
+            <li>
+              <h3>Alocação do processo A</h3>
+              <p>Ao iniciar o processo A, ele é carregado na memória e o seu tamanho define o tamanho da sua partição.</p>
+            </li>
+            <li>
+              <h3>Alocação dos processos B e C</h3>
+              <p>Os processos B e C, de forma análoga, são carregados no espaço livre ainda disponível. </p>
+            </li>
+            <li>
+              <h3>Falta de espaço em memória</h3>
+              <p>Ao chegar ao processo D, não existe espaço livre contínuo suficiente para que seja carregado. Ele deve, então, ele deve esperar que um espaço contínuo de tamanho suficiente seja liberado, assim que o processo A termina, logo o processo D pode ser alocado.</p>
+            </li>
+            <li>
+              <h3>Fragmentação em memória</h3>
+              <p>Após alocar e desalocar vários processos, a memória pode se fragmentar, por exemplo, no espaço entre os processos D e B.</p>
+            </li>
+          </ul>
+          <h3>Para realizar a escolha da partição para a próxima tarefa em fila, podem ser utilizados diversos tipos de políticas:</h3>
+          <ul>
+            <li>
+              <h3>Política Best-Fit</h3>
+              <p>Procura alocar o processo na partição disponível de tamanho mais próximo ao do processo. Busca deixar fragmentos livres menores, mas exige que se percorra todas as partições para descobrir a menor em que o processo caiba.</p>
+            </li>
+            <li>
+              <h3>Política First-Fit</h3>
+              <p>Procura alocar o processo na primeira partição onde ele couber. Probabilisticamente, agrupa os processos pequenos, separando-os dos grandes, e tem a vantagem de ser mais rápido, pois só percorre as partições até encontrar uma em que o processo caiba.</p>
+            </li>
+            <li>
+              <h3>Política Worst-Fit</h3>
+              <p>Procura alocar o processo na maior partição disponível onde ele couber. Intuitivamente, sempre caberá mais um processo pequeno no espaço resultante. Tem como desvantagem ter que percorrer todas as partições até encontrar a maior.</p>
+            </li>
+          </ul>
+        </section>
+      </section>
+      
+    </section>
+    <section>
+      <h1>Fragmentação externa e interna</h1>
     </section>
   </main>
   <!--
     Tema 4 
     memória
+    Fragmentação externa e interna
   -->
 </body>
 </html>
