@@ -194,16 +194,53 @@
           </ul>
         </section>
       </section>
-      
-    </section>
-    <section>
-      <h1>Fragmentação externa e interna</h1>
+      <section>
+        <section>
+          <h1>Fragmentação externa e interna</h1>
+          <p>A diferença principal entre as partições fixas e as variáveis é que nas variáveis o número, tamanho e posição das partições variam ao longo do tempo.</p>
+          <p>A longo do tempo, esse processo pode acarretar <strong>fragmentação externa</strong>, ou seja, entre as partições podem ser gerados pequenos pedaços livres que, no seu todo, poderiam atender à necessidade de memória de um processo, mas, como não são contíguos, não permitem a alocação.</p>
+          <p>Outro tipo de <strong>fragmentação é a interna</strong>, que você pode compreender a seguir:</p>
+          <p class="p1">Considere uma área livre de 16.484 bytes e que o próximo processo solicite 16.480 bytes. Se for alocado exatamente o bloco solicitado, ficaremos com uma fragmentação externa de 4 bytes. O esforço para fazer o controle de uma lacuna tão pequena não compensa. Dessa forma, a solução geral para esse tipo de problema é alocar todo o bloco para o processo, que resultará numa área não utilizada de 4 bytes dentro dele, correspondendo a uma <strong>fragmentação interna</strong>.</p>
+          <p>Uma possível solução para a fragmentação externa seria realizar a <strong>compactação da memória</strong>, que compreende <strong>mover todos os blocos ocupados para uma das extremidades</strong> do espaço de endereçamento físico, resultando na geração de um grande bloco livre.</p>
+          <p><strong>Apesar de parecer uma solução tentadora, ela não é normalmente utilizada porque o seu custo de processamento é alto.</strong></p>
+          <p>Outra solução possível seria permitir que o espaço de endereçamento do processo não seja contíguo, possibilitando, dessa forma, que ele receba blocos de memória disponíveis em qualquer parte do espaço de endereçamento. Essa ideia, com o swap, é a base do funcionamento da <strong>paginação e da segmentação</strong>.</p>
+        </section>
+        <section>
+          <h1>Gerenciamento de memória com permuta</h1>
+          <h2>Swap de memória</h2>
+          <p>Um processo deve estar na memória para ser executado. Entretanto, nada impede que, enquanto ele está bloqueado ou em espera, ele seja retirado da memória principal e transferido para a memória secundária e novamente carregado, quando chegar sua vez de ser novamente executado. Isto é o que chamamos de <strong>swapping</strong>.</p>
+          <p>O uso do swapping permite aumentar o grau de multiprogramação, pois permite que a memória total dos processos ultrapasse a memória física disponível no sistema, o que era impossível no esquema de partições.</p>
+          <p>No esquema de partições ele necessitaria esperar o término da execução de um dos processos em memória, porém, se o sistema utiliza swapping, é possível retirar um processo que não esteja em execução e que ocupe o meio de uma partição. No caso, o processo A (swap out) o coloca no disco, atribui a nova partição disponível ao processo que estava esperando e, posteriormente, atribui outra partição (swap in) ao processo que foi desalojado.</p>
+          <p>Como é possível perceber, essa técnica utiliza relocação dinâmica e, portanto, os processos não podem utilizar endereçamento absoluto.</p>
+          <p>As grandes vantagens do swap são:</p>
+          <ul>
+            <li>Maior compartilhamento da memória (maior throughput de tarefas).</li>
+            <li>Menor fragmentação de memória.</li>
+            <li>Boa técnica para ambientes com processos pequenos e poucos usuários.</li>
+          </ul>
+          <p>A desvantagem é o tempo gasto no swap in e no swap out.</p>
+          <p>Devido a essa perda de tempo, essa técnica não é utilizada em sistemas modernos. Nos sistemas operacionais atuais, variantes otimizadas no tempo de escrita/leitura, tais como a paginação, são largamente implementadas.</p>
+        </section>
+        <section>
+          <h1>Gerenciamento de espaço livre</h1>
+          <p>Para que as diversas políticas de alocação possam funcionar é necessário que o SO controle os espaços livres na memória e onde cada processo está alocado.</p>
+          <h2>Gerenciamento de memória com mapas de bits</h2>
+          <p>Nesta técnica, a memória é dividida em unidades de alocação e, para cada unidade, existe um bit no mapa de bits marcado como 0 se a unidade estiver livre, e com 1 se estiver ocupada.</p>
+          <p>Neste esquema, a definição do tamanho da unidade é extremamente importante. Quanto menor for a unidade, maior será o mapa e vice-versa. Entretanto, também existe outra implicação: se a unidade for grande e o tamanho do processo não for múltiplo do tamanho da unidade, no último bloco alocado haverá fragmentação interna.</p>
+          <p>O principal problema desse tipo de gerenciamento é que, quando for necessário trazer um processo de n unidades para a memória, o gerenciador da memória terá que encontrar uma sequência de n bits 0 consecutivos no mapa, o que é uma operação lenta por sua própria natureza.</p>
+          <div class="container-img">
+            <img src="fig25.jpg" alt="figura 25">
+          </div>
+          
+          <h2>Gerenciamento de memória com listas encadeadas</h2>
+          
+        </section>
+      </section>
     </section>
   </main>
   <!--
     Tema 4 
     memória
-    Fragmentação externa e interna
   -->
 </body>
 </html>
