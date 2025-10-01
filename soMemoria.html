@@ -228,12 +228,115 @@
           <p>Nesta técnica, a memória é dividida em unidades de alocação e, para cada unidade, existe um bit no mapa de bits marcado como 0 se a unidade estiver livre, e com 1 se estiver ocupada.</p>
           <p>Neste esquema, a definição do tamanho da unidade é extremamente importante. Quanto menor for a unidade, maior será o mapa e vice-versa. Entretanto, também existe outra implicação: se a unidade for grande e o tamanho do processo não for múltiplo do tamanho da unidade, no último bloco alocado haverá fragmentação interna.</p>
           <p>O principal problema desse tipo de gerenciamento é que, quando for necessário trazer um processo de n unidades para a memória, o gerenciador da memória terá que encontrar uma sequência de n bits 0 consecutivos no mapa, o que é uma operação lenta por sua própria natureza.</p>
-          <div class="container-img">
-            <img src="fig25.jpg" alt="figura 25">
-          </div>
-          
+          <p>Observe a Figura 25, que mostra a gerência de espaço livre funcionando:</p>
+          <figure>
+            <img src="IMG/so/fig25.jpg" alt="figura 25">
+            <figcaption>Figura 25</figcaption>
+          </figure>
+          <ul>
+            <li>A letra (a) mostra uma parte da memória com cinco processos e três lacunas. Os tracinhos mostram as unidades de alocação de memória.</li>
+            <li>A letra (b) mostra o mapa de bits correspondente.</li>
+            <li>A letra (c) apresenta as mesmas informações como uma lista encadeada.</li>
+          </ul>
           <h2>Gerenciamento de memória com listas encadeadas</h2>
-          
+          <p>A outra forma de gerenciamento é a criação de uma lista encadeada, na qual cada nó da lista corresponde a um segmento de memória alocada – indicada na Figura 25(c) pelo P – ou livre – indicada por L. Além da indicação do status, o nó armazena o endereço inicial do segmento e o seu tamanho em unidades de alocação.</p>
+          <p>Nesse exemplo, a lista de segmentos está ordenada pelo endereço. Ordenando dessa maneira, quando um processo termina a lista deve ser atualizada. Um processo que termina normalmente tem dois vizinhos, exceto se for o primeiro ou o último da lista, que podem ser processos ou lacunas.</p>
+          <p>Essa situação gera quatro possíveis combinações a serem tratadas e que são exibidas na Figura 26.</p>
+          <p>Considerando que o processo X terminou, deve-se:</p>
+          <figure>
+            <img src="IMG/so/fig26.jpg" alt="Figura 26: Gerência da lista encadeada">
+            <figcaption>Figura 26: Gerência da lista encadeada</figcaption>
+          </figure>
+          <ul>
+            <li>Na situação (a), atualizar a lista exige substituir um P por um L.</li>
+            <li>Nas situações (b) e (c), duas entradas são aglutinadas em uma e a lista se torna uma única entrada mais curta.</li>
+            <li>Na situação (d), três entradas são aglutinadas e dois itens são removidos da lista.</li>
+          </ul>
+        </section>
+      </section>
+    </section>
+    <section>
+      <section>
+        <h1>Memória virtual</h1>
+        <p>Como vimos anteriormente, o espaço de endereçamento lógico de um programa tem que ser mapeado em um espaço de endereçamento físico de memória.</p>
+        <p>De fato, essa correspondência pode ser deixada totalmente a cargo do SO, de forma que o programa não tenha nenhuma responsabilidade em se ater a um determinado tamanho de memória física disponível.</p>
+        <p>Assim, o conjunto de endereços que um programa pode endereçar pode ser muito maior que a memória física disponível para o processo em um determinado momento, até mesmo mais que o total de memória fisicamente disponível na máquina.</p>
+        <p>A esse conjunto de endereços chamamos de espaço de endereçamento virtual. Ao conjunto de endereços reais de memória denominamos <strong>espaço de endereçamento real</strong>.</p>
+        <p>Assim, como os programas podem ser maiores que a memória física, somente uma parte de cada programa precisa estar na memória durante a execução. As partes que não são necessárias em um determinado instante ficam em disco e somente são carregadas quando se tornarem necessárias.</p>
+        <p>Todo o processo é <strong>transparente para o usuário</strong> e também para os <strong>compiladores e link-editores</strong>, pois estes trabalham apenas com o espaço de endereçamento virtual. Apenas o SO se incumbe de carregar ou descarregar as partes necessárias e mapeá-las no espaço de endereçamento real durante a execução.</p>
+        <p>Como consequência desse mapeamento, o programa não precisa estar nem mesmo em regiões contíguas de memória. Naturalmente, o nível de fracionamento do programa deve ser escolhido de forma a não comprometer o desempenho, na medida em que a tarefa de mapeamento é feita pelo SO com recursos de hardware.</p>
+        <p>Assim, a memória (tanto a virtual como a real) é dividida em blocos, e o SO mantém tabelas de mapeamento para cada processo, que relacionam os blocos da memória virtual do processo com os blocos da memória real da máquina.</p>
+        <section class="container p03">
+          <p class="p1">A Figura 27 mostra essa ideia. Note que o espaço de endereçamento virtual é muito maior que a memória física. Observe ainda que o processo é endereçado por partes, no caso páginas, e elas são lidas do disco para a memória e gravadas no disco, em um processo chamado paginação, uma implementação da ideia de swap e que estudaremos a seguir.</p>
+          <figure>
+            <img src="IMG/so/fig27.jpg" alt="Figura 27: Memória virtual. Fonte: SILBERSCHATZ, 2015." class="vw30">
+            <figcaption>Figura 27: Memória virtual. Fonte: SILBERSCHATZ, 2015.</figcaption>
+          </figure>
+        </section>
+      </section>
+      <section>
+        <h1>Paginação</h1>
+        <p>Na paginação, o espaço de endereços é dividido em blocos de igual tamanho que chamamos de páginas. A memória principal também é dividida em blocos de mesmo tamanho (igual ao tamanho da página) denominados molduras.</p>
+        <p>Esses blocos de memória real são compartilhados pelos processos, de forma que a qualquer momento um determinado processo terá algumas páginas residentes na memória principal (as páginas ativas), enquanto as restantes utilizarão a memória secundária (as páginas inativas).</p>
+        <p>O mecanismo da paginação possui duas atribuições:</p>
+        <ul>
+          <li>Executar a operação de mapeamento, isto é, determinar qual a página referenciada e em que bloco de memória (se for o caso) ela se encontra.</li>
+          <li>Transferir páginas da memória secundária para os blocos da memória principal (quando for requerido) e guardá-las de volta na memória secundária quando elas não estiverem em uso.</li>
+        </ul>
+        <section class="container p03">
+          <p class="p1">Observe a Figura 28, que apresenta o esquema de paginação. Nela podemos ver que o processo foi dividido em 4 páginas (0 a 3), a tabela de páginas que as associa com os frames e a alocação das páginas na memória.</p>
+          <figure>
+            <img src="IMG/so/fig28.jpg" alt="Figura 28: Paginação. Fonte: SILBERSCHATZ, 2015." class="vw30">
+            <figcaption>Figura 28: Paginação. Fonte: SILBERSCHATZ, 2015.</figcaption>
+          </figure>
+        </section>
+        <p>Na paginação, o hardware determina tanto o tamanho do quadro como o da página, sendo que o tamanho da página é sempre uma potência de 2 variando normalmente entre 512 bytes e 2KB. O uso de potências de 2 visou facilitar o mapeamento dos endereços virtuais para os físicos.</p>
+        <section>
+          <h2>Controle de espaço livre</h2>
+          <p>Quando um novo processo chega ao sistema para ser executado, o seu tamanho é analisado em páginas. Como cada página do processo necessita de um quadro, se, por exemplo, ele possui 4 páginas, pelo menos 4 quadros devem estar livres. A forma mais fácil de o SO realizar o controle das áreas livres é mantendo uma lista dos quadros livres. Como todos os quadros possuem o mesmo tamanho e o processo pode ser alocado de forma não contígua, a lista não necessita estar ordenada, o que facilita muito a sua manutenção.</p>
+          <section class="container p03">
+            <div class="p1">
+              <p>É exatamente esta situação que se pode observar na Figura 29(a), que mostra os quadros livres (em tom cinza) e ocupados (em tom azul) na memória física, o novo processo de 4 páginas e a lista de quadros livres com 5 quadros (14, 13, 18, 20 e 15).</p>
+              <p>A partir desta situação, a página 0 do processo será alocada no primeiro quadro da lista, o 14, a segunda no 13, e assim, sucessivamente, sendo preenchida a tabela de páginas do processo e gerando o cenário que pode ser observado na Figura 29(b).</p>
+            </div>
+            <figure>
+              <img src="IMG/so/fig29.jpg" alt="Figura 29: Paginação e controle de quadros livres. Fonte: SILBERSCHATZ, 2015." class="vw30">
+              <figcaption>Figura 29: Paginação e controle de quadros livres. Fonte: SILBERSCHATZ, 2015.</figcaption>
+            </figure>
+          </section>
+        </section>
+        <section>
+          <h2>Proteção de memória</h2>
+          <p>Em um ambiente paginado, a proteção de memória é provida pelo acréscimo de bits de proteção associados a cada quadro na tabela de páginas.</p>
+          <p class="atencao">Um bit pode definir que uma página é apenas de leitura ou se permite também a gravação.</p>
+          <p>Além dos bits já descritos, normalmente um outro bit denominado válido-inválido é acrescido à tabela para estabelecer se aquela página está no espaço de endereçamento lógico do programa (acesso legal) ou não (acesso ilegal).</p>
+          <section class="container p03">
+            <div class="p1">
+              <p>Considere a situação da Figura 30. Ela nos mostra um sistema com espaço de endereçamento de 14 bits (0 a 16383) e um processo que usa apenas os endereços de 0 a 10468. Considerando um tamanho de página de 2KB, o processo possui 6 páginas, apesar de ter uma tabela de páginas com mais entradas possíveis.</p>
+              <p>Na tabela de páginas, apesar de o processo possuir somente 6 delas, as entradas referentes às páginas 6 e 7 estão com o número de quadro 0, o que faria com que uma referência à página 7 gerasse uma exceção para o SO.</p>
+            </div>
+            <figure>
+              <img src="IMG/so/fig30.jpg" alt="Figura 30: Proteção de memória. Fonte: SILBERSCHATZ, 2015." class="vw30">
+              <figcaption>Figura 30: Proteção de memória. Fonte: SILBERSCHATZ, 2015.</figcaption>
+            </figure>
+          </section>
+        </section>
+        <section>
+          <h2>Paginação sob demanda</h2>
+          <p>A ideia básica da paginação sob demanda é carregar na memória somente páginas que forem referenciadas na execução.</p>
+          <p>Obviamente, em um primeiro momento, somente a página inicial do processo será carregada e à medida que as instruções fizerem referências a outras páginas, elas serão carregadas. Essa abordagem faz com que páginas que nunca foram referenciadas jamais sejam carregadas na memória.</p>
+          <section class="container p03">
+            <p class="p1">E como funciona essa demanda? Como se sabe, o número de blocos alocados a um processo é menor do que o número de páginas que ele usa. Por isso, é possível que um endereço de programa referencie uma página ausente. Nesse caso, a entrada da tabela correspondente estará “vazia” e uma interrupção do tipo page fault é gerada sempre que uma página inativa é requerida e causa a ação descrita na Figura 31.</p>
+            <figure>
+              <img src="IMG/so/fig31.jpg" alt="Figura 31: Paginação sob demanda. Fonte: SILBERSCHATZ, 2015." class="vw45">
+              <figcaption>Figura 31: Paginação sob demanda. Fonte: SILBERSCHATZ, 2015.</figcaption>
+            </figure>
+          </section>
+          <h3>Resumindo</h3>
+          <p>A interrupção faz com que o mecanismo da paginação inicie a transferência da página ausente da memória secundária para um dos blocos da memória principal e atualize a tabela de páginas. O processo muda de estado, ficando bloqueado até que a transferência termine. A posição ocupada por uma página na memória secundária é guardada em uma tabela separada ou na própria tabela de páginas. Se não houver nenhum bloco de memória disponível, então é necessário desocupar um dos blocos para a página, cuja presença está sendo solicitada. A escolha do bloco é função do algoritmo de troca, conforme será visto adiante.</p>
+        </section>
+        <section>
+          <h2>Políticas de paginação</h2>
         </section>
       </section>
     </section>
@@ -241,6 +344,7 @@
   <!--
     Tema 4 
     memória
+    Políticas de paginação
   -->
 </body>
 </html>

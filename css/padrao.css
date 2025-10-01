@@ -129,9 +129,39 @@ pre{
   justify-content: space-around;
 }
 
-.container-img{
+.atencao{
+  padding: 1.5rem 1rem;
+  background-color: var(--cor-primaria);
+  color: var(--cor-clara);
+  font-weight: 550;
+  text-align: center;
+  margin: 0.3rem;
+}
+
+figure{
   padding: 1rem;
   text-align: center;
+}
+figcaption{
+  color: #334443;
+  font-size: 0.8em;
+  padding: 0.5em;
+}
+
+.m1{
+  margin: 1rem;
+}
+.p1{
+  padding: 1rem;
+}
+.p03{
+  padding: 0 3rem;
+}
+.vw30{
+  width: 30vw;
+}
+.vw45{
+  width: 45vw;
 }
 
 @media (min-width: 768px ) {
