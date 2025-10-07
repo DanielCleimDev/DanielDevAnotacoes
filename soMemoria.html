@@ -337,6 +337,95 @@
         </section>
         <section>
           <h2>Políticas de paginação</h2>
+          <p>Para minimizar a ocorrência de page faults surgiu o conceito de working set. Assim, quando um programa começa a executar, a possibilidade de que ele requisite páginas que não estejam na memória é muito grande. Entretanto, à medida que mais páginas vão sendo carregadas, a ocorrência de page faults vai diminuindo devido ao princípio da localidade dos programas. Assim, cabe ao SO definir um conjunto de páginas que devem ficar carregadas, sabendo que se trata de um compromisso entre capacidade e velocidade.</p>
+          <p class="atencao">Quanto mais páginas carregadas no working set, menor o risco de geração de page fault, logo, melhor é o desempenho. Em compensação, quanto mais páginas no working set, menos processos podem estar carregados ao mesmo tempo.</p>
+          <p>Definido o working set, resta definir qual deve ser a página retirada da memória quando ocorre um page fault, pois uma página precisa ser carregada e não existe quadro livre. Esta decisão pode obedecer a várias políticas.</p>
+          <p>Entretanto, antes de descartar qualquer página, o SO precisa saber se houve alguma alteração nela enquanto ela esteve na memória. Se houve, então essa página precisa ser salva em disco antes de ser descartada para que nenhum dado se perca. Neste caso, o SO mantém um bit na tabela de páginas chamado Bit de Modificação. Caso o bit indique que houve mudança, a página é salva em disco, onde poderá ser futuramente resgatada.</p>
+          <ul>
+            <li><h3>As políticas de liberação de páginas são:</h3></li>
+            <li>
+              <h3>Página aleatória</h3>
+              <p>Escolhe-se simplesmente qualquer página. A desvantagem é que pode-se escolher uma página que seja muito acessada.</p>
+            </li>
+            <li>
+              <h3>First-in-first-out (FIFO)</h3>
+              <p>Retira-se a página carregada há mais tempo. A desvantagem é que pode retirar páginas que sejam acessadas periodicamente.</p>
+            </li>
+            <li>
+              <h3>Least-recently-used (LRU)</h3>
+              <p>Retira-se a página utilizada pela última vez há mais tempo. A desvantagem é o overhead causado pela necessidade de, a cada acesso, atualização do momento em que a página foi acessada.</p>
+            </li>
+            <li>
+              <h3>Not-recently-used (NRU)</h3>
+              <p>A página não utilizada nos últimos k acessos é substituída. A desvantagem também é o overhead causado pela necessidade de, a cada acesso, atualizar um contador de acessos à página.</p>
+            </li>
+            <li>
+              <h3>Least-frequently-used (LFU)</h3>
+              <p>Escolhe-se a página que tenha o menor número de acessos descritos em um contador de acessos. A ideia é manter na memória as páginas que são muito acessadas. Entretanto, o problema é que páginas recém-carregadas no working set terão baixo número de acessos e serão indesejavelmente cotadas para retirada.</p>
+            </li>
+          </ul>
+          <p>Sistemas reais, como o Linux, implementam normalmente alguma variação da LRU a partir de algoritmos que buscam se aproximar desta política. Um dos mais comumente usados é o algoritmo de segunda chance.</p>
+        </section>
+        <section>
+          <h2>Algoritmo de segunda chance</h2>
+          <p>Também conhecido como <strong>algoritmo do relógio</strong>, ele busca uma aproximação ao LRU. Para isso, na tabela de páginas são acrescidos bits de referência associados a cada uma de suas entradas.</p>
+          <p>Inicialmente, todos os bits são desligados (posicionados com 0) pelo sistema operacional. Quando um processo de usuário é executado e uma página é referenciada, o bit associado a ela é ligado (com 1) pelo hardware. Após algum tempo, podemos determinar as páginas que têm sido usadas ou não usadas examinando os bits de referência, embora sem saber a ordem de uso.</p>
+          <article class="atencao">
+            <h2>Comentário</h2>
+            <p>O algoritmo utiliza uma política de substituição FIFO, mas com uma diferença: quando uma página é selecionada para substituição, antes de fazer a troca verificamos seu bit de referência. Se o seu valor for zero, fazemos a substituição; se for 1, damos à página uma segunda chance zerando o seu bit e passamos à próxima página. Esse método assegura que se uma página for sempre referenciada, ela nunca sairá da memória.</p>
+          </article>
+          <p>Este algoritmo é normalmente implementado como uma fila circular (Figura 32) onde um ponteiro (o ponteiro do relógio, daí seu nome) indica a página que deve ser substituída a seguir. Quando um quadro é necessário, o ponteiro avança até encontrar uma página com bit de referência 0. Conforme ele avança, os bits de referência são zerados (Figura 32a).</p>
+          <p>Uma vez que uma página vítima seja encontrada, ela é substituída e a nova página é inserida na fila circular nessa posição (Figura 32b).</p>
+          <p>Observe que, na pior das hipóteses, quando todos os bits estão ligados, o ponteiro circula a fila inteira, dando a cada página uma segunda chance. Ele zera todos os bits de referência antes de selecionar a próxima página para substituição.</p>
+          <article class="atencao">A substituição da segunda chance degenera para uma substituição FIFO se todos os bits estiverem ligados.</article>
+          <figure>
+            <img src="IMG/so/fig32.jpg" alt="Figura 32: Algoritmo de segunda chance. Fonte: SILBERSCHATZ, 2015">
+            <figcaption>Figura 32: Algoritmo de segunda chance. Fonte: SILBERSCHATZ, 2015.</figcaption>
+          </figure>
+          <ul>
+            <li>Um aperfeiçoamento que pode ser realizado neste algoritmo é levar em conta também o valor de bit de modificação. Dessa forma, a página pode estar em uma destas quatro categorias, da mais baixa para a mais alta:</li>
+            <li>
+              <h3 class="atencao">(0, 0) nem recentemente utilizada, nem modificada</h3>
+              <p class="p1">Melhor página para a substituição.</p>
+            </li>
+            <li>
+              <h3 class="atencao">(0, 1) não recentemente utilizada, mas modificada</h3>
+              <p class="p1">Não é uma opção tão boa porque a página terá que ser gravada em disco antes da substituição.</p>
+            </li>
+            <li>
+              <h3 class="atencao">(1, 0) recentemente utilizada, mas não modificada</h3>
+              <p class="p1">Provavelmente será usada outra vez em breve.</p>
+            </li>
+            <li>
+              <h3 class="atencao">(1, 1) recentemente utilizada e modificada</h3>
+              <p class="p1">Provavelmente será usada de novo em breve e terá que ser gravada em disco antes de poder ser substituída.</p>
+            </li>
+          </ul>
+          <p>Nesta implementação, continuamos utilizando uma fila circular, mas em vez de verificar o bit de referência, determinamos a categoria da página e substituímos a primeira página da categoria mais baixa.</p>
+          <p>A principal diferença entre esse algoritmo e o algoritmo do relógio mais simples é que aqui damos preferência à substituição de páginas que não foram modificadas, para reduzir o número de operações de gravação requeridas, já que páginas que não foram modificadas ao serem substituídas não necessitam de gravação no disco.</p>
+        </section>
+        <section>
+          <h2>Segmentação</h2>
+          <p>Devido ao grande número de page faults da paginação, a segmentação surgiu como uma alternativa de gerência de memória, na qual o programa não mais é dividido em blocos de comprimentos fixos (as páginas), mas, sim, em segmentos de comprimentos variados com um sentido lógico. Ou seja, a paginação procedia uma divisão física do programa e, às vezes, isso levava a um número muito grande de page faults por não observar suas características lógicas.</p>
+          <article class="atencao">A segmentação busca aproveitar exatamente essas características, agrupando num segmento partes do programa que se referenciam mutuamente e que, quando trazidas à memória, estarão todas juntas evitando o que nesse caso é chamado de segment faults com tanta frequência.</article>
+          <p>Nesse esquema, o espaço de endereços torna-se bidimensional: endereços de programa são denotados pelo par (nome do segmento, endereço dentro do segmento).</p>
+          <p>Para facilitar a implementação do mecanismo de transformação de endereços, o SO troca o nome do segmento por um número, quando o segmento é referenciado pela primeira vez.</p>
+          <p>Considerando o par (s,d) como sendo um endereço de programa generalizado, onde s = número do segmento e d = endereço dentro do segmento, então o esquema de geração seria o apresentado na Figura 33:</p>
+          <figure>
+            <img src="IMG/so/fig33.jpg" alt="Figura 33: Segmentação. Fonte: SILBERSCHATZ, 2015.">
+            <figcaption>Figura 33: Segmentação. Fonte: SILBERSCHATZ, 2015.</figcaption>
+          </figure>
+          <p>Conforme podemos ver, a transformação de endereço é realizada por intermédio de uma tabela de segmentos (uma tabela para cada processo). A “s-ésima” entrada da tabela contém o tamanho (l) e a posição inicial (a) da memória, onde o “s-ésimo” segmento foi carregado.</p>
+          <p>As entradas da tabela são chamadas de Descritores de Segmento. O algoritmo de mapeamento é:</p>
+          <ul>
+            <li>Extrair endereço de programa (s,d).</li>
+            <li>Usar “s” para indexar tabela de segmentos.</li>
+            <li>Retirar o endereço inicial do segmento (a).</li>
+            <li>Se d &lt; 0 ou d 	&gt; l então “violação de memória”.</li>
+            <li>a + d é o endereço requerido.</li>
+          </ul>
+          <p>A busca de espaços para um segmento a ser trazido à memória nos leva novamente aos problemas de gerência por partições variáveis. A diferença aqui é que o espaço contíguo só é necessário para o segmento e não para todo o processo.</p>
+          <p>A diferença principal entre a segmentação e a paginação é que a primeira busca uma divisão lógica do espaço de endereçamento do processo, enquanto a segunda busca uma divisão física desse mesmo espaço. Ambas se engajam na implementação de uma política de memória virtual de um único nível. Páginas têm seu tamanho determinado pelo tamanho da palavra, enquanto segmentos têm seu tamanho determinado pelo tamanho da memória disponível.</p>
         </section>
       </section>
     </section>
