@@ -428,12 +428,212 @@
           <p>A diferença principal entre a segmentação e a paginação é que a primeira busca uma divisão lógica do espaço de endereçamento do processo, enquanto a segunda busca uma divisão física desse mesmo espaço. Ambas se engajam na implementação de uma política de memória virtual de um único nível. Páginas têm seu tamanho determinado pelo tamanho da palavra, enquanto segmentos têm seu tamanho determinado pelo tamanho da memória disponível.</p>
         </section>
       </section>
+      <section>
+        <h1>Gerenciamento de Memória no Linux</h1>
+        <ul>
+          <li>A gerência de memória no Linux envolve dois aspectos distintos, cada um efetuado por um componente específico:</li>
+          <li><strong>A alocação e liberação da memória física -</strong> páginas, grupos de páginas e pequenos blocos de RAM.</li>
+          <li><strong>A manipulação da memória virtual -</strong> mapeamento da memória física para o espaço de endereçamento de processos em execução.</li>
+        </ul>
+        <section>
+          <h2>Gerenciamento da memória física no Linux</h2>
+          <p>Em razão de restrições específicas do hardware, o Linux divide a memória física em quatro zonas ou regiões diferentes que, dependendo da arquitetura, correspondem a especificações diferentes.</p>
+          <ul>
+            <li><h2>Em uma arquitetura Intel x86 de 32 bits elas são:</h2></li>
+            <li>
+              <h2 class="atencao">ZONE_DMA</h2>
+              <p>Para dispositivos ISA que somente podem acessar os primeiros 16MB da memória para fazer acesso direto.</p>
+            </li>
+            <li>
+              <h2 class="atencao">ZONE_DMA32</h2>
+              <p>Para dispositivos que podem acessar os primeiros 4GB da memória em operações de DMA.</p>
+            </li>
+            <li>
+              <h2 class="atencao">ZONE_HIGHMEM</h2>
+              <p>Corresponde à memória alta (high memory) que não está mapeada para o kernel do sistema, que, nesta arquitetura, corresponde aos primeiros 896MB do espaço de endereçamento, ficando todo o espaço restante até 4GB disponível para uso.</p>
+            </li>
+            <li>
+              <h2 class="atencao">ZONE_NORMAL</h2>
+              <p>Corresponde a todo o resto da memória.</p>
+            </li>
+          </ul>
+          <p>Importante: em modernos sistemas de 64 bits, como o Intel x86 de 64 bits, existe uma pequena ZONE_DMA de 16 MB para ser utilizada por sistemas legados e todo o resto fica na ZONE_NORMAL, sem ZONE_HIGHMEN ou ZONE_DMA32.</p>
+          <p>A Figura 34 mostra o mapeamento entre as zonas e os endereços físicos na arquitetura do Intel x86 de 32 bits.</p>
+          <figure>
+            <img src="IMG/so/fig34.png" alt="Figura 34: Relacionamento entre endereços físicos e zonas no Intel x8632. Fonte: SILBERSCHATZ, 2015.">
+            <figcaption>Figura 34: Relacionamento entre endereços físicos e zonas no Intel x8632. Fonte: SILBERSCHATZ, 2015.</figcaption>
+          </figure>
+          <p>O kernel mantém uma lista das páginas livres em cada zona e, ao receber uma solicitação de memória, faz o atendimento disponibilizando as páginas na zona apropriada.</p>
+          <article class="atencao">Cada zona possui seu próprio alocador de páginas que é o responsável por alocar e desalocar as páginas físicas.</article>
+        </section>
+        <section>
+          <h2>Memória virtual no Linux</h2>
+          <p>O mecanismo de memória virtual é o responsável por manter o espaço de endereçamento disponível para cada processo. Para fazer o gerenciamento são mantidos, para cada processo, duas visões diferentes:</p>
+          <article class="atencao">
+            <h3>Visão lógica</h3>
+            <p>descreve as instruções que o sistema de memória virtual recebeu relacionadas com o layout do espaço de endereçamento. Nessa visão, o espaço de endereçamento consiste em um conjunto de regiões não sobrepostas, cada uma representando um subconjunto alinhado e contínuo de páginas do espaço de endereçamento. As regiões de cada espaço de endereçamento são vinculadas em uma árvore binária balanceada para permitir a busca rápida da região correspondente a qualquer endereço virtual.</p>
+          </article>
+          <article class="atencao">
+            <h3>Visão física</h3>
+            <p>corresponde a entradas nas tabelas de páginas de hardware do processo, que identificam a locação corrente exata de cada página de memória virtual, esteja ela em disco ou na memória física.</p>
+          </article>
+          <h3>Regiões de memória virtual</h3>
+          <p>O Linux trabalha com vários tipos de regiões de memória virtual.</p>
+          <article class="atencao">Uma região de memória virtual tem normalmente um arquivo associado a ela e funciona como uma porta de entrada para uma seção do arquivo de paginação.</article>
+          <p>Sempre que o processo faz referência a uma página da região, a entrada correspondente na tabela de páginas é preenchida com o endereço de uma página do cache de páginas do kernel com o valor do deslocamento apropriado no arquivo.</p>
+          <p>Outro aspecto importante nas regiões é como elas tratam as gravações. Uma região pode ser mapeada de forma compartilhada ou privada para o espaço de endereçamento de um processo.</p>
+          <article class="atencao">Se um processo gravar em uma região mapeada privadamente, então, o paginador detectará que uma cópia após a gravação é necessária para manter as alterações locais ao processo. Por outro lado, gravações em uma região compartilhada resultam na atualização do objeto mapeado para essa região, de modo que a alteração seja imediatamente visível por qualquer outro processo que esteja mapeando esse objeto.</article>
+          <h3>Tempo de vida de um espaço de endereçamento virtual</h3>
+          <ul>
+            <li>Duas situações geram a criação de um novo espaço de endereçamento virtual:</li>
+            <li class="atencao">Quando um processo executa um novo programa com a chamada de sistema exec( )</li>
+            <li class="p1">Neste caso, o processo recebe um novo espaço de endereçamento virtual totalmente vazio. A rotina de carga do programa faz o mapeamento do espaço de endereçamento com regiões de memória virtual.</li>
+            <li class="atencao">Quando um novo processo é criado pela chamada de sistema fork( )</li>
+            <li class="p1">Neste caso, é realizada uma cópia completa do espaço de endereçamento virtual do processo pai para o conjunto das tabelas de páginas criadas para o processo filho, copiadas diretamente nas tabelas do filho. Portanto, após a ramificação, o pai e o filho compartilham as mesmas páginas físicas de memória em seus espaços de endereçamento.</li>
+          </ul>
+          <h3>Permuta e paginação</h3>
+          <p>Como se sabe, uma atividade extremamente importante na memória virtual é a execução do pagein e pageout.</p>
+          <ul>
+            <li>Como acontece nos demais sistemas de paginação, o Linux trabalha em dois passos:</li>
+            <li>Decide qual página deve ser substituída na memória e se é necessário gravá-la em disco.</li>
+            <li>Carrega a nova página no quadro liberado pela página que foi substituída.</li>
+          </ul>
+          <p>No Linux, a substituição de páginas utiliza uma política similar ao algoritmo do relógio, modificada para trabalhar com múltiplos ciclos.</p>
+          <p>Cada página possui uma “idade” que é ajustada a cada ciclo do relógio. A idade indica há quanto tempo a página foi alocada e/ou o nível de atividade que a página experimentou recentemente. Dessa forma, páginas acessadas com frequência recebem um valor de idade mais alto e a idade de páginas acessadas raramente cairá em direção a zero a cada ciclo.</p>
+          <p>Essa quantificação da idade permite que o paginador selecione as páginas a serem extraídas com base na política da menos frequentemente utilizada (LFU).</p>
+          <article class="atencao">No tocante à Memória virtual do Kernel, o Linux reserva para seu próprio uso interno uma região constante do espaço de endereçamento virtual de cada processo. As entradas da tabela de páginas que são mapeadas para essas páginas do kernel são marcadas como protegidas, para que as páginas não sejam visíveis ou modificáveis quando o processador estiver sendo executado em modalidade de usuário.</article>
+        </section>
+        <section>
+          <h2>Execução e carga de programas de usuário</h2>
+          <p>A execução de programas de usuário pelo kernel do Linux é disparada pela chamada de sistema exec( ), que instrui o kernel a executar um novo programa dentro do processo em curso, substituindo completamente o contexto de execução corrente pelo contexto inicial do novo programa.</p>
+          <article class="atencao">Para fazer a carga, é invocado o carregador que pode inicialmente fazer ou não a alocação na memória física do processo, mas sempre realiza o mapeamento do programa para a memória virtual.</article>
+          <h3>Mapeamento de programas para a memória</h3>
+          <p>No Linux, o carregador binário não carrega um arquivo desse mesmo sistema na memória física. Em vez disso, as páginas do arquivo binário são mapeadas para regiões de memória virtual. É utilizada a técnica da Paginação sob Demanda, de forma que somente quando a página for necessária é que ele será efetivamente alocado na memória física.</p>
+          <p>É responsabilidade do carregador binário do kernel estabelecer o mapeamento inicial da memória. Um arquivo binário no formato ELF consiste em um cabeçalho seguido por várias seções de páginas alinhadas. O carregador ELF funciona lendo o cabeçalho e mapeando as seções do arquivo para regiões separadas da memória virtual.</p>
+          <section class="container p03">
+            <div class="p1">
+              <p>A Figura 35 mostra o layout típico de regiões de memória estabelecidas pelo carregador ELF. Em uma região reservada em uma extremidade do espaço de endereçamento reside o kernel, em sua própria região privilegiada de memória virtual inacessível a programas normais de modalidade de usuário.</p>
+              <p>O resto da memória virtual fica disponível para aplicações que podem usar as funções de mapeamento da memória do kernel para criar regiões que mapeiem uma parte de um arquivo ou que estejam disponíveis para dados de aplicações.</p>
+            </div>
+            <figure>
+              <img src="IMG/so/fig35.jpg" alt="Figura 35: Layout de memória de um arquivo ELF. Fonte: SILBERSCHATZ, 2015." class="vw30">
+              <figcaption>Figura 35: Layout de memória de um arquivo ELF. Fonte: SILBERSCHATZ, 2015.</figcaption>
+            </figure>
+          </section>
+          <p>A função do carregador é estabelecer o mapeamento inicial da memória para permitir que a execução do programa comece. As regiões que precisam ser inicializadas incluem a pilha e as regiões de texto e dados do programa.</p>
+          <p>A pilha é criada no topo da memória virtual de modalidade de usuário; ela cresce para baixo em direção a endereços de numeração menor e inclui cópias dos argumentos e variáveis de ambiente fornecidas ao programa na chamada de sistema exec( ).</p>
+          <ul>
+            <li>As outras regiões são criadas perto da extremidade inferior da memória virtual e incluem:</li>
+            <li>As seções do arquivo binário que contêm texto de programas ou dados apenas de leitura, que são definidas como apenas leitura e protegidas contra gravação.</li>
+            <li>Dados inicializados ou não que podem sofrer gravação são alocados a seguir.</li>
+            <li>O heap, que é uma área de tamanho variável e que armazena os dados em tempo de execução. Tem seu limite apontado por brk, o que permite sua expansão ou retração.</li>
+          </ul>
+          <p>Uma vez que esses mapeamentos tenham sido estabelecidos, o carregador inicializa o registrador de contagem de programas do processo com o ponto inicial registrado no cabeçalho ELF, e o processo pode ser incluído no escalonador.</p>
+          <h3>Vinculação estática e dinâmica</h3>
+          <p>Uma vez que o programa foi carregado e escalonado para o processador, todos os conteúdos necessários para sua execução já estarão no seu espaço de endereçamento virtual. Entretanto, a maior parte dos programas utiliza códigos de bibliotecas do sistema que também devem ser carregados.</p>
+          <article class="atencao">Uma maneira simples de lidar com isso é embutir diretamente no executável do programa o código da biblioteca, o que é realizado pelo ligador durante a geração do executável. Dessa forma, o programa é vinculado estaticamente às suas bibliotecas e executáveis. Com este tipo de vinculação podem iniciar a execução imediatamente assim que carregados.</article>
+          <P>Essa abordagem, entretanto, tem como principal desvantagem o fato de que cada programa gerado deve conter cópias exatas das mesmas funções comuns das bibliotecas do sistema. É muito mais eficiente, tanto em termos de memória física como também de uso de espaço em disco, carregar as bibliotecas do sistema na memória apenas uma vez. Isso pode ser feito utilizando os recursos de vinculação dinâmica existentes no Linux.</P>
+          <P>Cada programa vinculado dinamicamente contém uma pequena função vinculada estaticamente que é chamada quando o programa é iniciado. Essa função estática apenas mapeia a biblioteca de vinculação para a memória e executa o código contido na função.</P>
+          <P>A biblioteca de vinculação determina as bibliotecas dinâmicas requeridas pelo programa e os nomes das variáveis e funções necessárias destas por meio da leitura das informações contidas em seções do binário ELF. Ela mapeia, então, as bibliotecas para o meio da memória virtual e resolve as referências para os símbolos contidos nas mesmas. Não importa para que local exato da memória essas bibliotecas compartilhadas sejam mapeadas, elas são compiladas em código independente de posição, que pode ser executado em qualquer endereço da memória.</P>
+        </section>
+        <section>
+          <h2>Utilitários e comandos para gerenciar a memória do sistema Linux</h2>
+          <p>Para gerenciar a memória de um sistema Linux podem ser utilizados diversos comandos, inclusive utilitários para esse propósito, conforme será apresentado na sequência. Ao final deste módulo é disponibilizado o vídeo em que os pontos abordados são executados na prática, em uma máquina virtual.</p>
+          <h3>Obtendo informações pela linha de comando</h3>
+          <p>Para estes exemplos usaremos uma máquina virtual com Ubuntu instalado.</p>
+          <figure>
+            <img src="IMG/so/fig36.jpg" alt="Captura de tela da execução do comando htop.">
+            <figcaption>Captura de tela da execução do comando htop.</figcaption>
+          </figure>
+          <ul>
+            <li>O Linux provê uma série de comandos de linha que obtêm informações do sistema de memória. Vejamos os principais:</li>
+            <li>
+              <h3 class="atencao">FREE</h3>
+              <p>O comando free exibe informações precisas sobre o uso dos recursos de memória do sistema.</p>
+              <p>Neste exemplo, pode-se observar uma máquina virtual com aproximadamente 4GB (3996 MB) de RAM e tendo em uso 1235MB, sobrando 2338MB disponíveis.</p>
+              <p>O comando mostra ainda que temos uma área de 448MB para swap da qual foram utilizados 8MB.</p>
+              <figure>
+                <img src="O comando mostra ainda que temos uma área de 448MB para swap da qual foram utilizados 8MB." alt="Comando FREE">
+              </figure>
+              <p>O argumento -m faz com que as informações venham em MB.</p>
+            </li>
+            <li>
+              <h3 class="atencao">TOP</h3>
+              <p>Este comando mostra informações a respeito dos processos rodando em sua máquina, incluindo o uso da memória.</p>
+              <figure>
+                <img src="IMG/so/fig38.jpg" alt="Comando TOP">
+              </figure>
+            </li>
+            <li>
+              <h3 class="atencao">VMSTAT</h3>
+              <p>Este comando mostra a situação da memória virtual da máquina.</p>
+              <figure>
+                <img src="IMG/so/fig39.jpg" alt="Comando VMSTAT">
+              </figure>
+            </li>
+            <li>
+              <h3 class="atencao">Getconf PAGESIZE</h3>
+              <p>O comando getconf PAGESIZE mostra o tamanho da página no sistema de memória virtual que, neste caso, é de 4096 bytes, ou seja, 4KB.</p>
+              <figure>
+                <img src="IMG/so/fig40.jpg" alt="Comando Getconf PAGESIZE">
+              </figure>
+            </li>
+            <li>
+              <h3 class="atencao">Swapon</h3>
+              <p>O comando swapon mostra informações a respeito do arquivo de swap.</p>
+              <figure>
+                <img src="IMG/so/fig41.jpg" alt="Comando Swapon">
+              </figure>
+            </li>
+          </ul>
+          <h3>Utilitários para acesso à informação</h3>
+          <p>Vários utilitários que podem ser chamados na linha de comando ou por meio da interface gráfica podem ser utilizados para monitorar o uso da memória do Linux. Com exceção do monitor do sistema, todos os outros precisam ser instalados no Ubuntu, pois não existem como padrão.</p>
+          <h3>Htop</h3>
+          <p>Esse aplicativo htop é uma evolução do comando top e exibe de forma interativa as informações do sistema.</p>
+          <p>Ele é chamado na linha de comando:</p>
+          <p class="codigo">htop</p>
+          <p>Após a chamada, ele carrega sua interface, na qual, em sua parte superior, temos informações agregadas e, na parte inferior, a lista de processos com suas informações de CPU, memória etc.</p>
+          <figure>
+            <img src="IMG/so/fig42.jpg" alt="Captura de tela do Software htop.">
+            <figcaption>Captura de tela do Software htop.</figcaption>
+          </figure>
+          <p>Neste aplicativo, as cores que aparecem no resumo na parte superior possuem significado.</p>
+          <figure>
+            <figcaption>Sendo assim, observa-se o seguinte:</figcaption>
+            <img src="IMG/so/fig43.jpg" alt="Esquema de cores do software htop">
+          </figure>
+          <figure>
+            <figcaption>Essas informações podem ser obtidas ainda apertando F1</figcaption>
+            <img src="IMG/so/fig44.jpg" alt="Captura de tela do Software htop">
+          </figure>
+          <h3>Ksysguard</h3>
+          <p>O utilitário ksysguard é outro que pode ser chamado na linha de comando e que não vem instalado por padrão.</p>
+          <figure>
+            <img src="IMG/so/fig45.jpg" alt="Captura de tela da execução do utilitário ksysguard">
+          </figure>
+          <p>Ele possui uma interface gráfica que mostra as informações do sistema.</p>
+          <p>Na aba Tabela de Processos, ele mostra todos os existentes no sistema e as informações de CPU e memória.</p>
+          <figure>
+            <img src="IMG/so/fig46.jpg" alt="Captura de tela">
+          </figure>
+          <p>Na aba Carga do Sistema, ele mostra de forma gráfica a utilização pelos processos.</p>
+          <figure>
+            <img src="IMG/so/fig47.jpg" alt="Captura de tela">
+          </figure>
+          <h3>Monitor do Sistema</h3>
+          <p>Este aplicativo vem instalado por padrão e pode ser acessado na aba Ferramentas.</p>
+          <figure>
+            <img src="IMG/so/fig48.jpg" alt="Capitura de tela">
+          </figure>
+          <p>Após a abertura, ele apresenta uma interface gráfica com 3 abas na parte superior. São elas:</p>
+          <figure class="container column gap1 vw70 mA">
+            <img src="IMG/so/fig49.jpg" alt="Tela 1 Monitor do Sistema">
+            <img src="IMG/so/fig50.jpg" alt="Tela 2 Monitor do Sistema">
+            <img src="IMG/so/fig51.jpg" alt="Tela 3 Monitor do Sistema">
+          </figure>
+        </section>
+      </section>
     </section>
   </main>
-  <!--
-    Tema 4 
-    memória
-    Políticas de paginação
-  -->
 </body>
 </html>

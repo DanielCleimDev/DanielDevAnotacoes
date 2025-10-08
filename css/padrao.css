@@ -128,6 +128,12 @@ pre{
   display: flex;
   justify-content: space-around;
 }
+.column{
+  flex-direction: column;
+}
+.gap1{
+  gap:1rem;
+}
 
 .atencao{
   padding: 1.5rem 1rem;
@@ -148,6 +154,9 @@ figcaption{
   padding: 0.5em;
 }
 
+.mA{
+  margin: auto;
+}
 .m1{
   margin: 1rem;
 }
@@ -163,7 +172,9 @@ figcaption{
 .vw45{
   width: 45vw;
 }
-
+.vw70{
+  width: 70vw;
+}
 @media (min-width: 768px ) {
   .cardConteudo{
     margin: 1rem 2rem;
