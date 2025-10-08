@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/so.css">
+  <title>Sistema de Arquivos</title>
+</head>
+<body>
+  <header class="titulo">Sistema de Arquivos</header>
+  <main>
+    <section>
+      <h4>O sistema de arquivos é constituído de duas partes distintas:</h4>
+      <ul>
+        <li><strong>Conjunto de arquivos</strong></li>
+        <li>Armazena dados.</li>
+        <li><strong>Estrutura de diretórios</strong></li>
+        <li>Organiza e fornece informações sobre os arquivos do sistema.</li>
+      </ul>
+      <p>Arquivos são unidades lógicas de informação criadas por processos.</p>
+      <p>Um arquivo é constituído de informações, podendo representar programas ou dados. Um programa contém instruções compreendidas pela UCP (arquivo executável), enquanto um arquivo de dados pode ser estruturado livremente (podem ser numéricos, alfabéticos, alfanuméricos ou binários).</p>
+      <article class="atencao">Em alguns sistemas operacionais, o nome do arquivo é composto por duas partes separadas com um ponto. A parte após o ponto é denominada extensão do arquivo e tem como finalidade identificar seu conteúdo.</article>
+      <ul>
+        <li><strong>As principais diferenças entre as regras para os nomes de arquivo são:</strong></li>
+        <li>Quantidade máxima de caracteres;</li>
+        <li>Diferenciação entre caracteres maiúsculos e minúsculos;</li>
+        <li>Uso de caracteres especiais;</li>
+        <li>Nomes com extensão tendo significado ou não.</li>
+      </ul>
+      <p>Em alguns sistemas, as extensões de arquivos são apenas convenções e não são impostas pelo sistema operacional.</p>
+      <p> Ao receber um nome, o arquivo se torna independente do processo, do usuário e até mesmo do sistema que o criou.</p>
+    </section>
+    <section>
+      <h2>Estrutura de Arquivos</h2>
+      <ul>
+        <li class="atencao">Sequência desestruturada de bytes</li>
+        <li class="p1">É a forma mais simples de organização de arquivos. Nesse tipo de organização, o sistema de arquivos não impõe nenhuma estrutura lógica para os dados (a aplicação deve definir toda a organização). A grande vantagem é a flexibilidade para criar diferentes estruturas de dados, mas todo o controle de acesso ao arquivo é de inteira responsabilidade da aplicação. Qualquer significado deve ser imposto por programas em nível de usuário. Tanto o Linux quanto o MS Windows usam essa abordagem.</li>
+        <li class="atencao">Sequência de registros de tamanho fixo</li>
+        <li class="p1">É uma forma estruturada para o armazenamento de arquivos. Nela o arquivo é composto por uma série de registros com uma estrutura interna característica, e as operações de leitura/gravação trabalham com registros inteiros. No passado, quando o cartão de 80 colunas perfurado era utilizado, muitos sistemas operacionais de computadores de grande porte baseavam seus sistemas de arquivos em arquivos consistindo em registros de 80 caracteres. Esses sistemas também aceitavam arquivos com registros de 132 caracteres, destinados às impressoras de linha. Nenhum sistema de propósito geral atual utiliza esse modelo como seu sistema primário de arquivos.</li>
+        <li class="atencao">Árvore de registros</li>
+        <li class="p1">Uma organização que é composta por registros que não possuem necessariamente o mesmo tamanho, e cada um contém um campo com uma chave em uma posição fixa. A árvore é ordenada pelo campo chave de forma a permitir uma busca rápida. Esse tipo de arquivo é bastante diferente das sequências de bytes desestruturadas, sendo utilizado em alguns computadores de grande porte para o processamento de dados comerciais.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Métodos de Acesso</h2>
+      <p>Os primeiros sistemas operacionais acessavam os registros de um arquivo na ordem em que eram gravados, possibilitando a gravação de novos registros apenas no final. A esse tipo de acesso dá-se o nome de <strong>acesso sequencial</strong>.</p>
+      <article class="atencao">É possível retroceder registros, mas nunca pular ou lê-los fora de ordem.</article>
+
+    </section>
+  </main>
+  <!-- O sistema de arquivos do Linux -->
+</body>
+</html>
