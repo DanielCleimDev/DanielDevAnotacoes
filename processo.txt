@@ -1,0 +1,12 @@
+SO
+Tema 5
+Sistema de arquivos
+O sistema de arquivos do linux 09/10/25
+MÓDULO 3
+Conceitos
+Links simbólicos e hardlinks
+MÓDULO 4
+Editor de arquivos X processador de textos
+
+Tema 6
+Automatizando Tarefas no Linux
