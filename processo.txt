@@ -10,3 +10,9 @@ Editor de arquivos X processador de textos
 
 Tema 6
 Automatizando Tarefas no Linux
+
+MÓDULO 2
+Conceitos
+
+MÓDULO 3
+MÓDULO 4
