@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/java.css">
+    <title>Java Anotações</title>
+</head>
+<body>
+    <main>
+        <section>
+            <h1 class="titulo">Formatação de texto</h1>
+            <p>Em Java, é possível formatar textos e números de diversas maneiras. Isso pode ser útil em diversas situações, como ao exibir valores para o usuário de uma maneira mais legível.</p>
+            <p>Uma das maneiras mais comuns de se formatar textos em Java é utilizando o método format(), da classe String. Esse método permite formatar um texto utilizando diversos placeholders, que são representados pelo caractere % seguido de uma letra que indica o tipo de dado que será inserido no placeholder. Por exemplo, %s indica que uma String será inserida no placeholder, %d indica um valor inteiro e %f indica um valor de ponto flutuante. Vamos ver um exemplo:</p>
+
+            <Pre>
+
+                String nome = "Maria";
+                int idade = 30;
+                double valor = 55.9999;
+                System.out.println(String.format("Meu nome é %s, eu tenho %d anos e hoje gastei %.2f reais", nome, idade, valor));
+
+            </Pre>
+
+            <p>Nesse exemplo, os valores das variáveis nome, idade e valor são passados como parâmetros para o método String.format, substituindo os placeholders %s, %d e %.2f, respectivamente. O resultado impresso será "Meu nome é Maria, eu tenho 30 anos e hoje gastei 55,99 reais". Perceba também que o placeholder %.2f indica que o valor deve ser formatado com duas casas decimais.</p>
+            <p>Esse exemplo do que foi feito para o String.format também pode ser usado com Text Block, onde usa-se o método que citei em aula, o formatted, para informar as variáveis que deverão ser utilizadas no lugar dos placeholders. Veja esse exemplo:</p>
+
+            <pre>
+
+                String nome = "João";
+                int aulas = 4;
+                
+                String mensagem = """
+                Olá, %s!
+                Boas vindas ao curso de Java.
+                Teremos %d aulas para te mostrar o que é preciso para você dar o seu primeiro mergulho na linguagem!
+                """.formatted(nome, aulas);
+                
+                System.out.println(mensagem);
+                Copiar código
+                O resultado impresso será:
+                
+                Olá, João!
+                
+                Boas vindas ao curso de Java.
+            </pre>
+        </section>
+        <section>
+            <h1 class="titulo">Tipos Primitivos em Java</h1>
+            
+            <h3>boolean</h3>
+            <p>O tipo boolean é utilizado para representar valores lógicos, podendo assumir apenas dois valores: true ou false. É utilizado em expressões condicionais, loops e outros casos onde se deseja avaliar se uma determinada condição é verdadeira ou falsa.</p>
+            
+            <h3>byte</h3>
+            <p>O tipo byte é utilizado para representar valores numéricos inteiros de 8 bits. Ele possui uma faixa de valores de -128 a 127.</p>
+
+            <h3>char</h3>
+            <p>O tipo char é utilizado para representar caracteres individuais. Ele pode armazenar qualquer caractere Unicode e é representado por aspas simples ('').</p>
+
+            <h3>short</h3>
+            <p>O tipo short é utilizado para representar valores numéricos inteiros de 16 bits. Ele possui uma faixa de valores de -32.768 a 32.767.</p>
+
+            <h3>int</h3>
+            <p>O tipo int é utilizado para representar valores numéricos inteiros de 32 bits. É um dos tipos de dados mais utilizados para representar números inteiros em Java e possui uma faixa de valores de -2.147.483.648 a 2.147.483.647.</p>
+
+            <h3>long</h3>
+            <p>O tipo long é utilizado para representar valores numéricos inteiros de 64 bits. Ele é utilizado para representar valores inteiros muito grandes e possui uma faixa de valores de -9.223.372.036.854.775.808 a 9.223.372.036.854.775.807.</p>
+
+            <h3>float</h3>
+            <p>O tipo float é utilizado para representar valores numéricos de ponto flutuante, ou seja, valores com casas decimais, sendo que ocupa 32 bits de memória. Ele pode representar números decimais com até sete dígitos e tem uma precisão limitada, o que significa que ele pode arredondar os números se eles forem muito grandes ou muito pequenos.</p>
+
+            <h3>double</h3>
+            <p>O tipo double é similar o float, entretanto ele ocupa 64 bits de memória e pode representar números decimais com até 15 dígitos.</p>
+        </section>
+        <section>
+            <h1 class="titulo">Utilizando Scanner</h1>
+            <pre>
+
+                public class ExemploScanner {
+                    public static void main(String[] args) {
+                        Scanner scanner = new Scanner(System.in);
+                        
+                        System.out.print("Digite seu nome: ");
+                        String nome = scanner.nextLine();
+                        System.out.print("Digite sua idade: ");
+                        int idade = scanner.nextInt();
+                        System.out.print("Digite o valor que pretende investir esse mês: ");
+                        double valor = scanner.nextDouble();
+                        
+                        System.out.println(nome + " que tem " + idade + " anos, irá investir R$ " + valor + " esse mês.");
+                        
+                        scanner.close();
+                    }
+                }
+            </pre>
+        </section>
+        <section>
+            <h1 class="titulo">Utilizando for</h1>
+            <pre>
+
+                import java.util.Scanner;
+                
+                public class Loop {
+                    public static void main(String[] args) {
+                        Scanner leitura = new Scanner(System.in);
+                        double mediaAvaliacao = 0;
+                        double nota = 0;
+                        
+                        for (int i = 0; i < 3; i++) {
+                            System.out.println("Diga sua avaliação para o filme  ");
+                            nota = leitura.nextDouble();
+                            mediaAvaliacao += nota;
+                        }
+                        
+                        System.out.println("Média de avaliações " + mediaAvaliacao/3);
+                        
+                    }
+                }
+            </pre>
+        </section>
+        <section>
+            <h1 class="titulo">Utilizando While</h1>
+            <pre>
+
+                import java.util.Scanner;
+                
+                public class OutroLoop {
+                    public static void main(String[] args) {
+                        Scanner leitura = new Scanner(System.in);
+                        double mediaAvaliacao = 0;
+                        double nota = 0;
+                        int totalDeNotas = 0;
+                        
+                        while (nota != -1) {
+                        System.out.println("Diga sua avaliação para o filme ou -1 para encerrar  ");
+                        nota = leitura.nextDouble();
+                        
+                        if (nota != -1) {
+                            mediaAvaliacao +=  nota;
+                            totalDeNotas++;
+                        }
+                        
+                    }
+                    
+                    System.out.println("Média de avaliações " + mediaAvaliacao / totalDeNotas);
+                }
+            }
+            </pre>
+        </section>
+        <section>
+            <h1 class="titulo">construtor padrão</h1>
+
+            <p>Em Java, um construtor é um método especial usado para criar e inicializar um objeto recém-criado. Quando uma classe é definida, ela pode ter um ou mais construtores, sendo que se nenhum construtor for definido explicitamente, o Java criará um construtor default (padrão) automaticamente.</p>
+
+            <p>Um construtor default é um construtor que não possui parâmetros e não executa nenhuma instrução. Ele é chamado sempre que um objeto da classe é criado sem argumentos. Por exemplo:</p>
+            <pre>
+                public class Pessoa {
+                    
+                    private String nome;
+                    private String email;
+                    
+                    public Pessoa() {
+                    }
+                    
+                    //metodos getters/setters
+                }
+            </pre>
+
+            <p>No exemplo de código anterior, a classe Pessoa possui um construtor default, que será exatamente o mesmo construtor que o Java criará automaticamente, caso nenhum construtor tivesse sido definido na classe.</p>
+
+            <p>Se uma classe define explicitamente um ou mais construtores, mas não define um construtor sem parâmetros, então não há construtor default. Nesse caso, se um objeto é criado sem argumentos, um erro de compilação será gerado.</p>
+
+            <p>É importante ressaltar que mesmo que um construtor default possa ser útil em alguns casos, é sempre recomendável definir explicitamente os construtores da classe, especialmente se a classe tiver atributos que precisam ser inicializados com valores específicos ou obrigatórios. Isso também torna o código mais claro e fácil de entender.</p>
+        </section>
+        <section>
+            <h1 class="titulo">Declarando Variáveis com var</h1>
+            <p>A partir da versão 10 do Java, foi adicionada uma nova funcionalidade para a declaração de variáveis chamada var. Essa nova palavra-chave permite que o compilador infira automaticamente o tipo da variável com base no valor atribuído a ela. Isso pode tornar o código mais limpo e legível, além de reduzir a digitação de código redundante.</p>
+
+            <h3>Sintaxe básica</h3>
+            <p>A sintaxe básica para declarar uma variável com var é a seguinte:</p>
+
+            <p><strong>var nomeDaVariavel = valorInicial;</strong></p>
+
+            <p>Onde nomeDaVariavel é o nome que você quer dar à variável e valorInicial é o valor que você quer atribuir a ela. O tipo da variável será inferido automaticamente pelo compilador com base no valor atribuído.</p>
+
+            <p>Exemplo:</p>
+
+            <p><strong>var numero = 10;</strong></p>
+
+            <p>Nesse exemplo, a variável numero será inferida como sendo do tipo int, já que o valor atribuído é um número inteiro.</p>
+
+            <h3>Limitações</h3>
+            <p>A declaração de variáveis com var possui algumas limitações:</p>
+
+            <p>O tipo da variável deve ser inferido automaticamente pelo compilador. Isso significa que não é possível utilizar var em variáveis cujo tipo não possa ser inferido automaticamente.</p>
+
+            <p>Não é possível usar var em variáveis sem valor inicial. É necessário atribuir um valor à variável na mesma linha em que ela é declarada.</p>
+        </section>
+        <section>
+            <h1 class="titulo">Array</h1>
+            <p>Em Java, arrays são estruturas de dados que permitem armazenar uma coleção de elementos do mesmo tipo. Eles são muito utilizados para manipulação de dados em projetos de programação.</p>
+
+            <p>Para declarar um array em Java, é preciso definir seu tipo e tamanho. Por exemplo, para criar um array de inteiros com tamanho 5, podemos escrever o seguinte código:</p>
+
+            <p><strong>int[] numeros = new int[5];</strong></p>
+
+            <p>Aqui, estamos declarando um array chamado "numeros" do tipo "int" e com tamanho 5. É importante lembrar que o índice dos elementos de um array começa em 0 e vai até o tamanho do array menos 1.</p>
+
+            <p>Após declarar um array, podemos inicializá-lo com valores. Por exemplo, podemos preencher o array "numeros" com os números de 1 a 5 da seguinte forma:</p>
+
+            <pre>
+
+                for (int i = 0; i < numeros.length; i++) {
+                    numeros[i] = i + 1;
+                }
+                
+            </pre>
+
+            <p>Aqui, estamos percorrendo o array "numeros" utilizando um loop for e preenchendo cada posição com seu respectivo índice mais 1.</p>
+
+            <p>Também é possível criar arrays de objetos e não apenas de tipos primitivos. Por exemplo:</p>
+
+            <pre>
+
+                Filme[] filmes = new Filme[2];
+                
+                Filme filme1 = new Filme("Avatar", 2009);
+                Filme filme2 = new Filme("Dogville", 2003);
+                
+                filmes[0] = filme1;
+                filmes[1] = filme2;
+                
+            </pre>
+            <p>Embora os arrays sejam úteis, eles possuem algumas limitações que podem causar problemas em projetos. Alguns desses problemas incluem:</p>
+
+            <p>Tamanho fixo: o tamanho de um array é fixo e não pode ser alterado após a sua criação. Isso pode ser problemático em situações em que o tamanho dos dados a serem armazenados é desconhecido ou variável.</p>
+
+            <p>Ausência de métodos: arrays não possuem métodos que permitam a inserção, remoção ou pesquisa de elementos de forma eficiente. Isso pode levar a soluções de código complicadas e ineficientes para tarefas simples.</p>
+
+            <p>Justamente por conta desses problemas e dificuldades é que não devemos utilizar arrays para representar uma coleção de elementos, mas sim alguma classe do Java, como a <strong>ArrayList</strong>, que encapsula e abstrai um array, facilitando a sua utilização via métodos e deixando o código do projeto mais simples de entender e evoluir.</p>
+        </section>
+    </main>
+    
+</body>
+</html>
