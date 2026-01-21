@@ -7,6 +7,11 @@
     <title>Java Anotações</title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li class="link"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/index.html">Documentação Java</a></li>
+        </ul>
+    </nav>
     <main>
         <section>
             <h1 class="titulo">Formatação de texto</h1>
@@ -172,7 +177,151 @@
 
             <p>É importante ressaltar que mesmo que um construtor default possa ser útil em alguns casos, é sempre recomendável definir explicitamente os construtores da classe, especialmente se a classe tiver atributos que precisam ser inicializados com valores específicos ou obrigatórios. Isso também torna o código mais claro e fácil de entender.</p>
         </section>
+
         <section>
+
+            <h1 class="titulo">Modificadores de Acesso</h1>
+            <p>Em Java, os modificadores de acesso são palavras-chave que definem o nível de visibilidade de classes, atributos e métodos, sendo que eles ajudam a garantir a segurança e encapsulamento do código.</p>
+            <p>Existem quatro tipos de modificadores de acesso em Java: public, protected, private e default (também conhecido como package-private).</p>
+            
+            <h2>Public</h2>
+            <p>O modificador de acesso public é o mais permissivo de todos. Uma classe, atributo ou método declarado como public pode ser acessado por qualquer classe em qualquer pacote. Ou seja, ele possui visibilidade pública e pode ser utilizado livremente. Por exemplo:</p>
+            <pre>
+                <span class="pre1">public</span> class Conta {
+
+                    <span class="pre1">public</span> double saldo;
+
+                    <span class="pre1">public</span> void sacar(double valor) {
+                        // lógica de saque...
+                    }
+                }
+            </pre>
+            
+            <h2>Default (Package-private)</h2>
+            <p>O modificador de acesso default é aquele que não especifica nenhum modificador de acesso. Quando nenhum modificador de acesso é especificado, a classe, atributo ou método pode ser acessado apenas pelas classes que estão no mesmo pacote. Por exemplo:</p>
+            <pre>
+                package br.com.alura.conta;
+
+                public class Conta {
+
+                    double saldo;
+
+                    void sacar(double valor) {
+                        // lógica de saque...
+                    }
+                }
+            </pre>
+            <pre>
+                package br.com.alura.testes;
+
+                public class Principal {
+                    
+                    public static void main(String[] args) {
+                        Conta c1 = new Conta();
+                        c1.saldo = 300;
+                        c1.sacar(100);
+                    }
+
+                }
+            </pre>
+            <p>No código anterior, a classe Conta está em um pacote e a classe Principal em outro pacote distinto. A classe Conta pode ser instanciada dentro da classe Principal, pois ela possui o modificador de acesso public, entretanto, o atributo saldo e o método sacar tem o modificador default e, portanto, não podem ser acessados de dentro da classe Principal, o que vai causar um erro de compilação no código anterior.</p>
+            <h2>Private</h2>
+            <p>O modificador de acesso private é o mais restritivo de todos. Uma classe, atributo ou método declarado como private só pode ser acessado dentro da própria classe. Ou seja, ele possui visibilidade restrita e não pode ser utilizado por outras classes. Por exemplo:</p>
+            <pre>
+                public class Conta {
+
+                    <span class="pre1">private</span> double saldo;
+
+                    <span class="pre1">private</span> void sacar(double valor) {
+                        // lógica de saque...
+                    }
+                }
+            </pre>
+
+        </section>
+        <section>
+            <h1 class="titulo">Herança</h1>
+            <p>A herança é um conceito fundamental da orientação a objetos, sendo implementada em Java através da relação é um entre classes. Isso significa que uma classe pode herdar atributos e métodos de outra classe, tornando com isso o código mais reutilizável.</p>
+            <p>No Java, a herança é realizada através da palavra-chave extends. A classe que herda é chamada de subclasse, e a classe que é herdada é chamada de superclasse. A subclasse pode acessar todos os atributos e métodos públicos e protegidos da superclasse, além de poder sobrescrever os métodos da superclasse para criar comportamentos específicos.</p>
+            <p>Por exemplo:</p>
+            <pre>
+                public class Conta {
+
+                    private String titular;
+                    private double saldo;
+
+                    public void sacar(double valor) {
+                        if (valor <= 0) {
+                        System.out.println("Valor deve ser maior do que zero!");
+                        } else if (saldo >= valor) {
+                        saldo -= valor;
+                        System.out.println("Saque realizado com sucesso. Saldo atual: " +saldo);
+                        } else {
+                        System.out.println("Saldo insuficiente.");
+                        }
+                    }
+
+                    public void depositar(double valor) {
+                        if (valor > 0) {
+                        saldo += valor;
+                        System.out.println("Depósito realizado com sucesso. Saldo atual: " +saldo);
+                        } else {
+                        System.out.println("Valor deve ser maior do que zero!");
+                        }
+                    }
+
+                    //getters e setters
+                }
+            </pre>
+            <pre>
+                public class ContaPoupanca <span class="pre1">extends Conta </span>{
+
+                    private double taxaDeJuros;
+
+                    public void calcularJuros() {
+                        double juros = this.getSaldo() * taxaDeJuros;
+                        System.out.println("Juros atual: " +juros);
+                    }
+
+                    public void sacar(double valor) {
+                        double taxaSaque = 0.01;
+                        super.sacar(valor + taxaSaque);
+                    }
+
+                    //getters e setters
+                }
+            </pre>
+            <p>No código anterior, a classe Conta é a superclasse e a classe ContaPoupanca é a subclasse. A classe ContaPoupanca herda os atributos e métodos da classe Conta, e adiciona um novo atributo taxaDeJuros e um novo método calcularJuros. Embora os atributos sejam herdados, como eles foram declarados como private na superclasse, não poderão ser acessados diretamente na subclasse, devendo então serem utlizados os métodos getters/setter, que são públicos.</p>
+            <p>Repare também no código anterior que a subclasse sobrescreveu o método sacar, para que seja descontada a taxa de saque, além de utilizar a palavra chave super para chamar o método da superclasse, evitando com isso duplicar um código já existente. Essa é a grande vantagem da herança: reaproveitamento de código com flexibilidade para sobrescrever comportamentos.</p>
+            <h2>Herança múltipla</h2>
+            <p>Em Java, é importante notar que a herança múltipla não é permitida. A herança múltipla ocorre quando uma subclasse herda de duas ou mais superclasses. Por exemplo:</p>
+            <pre class="prePropriedade">
+                public class ContaPoupanca <span class="pre1">extends Conta, Pagamento</span> {
+                    //codigo da classe omitido
+                }
+            </pre>
+            <p><span class="prePropriedade">O código anterior não compila</span>, pois o extends aceita apenas uma única classe, ou seja, uma classe pode ter apenas uma superclasse.</p>
+            <p>Entretanto, é possível criar uma hierarquia de classes utilizando herança, simulando com isso uma herança múltipla. Por exemplo:</p>
+            <pre>
+                public class <span class="pre1">Conta</span> {
+                //codigo da classe omitido
+                }
+            </pre>
+            <pre>
+                public class <span class="prePropriedade">ContaCorrente</span> <span class="preAmarelo">extends</span> <span class="pre1">Conta</span> {
+                //codigo da classe omitido
+                }
+            </pre>
+            <pre>
+                public class ContaCorrentePessoaFisica <span class="preAmarelo">extends</span> <span class="prePropriedade">ContaCorrente</span>  {
+                //codigo da classe omitido
+                }
+            </pre>
+            <p>No código anterior, a classe ContaCorrentePessoaFisica está herdando de ContaCorrente, que por sua vez herda da classe Conta, ou seja, indiretamente a classe ContaCorrentePessoaFisica vai herdar de Conta, pois sua superclasse herda dela.</p>
+        </section>
+        
+        <section>
+
             <h1 class="titulo">Declarando Variáveis com var</h1>
             <p>A partir da versão 10 do Java, foi adicionada uma nova funcionalidade para a declaração de variáveis chamada var. Essa nova palavra-chave permite que o compilador infira automaticamente o tipo da variável com base no valor atribuído a ela. Isso pode tornar o código mais limpo e legível, além de reduzir a digitação de código redundante.</p>
 
