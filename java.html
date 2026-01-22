@@ -225,6 +225,7 @@
                 }
             </pre>
             <p>No código anterior, a classe Conta está em um pacote e a classe Principal em outro pacote distinto. A classe Conta pode ser instanciada dentro da classe Principal, pois ela possui o modificador de acesso public, entretanto, o atributo saldo e o método sacar tem o modificador default e, portanto, não podem ser acessados de dentro da classe Principal, o que vai causar um erro de compilação no código anterior.</p>
+            
             <h2>Private</h2>
             <p>O modificador de acesso private é o mais restritivo de todos. Uma classe, atributo ou método declarado como private só pode ser acessado dentro da própria classe. Ou seja, ele possui visibilidade restrita e não pode ser utilizado por outras classes. Por exemplo:</p>
             <pre>
@@ -238,6 +239,73 @@
                 }
             </pre>
 
+            <h2>Protected</h2>
+            <p>Ao usar herança no Java, temos a possibilidade de utilizar o modificador de acesso protected, que permite que os atributos de uma classe sejam acessados por outras classes do mesmo pacote e também por suas subclasses, independentemente do pacote em que se encontram.</p>
+            <p>O modificador protected é útil em situações em que uma classe precisa permitir que suas subclasses acessem diretamente seus atributos, sem a necessidade de restringir o acesso apenas pelos métodos getters e setters. Por exemplo, suponha que temos as seguintes classes em um projeto:</p>
+
+            <pre>
+                public class Conta {
+
+                    private String titular;
+                    private double saldo;
+
+                    public void sacar(double valor) {
+                        //implementacao do metodo omitida
+                    }
+
+                    public void depositar(double valor) {
+                        //implementacao do metodo omitida
+                    }
+
+                    //getters e setters
+                }
+            </pre>
+            <pre>
+                public class ContaPoupanca extends Conta {
+
+                    private double taxaDeJuros;
+
+                    public void calcularJuros() {
+                        double juros = this.getSaldo() * taxaDeJuros;
+                        System.out.println("Juros atual: " +juros);
+                    }
+
+                    //getters e setters
+                }
+            </pre>
+            <p>No código anterior, repare que no método calcularJuros, da classe ContaPoupanca, o atributo saldo não é acessado diretamente, pois ele foi declarado como private na classe Conta, devendo então seu acesso ser feito pelo método getSaldo().</p>
+            <p>Podemos declarar o atributo saldo como protected, para evitar essa situação e liberar o acesso direto a ele pelas classes que herdam da classe Conta:</p>
+            <pre>
+                public class Conta {
+
+                    private String titular;
+                    protected double saldo;
+
+                    public void sacar(double valor) {
+                        //implementacao do metodo omitida
+                    }
+
+                    public void depositar(double valor) {
+                        //implementacao do metodo omitida
+                    }
+
+                    //getters e setters
+                }
+            </pre>
+            <pre>
+                public class ContaPoupanca extends Conta {
+
+                    private double taxaDeJuros;
+
+                    public void calcularJuros() {
+                        double juros = this.saldo * taxaDeJuros;
+                        System.out.println("Juros atual: " +juros);
+                    }
+
+                    //getters e setters
+                }
+            </pre>
+            <p>Repare que agora o atributo saldo foi acessado diretamente pela classe ContaPoupanca.</p>
         </section>
         <section>
             <h1 class="titulo">Herança</h1>
