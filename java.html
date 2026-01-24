@@ -306,8 +306,10 @@
                 }
             </pre>
             <p>Repare que agora o atributo saldo foi acessado diretamente pela classe ContaPoupanca.</p>
+            
         </section>
         <section>
+
             <h1 class="titulo">Herança</h1>
             <p>A herança é um conceito fundamental da orientação a objetos, sendo implementada em Java através da relação é um entre classes. Isso significa que uma classe pode herdar atributos e métodos de outra classe, tornando com isso o código mais reutilizável.</p>
             <p>No Java, a herança é realizada através da palavra-chave extends. A classe que herda é chamada de subclasse, e a classe que é herdada é chamada de superclasse. A subclasse pode acessar todos os atributos e métodos públicos e protegidos da superclasse, além de poder sobrescrever os métodos da superclasse para criar comportamentos específicos.</p>
@@ -387,6 +389,83 @@
             </pre>
             <p>No código anterior, a classe ContaCorrentePessoaFisica está herdando de ContaCorrente, que por sua vez herda da classe Conta, ou seja, indiretamente a classe ContaCorrentePessoaFisica vai herdar de Conta, pois sua superclasse herda dela.</p>
         </section>
+
+        <section>
+            <h1 class="titulo">Interface</h1>
+            <p>Em Java, interfaces são uma forma de definir um contrato que as classes devem seguir, sendo que ele define quais métodos devem ser implementados pelas classes que o implementarem. Interfaces permitem que diferentes classes possam ser tratadas de maneira padronizada, via polimorfismo, tornando assim o código fácil de estender com novos comportamentos.</p>
+            <p>No Java, uma interface é definida usando a palavra-chave interface. Por exemplo:</p>
+            
+            <pre>
+                public <span class="preAmarelo">interface</span> Tributavel {
+
+                    double getValorImposto();
+
+                }
+            </pre>
+
+            <p>No exemplo de código anterior, estamos definindo uma interface chamada Tributavel, sendo que ela possui apenas um método chamado <span class="codigo">getValorImposto()</span> que retorna um valor do tipo double. Essa interface pode ser implementada por qualquer classe que queira ser tributável no projeto.</p>
+            <p>Para implementar uma interface, usamos a palavra-chave implements após a definição da classe. A classe que implementa a interface deve implementar todos os métodos definidos na interface. Por exemplo:</p>
+
+            <pre>
+                public class Produto <span class="preAmarelo">implements</span> Tributavel {
+
+                    private String nome;
+                    private double valor;
+
+                    @Override
+                    public double getValorImposto() {
+                        return this.valor * 0.1;
+                    }
+
+                    //getters e setters
+                }
+            </pre>
+
+            <p>No exemplo anterior, estamos criando uma classe chamada Produto que implementa a interface Tributavel. Essa classe implementa o método getValorImposto(), que está definido na interface Tributavel, com uma lógica de que o imposto do produto é igual a 10% do seu valor.</p>
+            <p>Também poderíamos ter uma classe de serviços, conforme abaixo:</p>
+
+            <pre>
+                public class Servico implements Tributavel {
+
+                    private String descricao;
+                    private double valor;
+                    private double aliquotaISS;
+
+                    @Override
+                    public double getValorImposto() {
+                        return this.valor * this.aliquotaISS / 100;
+                    }
+
+                    //getters e setters
+                }
+            </pre>
+
+            <p>No exemplo acima, estamos criando uma classe chamada Servico que implementa a interface Tributavel. Essa classe implementa o método getValorImposto(), que está definido na interface Tributavel, com uma lógica de que o imposto do serviço é igual ao seu valor vezes a alíquota de ISS definida e dividido por 100. Então para um serviço de R$ 1.200,00 e alíquota de 5%, o método retornará: 1200 * 5 / 100, cujo valor do imposto fica R$ 60,00.</p>
+            
+            <h2>Utilização de interfaces</h2>
+            <p>Interfaces podem ser utilizadas para definir comportamentos que podem ser aplicados a várias classes diferentes, tornando assim o código mais modular e fácil de manter.</p>
+            <p>Por exemplo, suponha que temos um sistema de vendas que precisa calcular o imposto de diferentes tipos de produtos. Podemos criar a interface Tributavel, para definir o comportamento de calcular imposto, e criar várias classes diferentes que implementam essa interface para calcular o imposto de diferentes produtos. Por exemplo:</p>
+
+            <pre>
+                public class CalculadoraImposto {
+
+                    private double totalImposto = 0;
+
+                    public void calcularImposto(Tributavel item) {
+                        this.totalImposto += item.getValorImposto();
+                    }
+
+                    public double getTotalImposto() {
+                    return this.totalImposto;
+                    }
+
+                }
+            </pre>
+
+            <p>Nesse exemplo, estamos criando uma classe chamada CalculadoraImposto, que tem um atributo privado chamado totalImposto, que armazena o valor total dos impostos. </p>
+            <p>Repare que o método calcularImposto recebe um parâmetro do tipo Tributavel. Ao declarar uma variável com o tipo de uma interface, como é feito nesse método, podemos atribuir a essa variável qualquer objeto que implemente essa interface, ou seja, tanto um objeto do tipo Servico quanto Produto. Para ambos os casos, a CalculadoraImposto irá chamar o método implementado na classe específica. Ou seja, para um produto, irá chamar o método getTotalImposto implementado na classe Produto. E para um serviço, irá chamar o método getTotalImposto implementado na classe Servico. </p>
+            <p>Isso é muito útil quando queremos tratar vários objetos de classes diferentes de forma semelhante, permitindo que diferentes classes possam ser tratadas de maneira padronizada, facilitando a manutenção e extensão do código. Esse é mais um exemplo de aplicação do polimorfismo em Java, mas agora com a utilização de interfaces.</p>
+        </section>
         
         <section>
 
@@ -456,6 +535,7 @@
 
             <p>Justamente por conta desses problemas e dificuldades é que não devemos utilizar arrays para representar uma coleção de elementos, mas sim alguma classe do Java, como a <strong>ArrayList</strong>, que encapsula e abstrai um array, facilitando a sua utilização via métodos e deixando o código do projeto mais simples de entender e evoluir.</p>
         </section>
+
     </main>
     
 </body>
