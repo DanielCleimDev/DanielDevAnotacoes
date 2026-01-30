@@ -10,6 +10,8 @@
     <nav>
         <ul>
             <li class="link"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/index.html">Documentação Java</a></li>
+            <li class="link"><a href="https://www.alura.com.br/apostila-java-orientacao-objetos">Apostila Java</a></li>
+            <li class="link"><a href="https://www.alura.com.br/artigos/poo-programacao-orientada-a-objetos">Artigo sobre POO</a></li>
         </ul>
     </nav>
     <main>
@@ -574,6 +576,26 @@
             <p>Ausência de métodos: arrays não possuem métodos que permitam a inserção, remoção ou pesquisa de elementos de forma eficiente. Isso pode levar a soluções de código complicadas e ineficientes para tarefas simples.</p>
             <p>Justamente por conta desses problemas e dificuldades é que não devemos utilizar arrays para representar uma coleção de elementos, mas sim alguma classe do Java, como a ArrayList, que encapsula e abstrai um array, facilitando a sua utilização via métodos e deixando o código do projeto mais simples de entender e evoluir.</p>
 
+        </section>
+        <section>
+            <h1 class="titulo">Construtor</h1>
+            <p>Em Java, um construtor é um método especial usado para criar e inicializar um objeto recém-criado. Quando uma classe é definida, ela pode ter um ou mais construtores, sendo que se nenhum construtor for definido explicitamente, o Java criará um construtor default (padrão) automaticamente.</p>
+            <p>Um construtor default é um construtor que não possui parâmetros e não executa nenhuma instrução. Ele é chamado sempre que um objeto da classe é criado sem argumentos. Por exemplo:</p>
+            <pre>
+                public class Pessoa {
+
+                    private String nome;
+                    private String email;
+
+                    public Pessoa() {
+                    }
+
+                    //metodos getters/setters
+                }
+            </pre>
+            <p>No exemplo de código anterior, a classe Pessoa possui um construtor default, que será exatamente o mesmo construtor que o Java criará automaticamente, caso nenhum construtor tivesse sido definido na classe.</p>
+            <p>Se uma classe define explicitamente um ou mais construtores, mas não define um construtor sem parâmetros, então não há construtor default. Nesse caso, se um objeto é criado sem argumentos, um erro de compilação será gerado.</p>
+            <p>É importante ressaltar que mesmo que um construtor default possa ser útil em alguns casos, é sempre recomendável definir explicitamente os construtores da classe, especialmente se a classe tiver atributos que precisam ser inicializados com valores específicos ou obrigatórios. Isso também torna o código mais claro e fácil de entender.</p>
         </section>
 
     </main>
