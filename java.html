@@ -646,6 +646,35 @@
             </pre>
             <p>No exemplo de código anterior, a saída no console será: "Diferentes". Embora os dois objetos tenham as mesmas informações na memória, a comparação com == verifica se as referências são iguais, ou seja, se apontam para o mesmo objeto na memória.</p>
         </section>
+        <section>
+            <h1 class="titulo">Utilizando Collection para ordenar listas</h1>
+            <pre>
+                ArrayList<String> buscaPorArtista = new ArrayList<>();
+                buscaPorArtista.add("Adam Sandler");
+                buscaPorArtista.add("Paulo");
+                buscaPorArtista.add("Jacqueline");
+                System.out.println(buscaPorArtista);
+
+                Collections.sort(buscaPorArtista);
+                System.out.println("Depois da ordenação");
+                System.out.println(buscaPorArtista);
+            </pre>
+            <p>Para utilizar o Collections.sort a classe precisa inplementar a interface <strong>Comparable</strong> no caso das variáveis primitivas e o objeto String as classes já implementam esta interface, porém as classes que não tiverem esta interface, precisamos implementa-la.</p>
+            <h2>Implementando a interface Comparable</h2>
+            <p>Primeiro instanciamos a interface Comparable na classe</p>
+            <p class="codigo">public class Titulo implements Comparable&lt;Titulo&gt;{...}</p>
+            <p>Depois precisamos criar o método da interface que é o compareTo</p>
+            <pre>
+                @Override
+                public int compareTo(Titulo outroTitulo) {
+                    return this.getNome().compareTo(outroTitulo.getNome());
+                }
+            </pre>
+            <p>Agora podemos utilizar o Collections.sort em nossa lista de objetos</p>
+            <p class="codigo">Collections.sort(lista);</p>
+            
+            
+        </section>
     </main>
     
 </body>
