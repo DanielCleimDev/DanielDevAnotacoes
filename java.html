@@ -647,7 +647,7 @@
             <p>No exemplo de código anterior, a saída no console será: "Diferentes". Embora os dois objetos tenham as mesmas informações na memória, a comparação com == verifica se as referências são iguais, ou seja, se apontam para o mesmo objeto na memória.</p>
         </section>
         <section>
-            <h1 class="titulo">Utilizando Collection para ordenar listas</h1>
+            <h1 class="titulo">Utilizando Collections.sort para ordenar listas</h1>
             <pre>
                 ArrayList<String> buscaPorArtista = new ArrayList<>();
                 buscaPorArtista.add("Adam Sandler");
@@ -672,7 +672,8 @@
             </pre>
             <p>Agora podemos utilizar o Collections.sort em nossa lista de objetos</p>
             <p class="codigo">Collections.sort(lista);</p>
-            
+            <p>Se quisermos ordenar utilizando outros métodos de comparação:</p>
+            <p class="codigo">lista.sort(Comparator.comparing(Titulo::getAnoDeLancamento));</p>
             
         </section>
     </main>
