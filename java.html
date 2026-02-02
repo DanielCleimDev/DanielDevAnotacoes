@@ -13,6 +13,8 @@
             <li class="link"><a href="https://www.alura.com.br/apostila-java-orientacao-objetos">Apostila Java</a></li>
             <li class="link"><a href="https://www.alura.com.br/artigos/poo-programacao-orientada-a-objetos">Artigo sobre POO</a></li>
             <li class="link"><a href="https://www.alura.com.br/artigos/ordenando-colecoes-com-comparable-e-comparator">Artigo Ordenando Listas</a></li>
+            <li class="link"><a href="https://www.alura.com.br/artigos/estruturas-de-dados-introducao">Artigo Estruturas de dados: uma introdução</a></li>
+            <li class="link"><a href="https://www.alura.com.br/artigos/estrutura-dados-computacao-na-pratica-com-java">Artigo Estrutura de Dados: computação na prática com Java</a></li>
         </ul>
     </nav>
     <main>
@@ -675,6 +677,22 @@
             <p>Se quisermos ordenar utilizando outros métodos de comparação:</p>
             <p class="codigo">lista.sort(Comparator.comparing(Titulo::getAnoDeLancamento));</p>
             
+        </section>
+        <section>
+            <h1 class="titulo">Outras classes de listas no Java</h1>
+            <p>O Java oferece diferentes classes para representar uma lista de objetos. Essas classes são úteis em diferentes cenários, dependendo das necessidades de cada aplicação.</p>
+            <p>As classes mais comuns para representar uma lista no Java são:</p>
+            <h2>ArrayList</h2>
+            <p>A principal característica do ArrayList é que ele é baseado em um array dinâmico. Ele armazena os elementos em uma matriz interna e, conforme novos elementos são adicionados, o tamanho da matriz é automaticamente ajustado para acomodar o novo elemento. Da mesma forma, quando um elemento é removido, o tamanho do array é ajustado para evitar o desperdício de espaço. O ArrayList é amplamente utilizado devido à sua facilidade de uso e eficiência em termos de desempenho.</p>
+            <h2>LinkedList</h2>
+            <p>A classe LinkedList fornece uma lista encadeada de elementos. Diferentemente do ArrayList, que é baseado em um array, o LinkedList é baseado em uma lista encadeada, o que significa que cada elemento da lista é um objeto que contém uma referência para o próximo elemento. Isso permite que os elementos sejam adicionados e removidos de maneira eficiente em qualquer posição da lista, mas pode tornar a pesquisa de um elemento específico menos eficiente./p>
+            <p>O LinkedList é uma boa escolha quando a inserção e remoção de elementos em qualquer posição da lista é frequente e quando não é necessário acessar os elementos de forma aleatória.</p>
+            <h2>Vector</h2>
+            <p>A classe Vector é semelhante ao ArrayList, mas é sincronizada, o que significa que é segura para uso em threads concorrentes. No entanto, a sincronização adiciona uma sobrecarga de desempenho, então o Vector pode ser mais lento que o ArrayList em algumas situações.</p>
+            <h2>Stack</h2>
+            <p>A classe Stack implementa uma pilha, que é uma coleção ordenada de elementos onde a inserção e remoção de elementos ocorrem sempre no mesmo extremo da lista. Os elementos são adicionados e removidos em uma ordem conhecida como "last-in, first-out" (LIFO), ou seja, o último elemento adicionado é o primeiro a ser removido. A classe Stack é usada com frequência em algoritmos de processamento de texto, bem como em outras situações em que a LIFO é a maneira natural de organizar os dados.</p>
+            <p>Cada uma dessas classes tem seus próprios pontos fortes e fracos, e a escolha de qual usar dependerá das necessidades específicas da aplicação. Para um melhor entendimento sobre estruturas de dados, recomendamos a leitura dos seguintes artigos:</p>
+
         </section>
     </main>
     
