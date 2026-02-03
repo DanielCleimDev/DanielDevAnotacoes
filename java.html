@@ -15,6 +15,9 @@
             <li class="link"><a href="https://www.alura.com.br/artigos/ordenando-colecoes-com-comparable-e-comparator">Artigo Ordenando Listas</a></li>
             <li class="link"><a href="https://www.alura.com.br/artigos/estruturas-de-dados-introducao">Artigo Estruturas de dados: uma introdução</a></li>
             <li class="link"><a href="https://www.alura.com.br/artigos/estrutura-dados-computacao-na-pratica-com-java">Artigo Estrutura de Dados: computação na prática com Java</a></li>
+            <li class="link"><a href="https://www.alura.com.br/podcast/hipsterstech-algoritmos-e-estrutura-de-dados-hipsters-186-a375">Podcast  Algoritmos e estrutura de dados - Hipsters #186 </a></li>
+            <li class="link"><a href="https://www.alura.com.br/artigos/estruturas-de-dados-introducao">Artigo Estruturas de dados: uma introdução</a></li>
+            
         </ul>
     </nav>
     <main>
@@ -103,6 +106,12 @@
                     }
                 }
             </pre>
+
+            <h2>Erro fantasma no scanner</h2>
+            <p>Quando você usa nextDouble() (ou nextInt()), o Scanner lê apenas o número. O caractere de "quebra de linha" (\n), que é gerado quando você aperta Enter, continua parado no "buffer" (a memória temporária do teclado).</p>
+            <p>Na próxima vez que o código executa o nextLine(), ele encontra esse \n sobrando, acha que você enviou uma linha vazia e "pula" a leitura da descrição, indo direto para o próximo nextDouble().</p>
+            <p>Muitos programadores preferem ler tudo com nextLine() e converter para o número depois. Isso evita qualquer confusão com o buffer.</p>
+            <p class="codigo">double valor = Double.parseDouble(scanner.nextLine());</p>
         </section>
         <section>
             <h1 class="titulo">Utilizando for</h1>
