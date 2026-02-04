@@ -20,6 +20,19 @@
             
         </ul>
     </nav>
+    <nav>
+        <ul>
+            <li class="link"><a href="https://mvnrepository.com/">MVN Repository</a></li>
+            <li class="link"><a href="https://omdbapi.com/">API OMDb - banco de dados de filmes abertos</a></li>
+        </ul>
+    </nav>
+    <nav>
+        <h1 class="titulo">Cursos</h1>
+        <ul>
+            <li class="link"><a href="https://cursos.alura.com.br/course/introducao-design-patterns-java">Design Patterns em Java I: boas práticas de programação</a></li>
+            <li class="link"><a href="https://cursos.alura.com.br/course/avancando-design-patterns-java">Design Patterns em Java II: avançando nas boas práticas de programação</a></li>
+        </ul>
+    </nav>
     <main>
         <section>
             <h1 class="titulo">Formatação de texto</h1>
@@ -749,6 +762,24 @@
                 Valor: 2
                 Chave: Roedores
                 Valor: 3
+            </pre>
+        </section>
+        <section>
+            <h1 class="titulo">HttpRequest</h1>
+            <pre>
+                public static void main (String[] args) throws IOException, InterruptedException {
+                    HttpClient client = HttpClient.newHttpClient();
+                    <span class="pre1">HttpRequest</span> request = HttpRequest.newBuilder()
+                            .uri(URI.create("https://www.omdbapi.com/?t=matrix&apikey=77149450"))
+                            .build();
+                }
+            </pre>
+            <h1 class="titulo">HttpResponse</h1>
+            <pre>
+                <span class="pre1">HttpResponse</span>&lt;String&gt; response = client
+                                .send(request, HttpResponse.BodyHandlers.ofString());
+
+                System.out.println(response.body());
             </pre>
         </section>
     </main>
