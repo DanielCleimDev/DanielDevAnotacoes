@@ -808,6 +808,98 @@
             </section>
         </section>
         <section>
+            <h1 class="titulo">Classe Record</h1>
+            <p>Utilizado para Tradução de campos, quando precisamos receber dados de uma api e traduzir para nossa classe</p>
+            <figure>
+                <img src="IMG/java/4.png" alt="Classe do tipo Record">
+                <figcaption>
+                    <p>Clicar em cima da pasta modelos com o botão direito</p>
+                    <p>New Java Class</p>
+                    <p>Escolhe o nome e depois seleciona <strong>Record</strong></p>
+                </figcaption>
+            </figure>
+            <p>Agora apenas precisamos definir os atributos que desejamos, de acordo com os atributos que vem da api</p>
+            <p class="codigo">public <span class="pre1">record</span> TituloOmdb(String title, String year, String runtime) {}</p>
+            <pre>
+                String json = response.body();
+                System.out.println(json);
+
+                Gson gson = new Gson();
+
+                TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
+                System.out.println(meuTituloOmdb);
+            </pre>
+            <p>A saída será:</p>
+            <pre>
+                {"Title":"Matrix","Year":"1993","Rated":"N/A","Released":"01 Mar 1993","Runtime":"60 min","Genre":"Action, Drama, Fantasy","Director":"N/A","Writer":"Grenville Case","Actors":"Nick Mancuso, Phillip Jarrett, Carrie-Anne Moss","Plot":"Hitman Steven Matrix is shot, experiences afterlife, gets second chance by helping others. Wakes up, meets guides assigning cases where he aids people using unorthodox methods from past profession.","Language":"English","Country":"Canada","Awards":"1 win total","Poster":"https://m.media-amazon.com/images/M/MV5BM2JiZjU1NmQtNjg1Ni00NjA3LTk2MjMtNjYxMTgxODY0NjRhXkEyXkFqcGc@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"7.2/10"}],"Metascore":"N/A","imdbRating":"7.2","imdbVotes":"225","imdbID":"tt0106062","Type":"series","totalSeasons":"N/A","Response":"True"}
+                TituloOmdb[title=null, year=null, runtime=null]
+            </pre>
+            <p>title year e runtime aparecem como null, pois na api as propriedades estão em maiúsculo, porém o padrão para variáveis é em minúsculo.</p>
+            <p>Na biblioteca Gson já temos uma opção para contornar este problema.</p>
+            <p>Pesquisamos Field Name Policy na documentação e acharemos um código para resolvermos o problema:</p>
+            <p class="codigo">Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();</p>
+            <h2>Agora Utilizando a classe Record para podermos usar a nossa classe</h2>
+            <p class="codigo"><span class="pre1">Titulo</span> meuTitulo = new <span class="pre1">Titulo</span>(meuTituloOmdb);</p>
+            <p>Agora precisamos criar um construtor na classe Titulo que recebe TituloOmdb</p>
+            <pre>
+                public Titulo(TituloOmdb meuTituloOmdb) {
+                    this.nome = meuTituloOmdb.title();
+                    this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
+                    this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().split(" ")[0]);
+                }
+            </pre>
+            <p>Como a resposta json vem em String, precisamos converter para os tipos da nossa classe.</p>
+            <p>No caso do nome, não foi necessário, porém no caso do anoDeLancamento e duracaoEmMinutos já foi necessário.</p>
+
+        </section>
+        <section>
+            <h1 class="titulo"> Para saber mais: Java Record</h1>
+            <p>Lançado oficialmente no Java 16, mas disponível desde o Java 14 de maneira experimental, o Record é um recurso que permite representar uma classe imutável, contendo apenas atributos, construtor e métodos de leitura, de uma maneira muito simples e enxuta.</p>
+            <p>Esse recurso se encaixa perfeitamente quando precisamos criar um objeto apenas para representar dados, sem nenhum tipo de comportamento.</p>
+            <p>Para se criar uma classe imutável, sem a utilização do Record, era necessário escrever muito código. Vejamos um exemplo de uma classe que representa um telefone:</p>
+            <pre>
+                public final class Telefone {
+
+                    private final String ddd;
+                    private final String numero;
+
+                    public Telefone(String ddd, String numero) {
+                        this.ddd = ddd;
+                        this.numero = numero;
+                    }
+
+                    @Override
+                    public int hashCode() {
+                        return Objects.hash(ddd, numero);
+                    }
+
+                    @Override
+                    public boolean equals(Object obj) {
+                        if (this == obj) {
+                            return true;
+                        } else if (!(obj instanceof Telefone)) {
+                            return false;
+                        } else {
+                            Telefone other = (Telefone) obj;
+                            return Objects.equals(ddd, other.ddd)
+                            && Objects.equals(numero, other.numero);
+                        }
+                    }
+
+                    public String getDdd() {
+                        return this.ddd;
+                    }
+
+                    public String getNumero() {
+                        return this.numero;
+                    }
+                }
+            </pre>
+            <p>Agora com o Record, todo esse código pode ser resumido com uma única linha:</p>
+            <p class="codigo">public record Telefone(String ddd, String numero){}</p>
+            <p>Por baixo dos panos, o Java vai transformar esse Record em uma classe imutável, muito similar ao código exibido anteriormente.</p>
+        </section>
+        <section>
             <h1 class="titulo">Bibliotecas e Frameworks</h1>
             <p>Bibliotecas e frameworks em Java, e também em outras linguagens de programação, são ferramentas essenciais para quem trabalha com programação, pois ajudam a reduzir a quantidade de trabalho necessária para construir aplicações, uma vez que fornecem funcionalidades prontas para uso, permitindo que as pessoas desenvolvedoras foquem na lógica de negócios dos projetos, ao invés de se preocuparem com problemas técnicos que são comuns e já possuem soluções prontas para uso.</p>
             <p>Em Java, bibliotecas são coleções de classes e interfaces que oferecem uma série de recursos e funcionalidades prontas para uso. Geralmente elas são distribuídas como arquivos JAR (Java Archive), que são pacotes de arquivos Java que contém classes e outros recursos, como imagens e arquivos de configuração. As bibliotecas podem ser importadas em projetos Java e usadas diretamente em código para implementar funcionalidades específicas, como manipulação de arquivos, conexão com bancos de dados, criptografia, etc.</p>
