@@ -1003,6 +1003,43 @@
             <p>No exemplo anterior, estamos lidando com duas exceções diferentes: NullPointerException e IllegalArgumentException. Se qualquer uma dessas exceções for lançada dentro do bloco try, o mesmo bloco catch será executado.</p>
             <p>Uma observação importante de lembrar, é que o uso de multi-catch só é permitido para exceções que não estão relacionadas por uma hierarquia de herança. Se duas exceções compartilham uma hierarquia de herança, você deve lidar com elas em blocos catch separados.</p>
         </section>
+        <section>
+            <h1 class="titulo">Crianco Exceção Personalizada</h1>
+            <p class="codigo">throw new ErroDeConvercaoDeAnoExeption("Não consegui converter o ano porque tem mais de 4 caracteres.");</p>
+            <p>A IDE irá mostrar um erro, pois não temos a classe ErroDeConvercaoDeAnoExeption, então é só passar o mause em cima que já da a opção de criar a classe.</p>
+            <p>Classe ErroDeConvercaoDeAnoExeption:</p>
+            <pre>
+                public class ErroDeConvercaoDeAnoExeption extends RuntimeException {
+                    private String mensagem;
+                    public ErroDeConvercaoDeAnoExeption(String mensagem) {
+                        this.mensagem = mensagem;
+                    }
+
+                    @Override
+                    public String getMessage() {
+                        return this.mensagem;
+                    }
+                }
+            </pre>
+            <p>Dentro do construtor da classe Titulo colocamos um if:</p>
+            <pre>
+                public Titulo(TituloOmdb meuTituloOmdb) {
+                    this.nome = meuTituloOmdb.title();
+
+                    if(meuTituloOmdb.year().length() > 4){
+                        throw new ErroDeConvercaoDeAnoExeption("Não consegui converter o ano porque tem mais de 4 caracteres.");
+                    }
+                    this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
+                    this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().split(" ")[0]);
+                }
+            </pre>
+            <p>Nosso cath fica assim:</p>
+            <pre>
+                catch (ErroDeConvercaoDeAnoExeption e){
+                    System.out.println(e.getMessage());
+                }
+            </pre>
+        </section>
     </main>
     
 </body>
