@@ -935,6 +935,34 @@
                 <li><strong>Desempenho:</strong> objetos imutáveis podem ser armazenados em cache e reutilizados, o que pode melhorar o desempenho.</li>
             </ul>
         </section>
+        <section>
+            <h1 class="titulo"> Para saber mais: o bloco finally</h1>
+            <p>Aprendemos que quando ocorre uma exceção, o Java permite tratar o erro usando a declaração try-catch. Entretanto, existe ainda o bloco finally, que é opcional, mas pode ser útil em certas situações.</p>
+            <p>O finally é usado para executar um bloco de código independentemente de ocorrer uma exceção ou não, ou seja, ele sempre é executado. Isso pode ser útil quando precisamos executar um código tanto no try, caso não ocorra uma exceção, quanto no catch, caso uma exceção seja lançada. Por exemplo, suponha que você tenha o seguinte código:</p>
+            <pre>
+                try {
+                    metodoQuePodeLancarExcecao();
+                    System.out.println("Executou");
+
+                    System.out.println("Finalizou!");
+                    } catch (Exception e) {
+                    System.out.println("Deu erro!");
+
+                    System.out.println("Finalizou!");
+                }
+            </pre>
+            <p>Perceba no código anterior que a instrução System.out.println("Finalizou!"); deve ser sempre executada, independente de ter acontecido ou exception ou não. Mas o problema é que ela acabou tendo de ser duplicada tanto no try quanto no catch. O bloco finally nos ajuda justamente a evitar essa duplicação de código:</p>
+            <pre>
+                try {
+                    metodoQuePodeLancarExcecao();
+                    System.out.println("Executou");
+                    } catch (Exception e) {
+                    System.out.println("Deu erro!");
+                    } finally {
+                    System.out.println("Finalizou!");
+                }
+            </pre>
+        </section>
     </main>
     
 </body>
