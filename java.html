@@ -20,6 +20,8 @@
             <li class="link"><a href="https://www.linkedin.com/pulse/exce%C3%A7%C3%B5es-em-java-uma-primeira-conversa-vanessa/">Artigo:Exceções em Java: Uma Primeira Conversa</a></li>
             <li class="link"><a href="https://pt.wikibooks.org/wiki/Java/Exce%C3%A7%C3%B5es">Java/Exceções Wiki</a></li>
             <li class="link"><a href="https://dev.to/dearrudam/be-the-exception-dicas-para-dominar-excecoes-em-seus-codigos-java-4nlo">Dicas para dominar exceções em seus códigos Java </a></li>
+            <li class="link"><a href="https://www.youtube.com/watch?v=TUBqH9zVs3M">youtube: Guia da carreira Java</a></li>
+            <li class="link"><a href="https://www.alura.com.br/artigos/foreach-java">Artigo: ForEach Java</a></li>
         </ul>
     </nav>
     <nav>
@@ -1074,6 +1076,19 @@
                 <li><strong>BufferedReader e BufferedWriter:</strong> são usadas para ler e gravar arquivos de texto de maneira eficiente, lendo e escrevendo uma linha por vez. Elas usam um buffer para armazenar os dados, o que torna a leitura e escrita mais rápida do que quando feita um caractere por vez;</li>
                 <li><strong>FileInputStream e FileOutputStream: </strong>são usadas para ler e gravar dados binários em um arquivo. Eles são usados para ler e gravar dados em arquivos que não são de texto, como imagens e arquivos de áudio;</li>
                 <li><strong>ObjectInputStream e ObjectOutputStream:</strong> são usadas para ler e gravar objetos em arquivos. Isso permite que você armazene objetos Java em arquivos para uso posterior ou para transferência entre diferentes aplicações.</li>
+            </ul>
+        </section>
+        <section>
+            <h1 class="titulo">Conversão de tipos</h1>
+            <p>De double para int:</p>
+            <pre>
+                double valorDouble = 19.5; 
+                int valorInt = (int) valorDouble;
+            </pre>
+            <p>Pontos de atenção:</p>
+            <ul class="ul">
+                <li>O casting não arredonda o número, ele simplesmente corta a parte decimal.</li>
+                <li>Se precisar arredondar, pode-se usar <strong>Math.round(), Math.floor()</strong> (arredondamento para baixo) ou <strong>Math.ceil()</strong> (arredondamento para cima).</li>
             </ul>
         </section>
     </main>
