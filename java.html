@@ -1097,6 +1097,83 @@
             <p><span class="codigo">valor.equalsIgnoreCase("v")</span>Verifica se a String é igual ao valor passado ignorando maiúsculo e minúsculo.</p>
             
         </section>
+        <!-- Data e Hora -->
+         <section>
+            <h1 class="titulo">Data e Hora com Java</h1>
+            <h2>Utilizado API java.time</h2>
+            <h3>Classes mais utilizadas:</h3>
+            <ul class="ul">
+                <li><strong>LocalDate</strong> para trabalhar com data</li>
+                <li><strong>LocalTime</strong> para trabalhar somente com hora</li>
+                <li><strong>LocalDateTime</strong> para trabalhar com data e hora completas</li>
+            </ul>
+            <h3>Métodos mais utilizados:</h3>
+            <ul class="ul">
+                <li><strong>of()</strong>, que recebe o ano, mês e dia, ou, no caso de hora, a hora e o minuto</li>
+                <li><strong>parse()</strong>, que recebe uma string no formato ISO e a converte</li>
+                <li><strong>now()</strong>, que retorna o momento exato atual, seja a data, o horário ou ambos</li>
+            </ul>
+            <h2>Exemplos</h2>
+            <p class="codigo">import java.time.LocalDate;</p>
+            <p>Para que ela receba a data de hoje, utilizaremos <strong>LocalDate.now()</strong>, que retorna a data atual. Isso também se aplica a <strong>LocalTime e LocalDateTime</strong>.</p>
+            <p class="codigo">LocalDate dataCompra = LocalDate.now();</p>
+            <p>Determinar o ano, mês e dia usando <strong>LocalDate.of()</strong>.</p>
+            <p class="codigo">LocalDate dataPrimeiraParcela = LocalDate.of(2025, 5, 15);</p>
+            <p>Se quisermos que a variável dataSegundaParcela receba uma data 30 dias após a primeira parcela, utilizaremos <strong>plusDays(30)</strong>.</p>
+            <p class="codigo">LocalDate dataSegundaParcela = dataPrimeiraParcela.plusDays(30);</p>
+            <p>Usamos o plusDays(), mas existem outros métodos disponíveis para todos. Por exemplo:</p>
+            <ul class="ul">
+                <li>plusWeeks(), plusMonths() e plusYears(), que servem para adicionar</li>
+                <li>minusDays(), minusWeeks(), minusMonths() e minusYears(), que servem para subtrair</li>
+            </ul>
+            <h2>Verificando datas</h2>
+            <p>Além de adicionar e subtrair datas, podemos fazer verificações, como se uma data é antes ou depois de outra com os seguintes métodos:</p>
+            <ul class="ul">
+                <li>isBefore();</li>
+                <li>isAfter();</li>
+                <li>isEqual().</li>
+            </ul>
+            <p>Por exemplo, podemos verificar se a data da primeira parcela é igual à data atual usando isEqual(LocalDate.now()), que retorna um valor booliano. Acima dos prints, criaremos o seguinte bloco para verificar se a data atual é o dia do vencimento:</p>
+            <pre>
+                if (dataPrimeiraParcela.isEqual(LocalDate.now())) {
+                    System.out.println("Hoje é o dia do vencimento");
+                } else {
+                    System.out.println("Ainda não está no dia do vencimento");
+                }
+            </pre>
+            <h2>Formatando datas</h2>
+            <p>O <strong>LocalDate</strong> segue o padrão ISO 8601, que exibe datas no <strong>formato ano-mês-dia</strong>. No entanto, podemos querer mostrar em um padrão diferente.</p>
+            <p>Podemos formatar a data usando <strong>DateTimeFormatter</strong> para criar o formato no padrão brasileiro. Por exemplo, abaixo dos prints, podemos criar um <strong>DateTimeFormatter</strong> chamado formato, usando <strong>DateTimeFormatter.ofPattern("dd/MM/yyyy")</strong>, onde dd/MM/yyyy define o padrão dia/mês/ano.</p>
+            <p>Utilizamos <strong>MM</strong> maiúsculo para definir meses, pois <strong>mm</strong> minúsculo define os minutos.</p>
+            <p class="codigo">DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");</p>
+            <p class="codigo">System.out.println("Data compra formatada: " + dataCompra.format(formato));</p>
+            <h2>Trabalhando com fusos horários</h2>
+            <p>Além de podermos formatar as datas no padrão desejado, escolhendo se queremos apenas o mês e o ano, se queremos o ano com quatro dígitos ou com dois, e definir exatamente o padrão através do <strong>DateTimeFormatter.ofPattern()</strong>, também podemos trabalhar por meio da orientação a fusos horários.</p>
+            <p>Vamos supor que queiramos trabalhar com uma data baseada em um fuso horário e que possamos verificar qual seria essa data em outro fuso horário. Para fazer isso, vamos criar uma data de conclusão da compra para armazenar o momento exato da conclusão da compra.</p>
+            <p>Queremos observar esse horário de conclusão tanto no Brasil quanto no padrão dos Estados Unidos. Para isso, utilizaremos a classe <strong>ZonedDateTime</strong>, que é um <strong>DateTime</strong> baseado no fuso horário.</p>
+            <p>Vamos criar uma variável dataConclusaoCompra e definir como <strong>ZonedDateTime.now()</strong>, que representa o momento atual.</p>
+            <p class="codigo">ZonedDateTime dataConclusaoCompra = ZonedDateTime.now();</p>
+            <p class="codigo">ZonedDateTime dataCompraNy = dataConclusaoCompra.<span class="pre1">withZoneSameInstant</span>(<span class="preAmarelo">ZoneId.of</span>(America/New_York));</p>
+            <h2>Calculando a diferença entre datas e horas</h2>
+            <p>Agora, faremos um exercício sobre o cálculo de diferença entre datas e horas, utilizando <strong>Duration</strong> e <strong>Period</strong>.</p>
+            <p>O <strong>Duration</strong> é geralmente usado para horas. Vamos fazer um teste para ver nosso horário de trabalho (quanto tempo de expediente estamos trabalhando).</p>
+            <pre>
+                LocalTime inicio = LocalTime.of(9, 0);
+                LocalTime fim = LocalTime.of(17, 30);
+                Duration duracao = Duration.between(inicio, fim);
+                System.out.println("Duração do expediente: " + duracao.toHours() + 
+                   " horas e " + duracao.toMinutesPart() + " minutos.");
+            </pre>
+            <p>Agora para calcular dias:</p>
+            <pre>
+                LocalDate dataPagamento = LocalDate.parse("2025-10-30");
+                LocalDate dataPag2 = dataCompra.plusDays(45);
+                
+                long totalDias = ChronoUnit.DAYS.between(dataCompra, dataPag2);
+
+                System.out.println("Data da compra: " + dataCompra + "\nData Pagamento: " + dataPag2 + "\nDiferença em dias: " + totalDias);
+            </pre>
+         </section>
     </main>
     
 </body>
