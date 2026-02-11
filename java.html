@@ -1141,19 +1141,22 @@
                     System.out.println("Ainda não está no dia do vencimento");
                 }
             </pre>
+            
             <h2>Formatando datas</h2>
             <p>O <strong>LocalDate</strong> segue o padrão ISO 8601, que exibe datas no <strong>formato ano-mês-dia</strong>. No entanto, podemos querer mostrar em um padrão diferente.</p>
             <p>Podemos formatar a data usando <strong>DateTimeFormatter</strong> para criar o formato no padrão brasileiro. Por exemplo, abaixo dos prints, podemos criar um <strong>DateTimeFormatter</strong> chamado formato, usando <strong>DateTimeFormatter.ofPattern("dd/MM/yyyy")</strong>, onde dd/MM/yyyy define o padrão dia/mês/ano.</p>
             <p>Utilizamos <strong>MM</strong> maiúsculo para definir meses, pois <strong>mm</strong> minúsculo define os minutos.</p>
             <p class="codigo">DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");</p>
             <p class="codigo">System.out.println("Data compra formatada: " + dataCompra.format(formato));</p>
+            
             <h2>Trabalhando com fusos horários</h2>
             <p>Além de podermos formatar as datas no padrão desejado, escolhendo se queremos apenas o mês e o ano, se queremos o ano com quatro dígitos ou com dois, e definir exatamente o padrão através do <strong>DateTimeFormatter.ofPattern()</strong>, também podemos trabalhar por meio da orientação a fusos horários.</p>
             <p>Vamos supor que queiramos trabalhar com uma data baseada em um fuso horário e que possamos verificar qual seria essa data em outro fuso horário. Para fazer isso, vamos criar uma data de conclusão da compra para armazenar o momento exato da conclusão da compra.</p>
             <p>Queremos observar esse horário de conclusão tanto no Brasil quanto no padrão dos Estados Unidos. Para isso, utilizaremos a classe <strong>ZonedDateTime</strong>, que é um <strong>DateTime</strong> baseado no fuso horário.</p>
             <p>Vamos criar uma variável dataConclusaoCompra e definir como <strong>ZonedDateTime.now()</strong>, que representa o momento atual.</p>
             <p class="codigo">ZonedDateTime dataConclusaoCompra = ZonedDateTime.now();</p>
-            <p class="codigo">ZonedDateTime dataCompraNy = dataConclusaoCompra.<span class="pre1">withZoneSameInstant</span>(<span class="preAmarelo">ZoneId.of</span>(America/New_York));</p>
+            <p class="codigo">ZonedDateTime dataCompraNy = dataConclusaoCompra.<span class="pre1">withZoneSameInstant</span>(<span class="preAmarelo">ZoneId.of</span>("America/New_York"));</p>
+            
             <h2>Calculando a diferença entre datas e horas</h2>
             <p>Agora, faremos um exercício sobre o cálculo de diferença entre datas e horas, utilizando <strong>Duration</strong> e <strong>Period</strong>.</p>
             <p>O <strong>Duration</strong> é geralmente usado para horas. Vamos fazer um teste para ver nosso horário de trabalho (quanto tempo de expediente estamos trabalhando).</p>
@@ -1166,13 +1169,25 @@
             </pre>
             <p>Agora para calcular dias:</p>
             <pre>
-                LocalDate dataPagamento = LocalDate.parse("2025-10-30");
-                LocalDate dataPag2 = dataCompra.plusDays(45);
+                LocalDate dataPagamento = LocalDate.<span class="pre1">parse</span>("2025-10-30");
+                LocalDate dataPag2 = dataCompra.<span class="pre1">plusDays</span>(45);
                 
-                long totalDias = ChronoUnit.DAYS.between(dataCompra, dataPag2);
+                long totalDias = ChronoUnit.DAYS.<span class="pre1">between</span>(dataPag2);
 
                 System.out.println("Data da compra: " + dataCompra + "\nData Pagamento: " + dataPag2 + "\nDiferença em dias: " + totalDias);
             </pre>
+            <h3>Mostrando Dia e Hora</h3>
+            <pre>
+                LocalDateTime dataAtual = LocalDateTime.now();
+                DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy H:mm", Locale.of("pt", "BR"));
+
+                System.out.println(dataAtual.format(formato2));
+            </pre>
+            <p>Saída:</p>
+            <p class="codigo">quarta-feira 11 fevereiro 2026 15:48</p>
+            <figure>
+                <img src="IMG/java/6.png">
+            </figure>
          </section>
     </main>
     
