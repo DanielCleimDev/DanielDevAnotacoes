@@ -1203,6 +1203,36 @@
             </ul>
             <p>Agora, toda vez que você digitar sc + Tab, o código será inserido.</p>
          </section>
+         <section>
+            <h1 class="titulo">Contrutores Diferentes com herança</h1>
+            <pre>
+                public class <span class="pre1">Aluno</span> {
+                    protected String nome;
+                    protected String tipo;
+
+                    <strong>
+                    public Aluno(String nome, String tipo) {
+                        this.nome = nome;
+                        this.tipo = tipo;
+                    }
+                    </strong>
+                    public void identificar(){
+                        System.out.printf("Aluno: %s, Tipo: %s.\n", nome, tipo);
+                    }
+                }
+            </pre>
+            <pre>
+                public class <span class="pre1">Bolsista</span> extends <span class="preAmarelo">Aluno</span>{
+                    <strong>
+                    public Bolsista(String nome) {
+                        super(nome, <span class="prePropriedade">"Bolsista"</span>);
+                    }   
+                    </strong>
+                    
+
+                }
+            </pre>
+         </section>
     </main>
     
 </body>
