@@ -1335,6 +1335,23 @@
                 <p>Agora para passarmos para <strong>Maiúsculo</strong> utilizamos <span class="codigo">toUpperCase()</span>.</p>
                 <p class="codigo">System.out.println(texto.toUpperCase());</p>
             </section>
+            <section>
+                <h2>Substituindo parte de uma String</h2>
+                <p>Para substituirmos uma parte de uma String utilizamos <span class="codigo">replace(<span class="string">Aqui coloca a parte que será substituída</span>,<span class="var">aqui a nova String</span>);</span></p>
+                <p>Agora para checarmos que uma String contem determinada String utilizamos <span class="codigo"><span class="function">contains</span>(<span class="string">"String que deve conter na String"</span>)</span></p>
+                <pre>
+                    System.out.println("Digite o texto: O gato caça o rato.");
+                    String texto = sc.nextLine();
+            
+                    if(texto.<strong><span class="function">contains</span>(<span class="string">"gato"</span>)</strong>){
+                        System.out.println("Informe outro animal para caçar o rato: ");
+                        String animal = sc.nextLine();
+                        System.out.println(texto.<strong><span class="function">replace</span>(<span class="string">"gato"</span> ,<span class="var">animal</span> )</strong>);
+                        break;
+                    }
+                    System.out.println("O texto não tem gato!");
+                </pre>
+            </section>
          </search>
     </main>
     
