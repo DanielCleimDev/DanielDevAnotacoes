@@ -1233,6 +1233,90 @@
                 }
             </pre>
          </section>
+         <section>
+            <h1 class="titulo">Para saber mais: coesão versus acoplamento</h1>
+            <p>Talvez você já tenha ouvido esses dois termos em alguma aula, artigo ou em algum lugar da internet: coesão e acoplamento. Eles aparecem bastante quando a conversa é sobre qualidade de código — e por um bom motivo.</p>
+            <p>Vamos pensar juntos aqui.</p>
+            <p>Imagine que você está organizando sua casa. Você tem uma gaveta só para meias, outra para documentos, outra para ferramentas. Tudo está separado por função. Isso é coesão. Cada “parte do sistema” faz uma coisa só, e faz bem.</p>
+            <p>Agora, imagine que toda vez que você precisa trocar uma lâmpada, tem que abrir a gaveta das ferramentas, que só pode ser aberta depois que a gaveta dos documentos estiver destrancada, que por sua vez precisa da chave que está na caixa de meias. Complicado, né?</p>
+            <p>Isso é acoplamento: uma dependência excessiva entre partes que deveriam ser independentes. Quando um detalhe muda em uma, todas as outras quebram junto.</p>
+            <p>No mundo da programação orientada a objetos, buscamos sempre alta coesão e baixo acoplamento. Isso significa que cada classe deve ter uma responsabilidade clara, e que essas classes devem conversar entre si de forma leve, sem amarras pesadas.</p>
+            <h2>Exemplo prático</h2>
+            <p>Se você tem uma classe Relatorio, ela deve saber como organizar os dados de um relatório. Só isso. Ela não deve saber como enviar e-mails, exportar para PDF ou salvar no banco de dados. Essas tarefas devem ficar com outras classes (EmailService, ExportadorPDF, Repositorio), e todas elas devem se comunicar de forma simples — idealmente por meio de interfaces ou contratos bem definidos.</p>
+            <p>Código ruim: com baixa coesão e alto acoplamento:</p>
+            <pre>
+                public class Relatorio {
+                    private String titulo;
+                    private String conteudo;
+                
+                    public Relatorio(String titulo, String conteudo) {
+                        this.titulo = titulo;
+                        this.conteudo = conteudo;
+                    }
+                
+                    public void gerarRelatorio() {
+                        System.out.println("Relatório: " + titulo);
+                        System.out.println("Conteúdo: " + conteudo);
+                        enviarPorEmail(); // Mistura responsabilidades!
+                        salvarNoBanco();  // Aumenta acoplamento!
+                    }
+                
+                    private void enviarPorEmail() {
+                        System.out.println("Enviando por e-mail...");
+                    }
+                
+                    private void salvarNoBanco() {
+                        System.out.println("Salvando no banco de dados...");
+                    }
+                }
+            </pre>
+            <p>Aqui, a classe Relatorio faz tudo: exibe, envia e salva. Ela não é coesa (muitas responsabilidades) e está fortemente acoplada a outras ações (e-mail e banco).</p>
+            <p>Código bom: alta coesão e baixo acoplamento:</p>
+            <pre>
+                public class Relatorio {
+                    private String titulo;
+                    private String conteudo;
+                
+                    public Relatorio(String titulo, String conteudo) {
+                        this.titulo = titulo;
+                        this.conteudo = conteudo;
+                    }
+                
+                    public String getTextoFormatado() {
+                        return "Relatório: " + titulo + "\nConteúdo: " + conteudo;
+                    }
+                }
+                
+                public class EmailService {
+                    public void enviar(String mensagem) {
+                        System.out.println("Enviando e-mail...");
+                        System.out.println(mensagem);
+                    }
+                }
+                
+                public class BancoDeDados {
+                    public void salvar(String dados) {
+                        System.out.println("Salvando no banco...");
+                        System.out.println(dados);
+                    }
+                }
+            </pre>
+            <p>E no main:</p>
+            <pre>
+                Relatorio rel = new Relatorio("Status 2025", "Tudo estável.");
+                EmailService email = new EmailService();
+                BancoDeDados bd = new BancoDeDados();
+                
+                String texto = rel.getTextoFormatado();
+                email.enviar(texto);
+                bd.salvar(texto);
+            </pre>
+            <p>Aqui, cada classe tem uma única responsabilidade, e as dependências são explícitas, controladas e independentes. Mudanças em uma não quebram as outras.</p>
+            <h2>Por que isso importa?</h2>
+            <p>Porque sistemas mudam. E quanto mais coeso e menos acoplado for seu código, mais fácil será mantê-lo, testá-lo, refatorá-lo e expandi-lo. Você consegue trocar uma peça sem quebrar todo o mecanismo. Se tem algo que diferencia um sistema que só "funciona" de um sistema que evolui bem com o tempo, é essa dupla: coesão alta, acoplamento baixo.</p>
+            <p>Pense nisso ao criar sua próxima classe: Essa classe está realmente focada no que ela deveria fazer? Ela depende de mais coisas do que deveria?</p>
+            <p>Essas perguntas não têm respostas fixas, mas quanto mais você se fizer elas durante o desenvolvimento, melhor será o design das suas soluções.</p>
+         </section>
     </main>
     
 </body>
