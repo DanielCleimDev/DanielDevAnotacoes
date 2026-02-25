@@ -1380,6 +1380,15 @@
                         }
                         sc.close();        
                     </pre>
+                    <hr>
+                    <h2>Formatando números</h2>
+                    <pre>
+                        String <span class="var">numero</span> = "19,0532";
+                        System.out.println("R$ " + <span class="var">numero</span>.<span class="function">substring</span>(0, <span class="var">numero</span>.<span class="function">indexOf</span>(",") + 3));
+                        System.out.printf("R$ %.2f", Double.parseDouble(<span class="var">numero</span>.<span class="function">replace</span>(",",".")));
+                        String <span class="var">valorFormatado</span> = String.format("R$ %.2f", Double.parseDouble(<span class="var">numero</span>.<span class="function">replace</span>(",",".")));
+                        System.out.println("\nValor formatado: " + <span class="var">valorFormatado</span>);
+                    </pre>
                 </section>
             </section>
          </search>
