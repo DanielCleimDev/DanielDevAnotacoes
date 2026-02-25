@@ -1390,6 +1390,29 @@
                         System.out.println("\nValor formatado: " + <span class="var">valorFormatado</span>);
                     </pre>
                 </section>
+                <hr>
+                <section>
+                    <h2>Validando formato</h2>
+                    <pre>
+                        Scanner sc = new Scanner(System.in);
+                        while (true){
+                            System.out.println(<span class="string">"Digite um padrão no formato ABC-1234: "</span>);
+                            String <span class="var">string</span> = sc.nextLine();
+                
+                            Pattern <span class="function">pattern</span> = Pattern.compile(<span class="string">"[a-zA-Z]{3}-\\d{4}"</span>);
+                            Matcher <span class="function">matcher</span> = pattern.matcher(<span class="var">string</span> );
+                
+                            if (matcher.<span class="function">matches()</span>) {
+                                System.out.printf("Código digitado '%s' corresponde ao formato.", string);
+                                break;
+                            }else{
+                                System.out.printf("Código digitado '%s' não corresponde ao formato.", string);
+                            }
+                        }
+                
+                        sc.close();
+                    </pre>
+                </section>
             </section>
          </search>
     </main>
