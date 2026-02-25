@@ -173,7 +173,14 @@ pre{
 figure{
   padding: 1rem;
   text-align: center;
+  width: 100%;
 }
+
+figure img {
+  max-width: 90vw;
+  max-height: 80vh;
+}
+
 figcaption{
   color: #334443;
   font-size: 0.8em;
