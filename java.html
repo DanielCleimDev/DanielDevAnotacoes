@@ -1399,7 +1399,7 @@
                             System.out.println(<span class="string">"Digite um padrão no formato ABC-1234: "</span>);
                             String <span class="var">string</span> = sc.nextLine();
                 
-                            Pattern <span class="function">pattern</span> = Pattern.compile(<span class="string">"[a-zA-Z]{3}-\\d{4}"</span>);
+                            Pattern <span class="function">pattern</span> = Pattern.compile(<span class="string">"^[a-zA-Z]{3}-\\d{4}$"</span>);
                             Matcher <span class="function">matcher</span> = pattern.matcher(<span class="var">string</span> );
                 
                             if (matcher.<span class="function">matches()</span>) {
