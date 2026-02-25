@@ -1484,12 +1484,12 @@
                             Scanner sc = new Scanner(System.in);
                             String senha;
                     
-                            String regex = "(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+                            String regex = <span class="string">"(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"</span>;
                             while (true){
                                 System.out.println("Senha: ");
                                 senha = sc.nextLine();
                     
-                                if (senha.matches(regex)) {
+                                if (senha.<span class="function">matches</span>(regex)) {
                                     System.out.println("A senha é válida.");
                                     break;
                                 } else {
