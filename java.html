@@ -1363,6 +1363,24 @@
                         System.out.println(<span class="var">string</span>.<span class="function">substring</span>(0,<span class="var">string</span>.<span class="function">lastIndexOf</span>(".")));
                     </pre>
                 </section>
+                <hr>
+                <section>
+                    <h2>Verificando se uma palavra contem em uma string</h2>
+                    <pre>
+                        Scanner sc = new Scanner(System.in);
+                        System.out.println("Digite um texto: ");
+                        String string = sc.nextLine();
+                
+                        System.out.println("Digite uma palavra que o texto contenha: ");
+                        String <span class="var">encontrar</span> = sc.nextLine();
+                        if (string.<strong><span class="function">contains</span></strong>(<span class="var">encontrar</span>)) {
+                            System.out.printf("A palavra \"%s\" está presente no texto.\n", encontrar);
+                        }else {
+                            System.out.printf("A palavra digitada '%s' não foi encontrada\n", encontrar);
+                        }
+                        sc.close();        
+                    </pre>
+                </section>
             </section>
          </search>
     </main>
