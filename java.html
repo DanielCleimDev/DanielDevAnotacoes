@@ -1477,6 +1477,61 @@
                         <p>saída:</p>
                         <p class="codigo">Hashtags encontradas: #mundo, #Java, #programa</p>
                     </section>
+                    <hr>
+                    <section>
+                        <h2>Validando senha</h2>
+                        <pre>
+                            Scanner sc = new Scanner(System.in);
+                            String senha;
+                    
+                            String regex = "(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+                            while (true){
+                                System.out.println("Senha: ");
+                                senha = sc.nextLine();
+                    
+                                if (senha.matches(regex)) {
+                                    System.out.println("A senha é válida.");
+                                    break;
+                                } else {
+                                    System.out.println("A senha não é válida.");
+                                }
+                                System.out.println("digite (0) para sair ou (1) para continuar: ");
+                                senha = sc.nextLine();
+                                if(senha.equals("0")) break;
+                            }
+                            sc.close();
+                        </pre>
+                        <ul>
+                            <li><strong>Os Delimitadores</strong></li>
+                            <li>^ : Indica o início da linha. A validação deve começar do primeiro caractere.</li>
+                            <li>$ : Indica o fim da linha. A senha inteira deve seguir o padrão, sem caracteres extras no final. </li>
+                        </ul>
+                        <ul>
+                            <li><strong> Os "Lookaheads" (As Regras de Validação)</strong></li>
+                            <li>As partes entre (?= ... ) são chamadas de positive lookaheads. Elas verificam se algo existe na string sem "consumir" os caracteres (elas olham para frente e voltam para o início).</li>
+                            <li>(?=.*[a-z]) : Garante que haja pelo menos uma letra minúscula.</li>
+                            <li>(?=.*[A-Z]) : Garante que ja pelo menos uma letra maiúscula</li>
+                            <li>(?=.*\\d) : Garante que haja pelo menos um dígito (número).</li>
+                            <li>(?=.*[@$!%*?&]) : Garante que haja pelo menos um caractere especial da lista permitida. </li>
+                        </ul>
+                        <ul>
+                            <li><strong>O Conteúdo e Comprimento</strong></li>
+                            <li>[a-za-z\\d@$!%*?&]{8,} : Define quais caracteres são permitidos e o tamanho da senha.</li>
+                            <ul>
+                                <li>[a-za-z\\d@$!%*?&] : Permite letras (maiúsculas e minúsculas), números e os símbolos listados.</li>
+                                <li>{8,} : Define que a senha deve ter no mínimo 8 caracteres.</li>
+                            </ul>
+                        </ul>
+                        <h3>Resumo da Regra</h3>
+                        <ul>Para a senha ser considerada válida (true), ela precisa:
+                            <li>Ter pelo menos 8 caracteres.</li>
+                            <li>Conter ao menos uma letra minúscula.</li>
+                            <li>Conter ao menos uma letra minúscula</li>
+                            <li>Contar ao menos uma letra maiúscula</li>
+                            <li>Conter ao menos um número.</li>
+                            <li>Conter ao menos um caractere especial (como @, $, !, etc.).</li>
+                        </ul>
+                    </section>
                 </section>
             </section>
          </search>
