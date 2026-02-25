@@ -1335,6 +1335,7 @@
                 <p>Agora para passarmos para <strong>Maiúsculo</strong> utilizamos <span class="codigo">toUpperCase()</span>.</p>
                 <p class="codigo">System.out.println(texto.toUpperCase());</p>
             </section>
+            <hr>
             <section>
                 <h2>Substituindo parte de uma String</h2>
                 <p>Para substituirmos uma parte de uma String utilizamos <span class="codigo">replace(<span class="string">Aqui coloca a parte que será substituída</span>,<span class="var">aqui a nova String</span>);</span></p>
@@ -1351,6 +1352,17 @@
                     }
                     System.out.println("O texto não tem gato!");
                 </pre>
+                <hr>
+                <section>
+                    <h2>Extraindo parte de uma String</h2>
+                    <pre>
+                        String <span class="var">string</span> = <span class="string">"relatorio_final.pdf"</span>;
+                        <span class="comment">//substring(início - o caractere dessa posição é adicionada na string final,</span>
+                        <span class="comment">//fim - o caractere dessa posição é excluída da string final)</span>
+                        <span class="comment">//lastIndexOf(retorna o índice da última ocorrência encontrada)</span>
+                        System.out.println(<span class="var">string</span>.<span class="function">substring</span>(0,<span class="var">string</span>.<span class="function">lastIndexOf</span>(".")));
+                    </pre>
+                </section>
             </section>
          </search>
     </main>
