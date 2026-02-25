@@ -1412,6 +1412,33 @@
                 
                         sc.close();
                     </pre>
+                    <hr>
+                    <section>
+                        <h2>Validando CPF</h2>
+                        <pre>
+                            Scanner sc = new Scanner(System.in);
+                            
+                            String string;
+                            Matcher matcher;
+                    
+                            Pattern pattern = Pattern.compile(<span class="string">"^\\d{3}.\\d{3}.\\d{3}-\\d{2}$"</span>);
+                    
+                            while (true){
+                                System.out.println("Digite o CPF no formato 123.456.789-09: ");
+                                string = sc.nextLine();
+                    
+                                matcher= pattern.matcher(string);
+                    
+                                if(matcher.<span class="function">matches()</span>){
+                                    System.out.printf("CPF %s no formato correto!\n", string);
+                                    break;
+                                }else{
+                                    System.out.printf("CPF %s não esta no formato correto!\n", string);
+                                }
+                            }
+                            sc.close();
+                        </pre>
+                    </section>
                 </section>
             </section>
          </search>
