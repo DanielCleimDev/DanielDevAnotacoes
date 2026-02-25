@@ -1454,6 +1454,29 @@
                             scanner.close();
                         </pre>
                     </section>
+                    <hr>
+                    <section>
+                        <h2>Extraindo Hashtags</h2>
+                        <pre>
+                            String <span class="var">string</span> = <span class="string">"#mundo! Estou aprendendo #Java e #programação"</span>;
+                            
+                            Pattern pattern = Pattern.compile(<span class="string">"#\\w+"</span>);
+                            Matcher matcher = pattern.matcher(string);
+                    
+                            ArrayList&lt;String&gt; hashtags = new ArrayList&lt;&gt;();
+                    
+                            while (matcher.<span class="function">find()</span>){
+                                hashtags.add(matcher.<span class="function">group()</span>);
+                            }
+                            if (hashtags.isEmpty()) {
+                                System.out.println("Nenhuma hashtag encontrada.");
+                            } else {
+                                System.out.println("Hashtags encontradas: " + String.<span class="function">join</span>(", ", hashtags));
+                            }
+                        </pre>
+                        <p>saída:</p>
+                        <p class="codigo">Hashtags encontradas: #mundo, #Java, #programa</p>
+                    </section>
                 </section>
             </section>
          </search>
