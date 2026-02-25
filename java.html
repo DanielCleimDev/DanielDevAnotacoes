@@ -1414,7 +1414,7 @@
                     </pre>
                     <hr>
                     <section>
-                        <h2>Validando CPF</h2>
+                        <h2>Validando CPF com Pattern</h2>
                         <pre>
                             Scanner sc = new Scanner(System.in);
                             
@@ -1437,6 +1437,21 @@
                                 }
                             }
                             sc.close();
+                        </pre>
+                        <h2>Validando cpf com String</h2>
+                        <pre>
+                            Scanner scanner = new Scanner(System.in);
+                            
+                            System.out.print("Digite o CPF: ");
+                            String cpf = scanner.nextLine();
+                    
+                            String regex = "<span class="string">\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}</span>";
+                            if (cpf.<span class="function">matches</span>(regex)) {
+                                System.out.println("O CPF " + cpf + " está no formato válido.");
+                            } else {
+                                System.out.println("O CPF " + cpf + " não está no formato válido.");
+                            }
+                            scanner.close();
                         </pre>
                     </section>
                 </section>
