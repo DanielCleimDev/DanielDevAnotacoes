@@ -1505,12 +1505,12 @@
                             }
                             sc.close();
                         </pre>
-                        <ul>
+                        <ul class="ul">
                             <li><strong>Os Delimitadores</strong></li>
                             <li>^ : Indica o início da linha. A validação deve começar do primeiro caractere.</li>
                             <li>$ : Indica o fim da linha. A senha inteira deve seguir o padrão, sem caracteres extras no final. </li>
                         </ul>
-                        <ul>
+                        <ul class="ul">
                             <li><strong> Os "Lookaheads" (As Regras de Validação)</strong></li>
                             <li>As partes entre (?= ... ) são chamadas de positive lookaheads. Elas verificam se algo existe na string sem "consumir" os caracteres (elas olham para frente e voltam para o início).</li>
                             <li>(?=.*[a-z]) : Garante que haja pelo menos uma letra minúscula.</li>
@@ -1521,13 +1521,13 @@
                         <ul>
                             <li><strong>O Conteúdo e Comprimento</strong></li>
                             <li>[a-za-z\\d@$!%*?&]{8,} : Define quais caracteres são permitidos e o tamanho da senha.</li>
-                            <ul>
+                            <ul class="ul">
                                 <li>[a-za-z\\d@$!%*?&] : Permite letras (maiúsculas e minúsculas), números e os símbolos listados.</li>
                                 <li>{8,} : Define que a senha deve ter no mínimo 8 caracteres.</li>
                             </ul>
                         </ul>
                         <h3>Resumo da Regra</h3>
-                        <ul>Para a senha ser considerada válida (true), ela precisa:
+                        <ul class="ul">Para a senha ser considerada válida (true), ela precisa:
                             <li>Ter pelo menos 8 caracteres.</li>
                             <li>Conter ao menos uma letra minúscula.</li>
                             <li>Conter ao menos uma letra minúscula</li>
@@ -1637,7 +1637,7 @@
          </section>
          <section>
             <h1 class="titulo">Comandos bash para entender o protocolo TCP/IP</h1>
-            <ul>
+            <ul class="ul">
                 <li>
                     <p class="codigo">ifconfig ou ip addr</p>
                     <p>Exibe informações sobre interfaces de rede, endereços IP atribuídos e status da conexão. Exemplo: </p>
@@ -1674,7 +1674,7 @@
                     <p class="codigo">nmap -Pn 192.168.1.1</p>
                 </li>
             </ul>
-            <ul>
+            <ul class="ul">
                 <li><h2>Links</h2></li>
                 <li><a href="https://man7.org/linux/man-pages/man8/ip.8.html">Guia da GNU/Linux iproute2 (substituto do ifconfig)</a></li>
                 <li><a href="https://www.tcpdump.org/manpages/tcpdump.1.html">Manual do tcpdump</a></li>
