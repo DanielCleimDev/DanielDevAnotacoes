@@ -1635,54 +1635,72 @@
                 <img src="IMG/java/colecoesStreams/4560 - Praticando Java_ coleções-10.png">
             </figure>
          </section>
-         <section>
-            <h1 class="titulo">Comandos bash para entender o protocolo TCP/IP</h1>
-            <ul class="ul">
-                <li>
-                    <p class="codigo">ifconfig ou ip addr</p>
-                    <p>Exibe informações sobre interfaces de rede, endereços IP atribuídos e status da conexão. Exemplo: </p>
-                    <p class="codigo">ip addr show</p>
-                </li>
-                <li>
-                    <p class="codigo">ping</p>
-                    <p>Testa a conectividade entre o host local e outro dispositivo, usando o protocolo ICMP. Exemplo: </p>
-                    <p class="codigo">ping google.com</p>
-                </li>
-                <li>
-                    <p class="codigo">traceroute</p>
-                    <p>Mostra o caminho percorrido pelos pacotes até um destino, revelando cada roteador intermediário. Exemplo: </p>
-                    <p class="codigo">traceroute google.com</p>
-                </li>
-                <li>
-                    <p class="codigo">netstat ou ss</p>
-                    <p>Exibe conexões ativas, portas abertas e estatísticas de rede. O ss é mais moderno e recomendado. Exemplo: </p>
-                    <p class="codigo">ss -tulnp</p>
-                </li>
-                <li>
-                    <p class="codigo">tcpdump</p>
-                    <p>Captura pacotes em tempo real, permitindo analisar tráfego detalhado no nível TCP/IP. Exemplo (capturando pacotes na porta 80): </p>
-                    <p class="codigo">sudo tcpdump -i any port 80</p>
-                </li>
-                <li>
-                    <p class="codigo">curl</p>
-                    <p>Realiza requisições HTTP/HTTPS e pode ser usado para inspecionar cabeçalhos e verificar protocolos. Exemplo: </p>
-                    <p class="codigo">curl -I https://www.example.com</p>
-                </li>
-                <li>
-                    <p class="codigo">nmap</p>
-                    <p>Scanner de rede usado para descobrir hosts ativos e verificar portas abertas. Exemplo: </p>
-                    <p class="codigo">nmap -Pn 192.168.1.1</p>
-                </li>
-            </ul>
-            <ul class="ul">
-                <li><h2>Links</h2></li>
-                <li><a href="https://man7.org/linux/man-pages/man8/ip.8.html">Guia da GNU/Linux iproute2 (substituto do ifconfig)</a></li>
-                <li><a href="https://www.tcpdump.org/manpages/tcpdump.1.html">Manual do tcpdump</a></li>
-                <li><a href="https://man7.org/linux/man-pages/man8/ss.8.html">Documentação do ss/netstat</a></li>
-                <li><a href="https://nmap.org/">Projeto nmap</a></li>
-                <li><a href="https://www.digitalocean.com/community/tutorials">Tutorial de redes Linux no DigitalOcean</a></li>
-            </ul>
-         </section>
+          <section> <!-- início - Redes e Protocolos: fundamentos da web -->
+              <section>
+                 <h1 class="titulo">Comandos bash para entender o protocolo TCP/IP</h1>
+                 <ul class="ul">
+                     <li>
+                         <p class="codigo">ifconfig ou ip addr</p>
+                         <p>Exibe informações sobre interfaces de rede, endereços IP atribuídos e status da conexão. Exemplo: </p>
+                         <p class="codigo">ip addr show</p>
+                     </li>
+                     <li>
+                         <p class="codigo">ping</p>
+                         <p>Testa a conectividade entre o host local e outro dispositivo, usando o protocolo ICMP. Exemplo: </p>
+                         <p class="codigo">ping google.com</p>
+                     </li>
+                     <li>
+                         <p class="codigo">traceroute</p>
+                         <p>Mostra o caminho percorrido pelos pacotes até um destino, revelando cada roteador intermediário. Exemplo: </p>
+                         <p class="codigo">traceroute google.com</p>
+                     </li>
+                     <li>
+                         <p class="codigo">netstat ou ss</p>
+                         <p>Exibe conexões ativas, portas abertas e estatísticas de rede. O ss é mais moderno e recomendado. Exemplo: </p>
+                         <p class="codigo">ss -tulnp</p>
+                     </li>
+                     <li>
+                         <p class="codigo">tcpdump</p>
+                         <p>Captura pacotes em tempo real, permitindo analisar tráfego detalhado no nível TCP/IP. Exemplo (capturando pacotes na porta 80): </p>
+                         <p class="codigo">sudo tcpdump -i any port 80</p>
+                     </li>
+                     <li>
+                         <p class="codigo">curl</p>
+                         <p>Realiza requisições HTTP/HTTPS e pode ser usado para inspecionar cabeçalhos e verificar protocolos. Exemplo: </p>
+                         <p class="codigo">curl -I https://www.example.com</p>
+                     </li>
+                     <li>
+                         <p class="codigo">nmap</p>
+                         <p>Scanner de rede usado para descobrir hosts ativos e verificar portas abertas. Exemplo: </p>
+                         <p class="codigo">nmap -Pn 192.168.1.1</p>
+                     </li>
+                 </ul>
+                 <ul class="ul">
+                     <li><h2>Links</h2></li>
+                     <li><a href="https://man7.org/linux/man-pages/man8/ip.8.html">Guia da GNU/Linux iproute2 (substituto do ifconfig)</a></li>
+                     <li><a href="https://www.tcpdump.org/manpages/tcpdump.1.html">Manual do tcpdump</a></li>
+                     <li><a href="https://man7.org/linux/man-pages/man8/ss.8.html">Documentação do ss/netstat</a></li>
+                     <li><a href="https://nmap.org/">Projeto nmap</a></li>
+                     <li><a href="https://www.digitalocean.com/community/tutorials">Tutorial de redes Linux no DigitalOcean</a></li>
+                 </ul>
+              </section>
+              <section>
+                <h1 class="tituilo">Para saber mais: impacto da latência e confiabilidade</h1>
+                <h2>Conceito de Latência</h2>
+                <p>A latência pode ser entendida como o tempo que uma requisição leva para percorrer um caminho na rede, desde o envio pelo dispositivo até o recebimento de uma resposta. Esse conceito é essencial para avaliar a experiência do usuário, pois redes com alta latência podem fazer com que operações pareçam lentas ou até interromper a interação em tempo real, como em jogos online ou videoconferências.</p>
+                <p>Em uma rede local (LAN), a latência tende a ser muito baixa, devido à curta distância entre os dispositivos e à infraestrutura dedicada. Em contrapartida, ao utilizar a internet – com sua série de dispositivos intermediários, longas distâncias e rotas dinâmicas – o tempo de resposta pode aumentar consideravelmente. Além disso, fatores como congestionamento da rede ou a necessidade de passar por múltiplos roteadores podem impactar esse tempo.</p>
+                <p>Para exemplificar, uma simples verificação de latência pode ser feita utilizando o comando "ping" no terminal. Essa ferramenta envia pequenos pacotes de dados e mede o tempo que eles levam para retornar, ajudando a identificar se a rede possui ou não atrasos significativos.</p>
+                <h2>Entendimento de Confiabilidade</h2>
+                <p>Diversos aspectos podem impactar tanto a latência quanto a confiabilidade:</p>
+                <ul class="ul">
+                    <li>Distância Física e Número de Saltos: Quanto maior a distância e maior o número de dispositivos intermediários, maior tende a ser a latência e menor a confiabilidade, pois há mais pontos de possível falha.</li>
+                    <li>Qualidade dos Equipamentos e Infraestrutura: Equipamentos modernos e bem configurados suportam melhor as demandas da rede, colaborando para transmissões mais estáveis.</li>
+                    <li>Congestionamento e Tráfego: Em momentos de alta demanda, a rede pode sofrer congestionamento, aumentando os tempos de resposta e a chance de perda de pacotes.</li>
+                </ul>
+                <p>Como estratégia para otimizar essas variáveis, técnicas como o uso de cache local, balanceamento de carga e até mesmo redes privadas podem ser adotadas para minimizar os impactos. Ferramentas de monitoramento e diagnóstico, como análises de pacotes, ajudam a identificar gargalos e falhas na comunicação.</p>
+                <p>Em resumo, compreender os mecanismos por trás da latência e confiabilidade permite desenhar redes mais eficientes e oferecer uma experiência de uso superior, seja em ambientes controlados como em uma LAN, ou na vasta e variada infraestrutura da internet.</p>
+              </section>
+          </section><!-- fim - Redes e Protocolos: fundamentos da web -->
     </main>
     
 </body>
