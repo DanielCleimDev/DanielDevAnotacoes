@@ -1685,7 +1685,7 @@
                  </ul>
               </section>
               <section>
-                <h1 class="tituilo">Para saber mais: impacto da latência e confiabilidade</h1>
+                <h1 class="titulo">Para saber mais: impacto da latência e confiabilidade</h1>
                 <h2>Conceito de Latência</h2>
                 <p>A latência pode ser entendida como o tempo que uma requisição leva para percorrer um caminho na rede, desde o envio pelo dispositivo até o recebimento de uma resposta. Esse conceito é essencial para avaliar a experiência do usuário, pois redes com alta latência podem fazer com que operações pareçam lentas ou até interromper a interação em tempo real, como em jogos online ou videoconferências.</p>
                 <p>Em uma rede local (LAN), a latência tende a ser muito baixa, devido à curta distância entre os dispositivos e à infraestrutura dedicada. Em contrapartida, ao utilizar a internet – com sua série de dispositivos intermediários, longas distâncias e rotas dinâmicas – o tempo de resposta pode aumentar consideravelmente. Além disso, fatores como congestionamento da rede ou a necessidade de passar por múltiplos roteadores podem impactar esse tempo.</p>
@@ -1699,6 +1699,33 @@
                 </ul>
                 <p>Como estratégia para otimizar essas variáveis, técnicas como o uso de cache local, balanceamento de carga e até mesmo redes privadas podem ser adotadas para minimizar os impactos. Ferramentas de monitoramento e diagnóstico, como análises de pacotes, ajudam a identificar gargalos e falhas na comunicação.</p>
                 <p>Em resumo, compreender os mecanismos por trás da latência e confiabilidade permite desenhar redes mais eficientes e oferecer uma experiência de uso superior, seja em ambientes controlados como em uma LAN, ou na vasta e variada infraestrutura da internet.</p>
+              </section>
+              <section>
+                <h1 class="titulo">Para saber mais: user-agent nas requisições HTTP</h1>
+                <h2>Origem e Propósito</h2>
+                <p>O cabeçalho User-Agent é responsável por informar ao servidor qual cliente (navegador, ferramenta ou outro agente) está efetuando a requisição. Essa informação permite que o servidor adapte suas respostas de acordo com o agente que está solicitando os dados. Por exemplo, é comum que servidores enviem recursos otimizados para diferentes navegadores ou mesmo ofereçam versões mobile quando o user-agent indica um dispositivo móvel.</p>
+                <h2>Funcionamento na Prática</h2>
+                <p>Ao realizar uma requisição HTTP, o cliente inclui o cabeçalho User-Agent junto com outros dados da requisição. Esse cabeçalho contém uma cadeia de caracteres que normalmente especifica o nome, a versão e, em alguns casos, o sistema operacional do cliente. Um exemplo comum em uma requisição pode ser:</p>
+                <pre>
+                    GET /exemplo HTTP/1.1
+                    Host: www.exemplo.com
+                    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36
+                </pre>
+                <p>Com esses dados, o servidor pode identificar que o pedido vem de um navegador específico em um sistema Windows e enviar respostas compatíveis com esse ambiente.</p>
+                <h2>Aplicações e Considerações Técnicas</h2>
+                <p>A utilização do User-Agent vai além da simples identificação do cliente:</p>
+                <ul class="ul">
+                    <li>Adaptação de Conteúdo: Servidores podem oferecer conteúdos customizados, selecionando estilos, scripts ou até mesmo versões diferentes de uma página de acordo com o agente identificado.</li>
+                    <li>Análise e Métricas: Dados sobre os user-agents podem ajudar desenvolvedores e equipes de operação a entender a diversidade de clientes acessando um serviço, permitindo otimizações direcionadas.</li>
+                    <li>Segurança: Em alguns cenários, a informação do User-Agent é utilizada para filtrar requisições suspeitas ou automatizadas. No entanto, é importante ter em mente que esse cabeçalho pode ser facilmente manipulado ou falsificado, o que limita seu uso como única camada de segurança.</li>
+                </ul>
+                <h2>Variações e Impacto na Experiência do Usuário</h2>
+                <p>Embora o User-Agent seja amplamente utilizado, há algumas variações a serem consideradas:</p>
+                <ul class="ul">
+                    <li>Atualizações Constantes: Com a rápida evolução dos navegadores e dispositivos, as cadeias de caracteres dos user-agents mudam com frequência. Isso pode exigir atualizações nos sistemas que dependem dessa informação para oferecer conteúdo adaptado.</li>
+                    <li>Falsificação de Dados: O User-Agent pode ser alterado programaticamente, o que permite que clientes enviem dados incorretos. Essa característica deve ser levada em conta em aplicações que tentam aplicar restrições ou personalizações rigorosas baseadas nesse cabeçalho.</li>
+                </ul>
+                <p>Em resumo, o User-Agent é uma ferramenta valiosa para personalizar a experiência de uso e coletar informações sobre os clientes que acessam um serviço. Contudo, seu uso deve ser complementado por outras práticas de detecção e segurança, considerando que a informação repassada pode não ser plenamente confiável.</p>
               </section>
           </section><!-- fim - Redes e Protocolos: fundamentos da web -->
     </main>
