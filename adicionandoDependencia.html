@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionando Dependências com Maven</title>
+    <link rel="stylesheet" href="css/anotacoesGerais.css">
+</head>
+<body>
+    <main>
+        <h1 class="titulo">Adicionando Dependências com Maven</h1>
+        <ul class="ul">
+            <li>Acessar o site MVN Repository <a href="https://mvnrepository.com/"><strong>Link=></strong></a></li>
+            <li>Pesquisar a dependência: Ex.: Jackson Databind</li>
+            <li>Escolher a versão em: Latest Versions</li>
+            <li>
+                Copiar o XML
+                <pre>
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;tools.jackson.core&lt;/groupId&gt;
+                        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+                        &lt;version&gt;3.1.0&lt;/version&gt;
+                        &lt;scope&gt;compile&lt;/scope&gt;
+                    &lt;/dependency&gt;
+                </pre>
+            </li>
+            <li>Abrir o pom.xml do projeto</li>
+            <li>Colar em &lt;dependencies&gt; o código</li>
+            <li>
+                <p>Clicar no botão localizado no canto superior direito, para atualizar as dependências</p>
+                <figure>
+                    <img src="IMG/java/mvnAtualizar.png" alt="Botão para Atualizar as dependências" style="max-width: 30%;">
+                    <figcaption>Botão para Atualizar as dependências</figcaption>
+                </figure>
+            </li>
+        </ul>
+    </main>
+    
+</body>
+</html>

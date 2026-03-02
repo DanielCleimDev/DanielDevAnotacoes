@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desserializar com Jackson</title>
+    <link rel="stylesheet" href="css/anotacoesGerais.css">
+</head>
+<body>
+    <main>
+        <h1 class="titulo">Desserializar com Jackson</h1>
+        <ul class="ul">
+            <li>Criar a classe para Desserializar</li>
+            <li>
+                <p>Exemplo:</p>
+                <pre>
+                    public record DadosSerie(){}
+                </pre>
+            </li>
+            <li>
+                <p>Utilizar <strong class="codigo"><span class="function">@JsonAlias</span>("<span class="string">Title</span>") String <span class="var">titulo</span></strong> com o nome exato da propriedade do arquivo json e definir o nome que desejamos para a nossa propriedade </p>
+                <p>Exemplo:</p>
+                <pre>
+                    import com.fasterxml.jackson.annotation.JsonAlias;
+
+                    public record DadosSerie(<span class="function">@JsonAlias</span>("<span class="string">Title</span>") String <span class="var">titulo</span>,
+                                            @JsonAlias("totalSeasons") Integer totalTemporadas,
+                                            @JsonAlias("imdbRating") String avaliacao) {
+                    }
+                </pre>
+            </li>
+        </ul>
+    </main>
+</body>
+</html>
