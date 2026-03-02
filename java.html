@@ -1667,6 +1667,35 @@
             <p>A escolha entre Maven e Gradle depende do seu projeto e preferências. Ambas as ferramentas são poderosas e amplamente utilizadas, e ambas têm vantagens e desvantagens. O Maven é mais rígido e segue uma abordagem "opinião sobre configuração", o que pode ser uma vantagem para projetos menores e mais simples. Já o Gradle é mais flexível e personalizável, sendo uma escolha popular para projetos maiores e complexos que requerem configurações específicas.</p>
             <p>Em resumo, tanto Maven quanto Gradle podem ser usados com eficiência para projetos Java, e a escolha dependerá do contexto e das preferências da equipe de desenvolvimento.</p>
          </section>
+         <section>
+            <h1 class="titulo">Para saber mais: a interface CommandLineRunner</h1>
+            <p>A interface CommandLineRunner é um recurso poderoso dentro do universo do Spring Framework, amplamente utilizado no desenvolvimento de aplicações Java. Ela permite que executemos alguma ação logo após a inicialização de nossa aplicação. Pode ser muito útil, por exemplo, se quisermos carregar alguns dados em nosso banco de dados logo na inicialização de nossa aplicação.</p>
+            <h2>Como funciona?</h2>
+            <p>Quando uma aplicação Spring Boot é lançada pode ocorrer várias operações automáticas, como a criação de beans, configuração de banco de dados, entre outros. A abertura para customização destas operações é limitada, e é aqui que a interface CommandLineRunner entra em cena.</p>
+            <p>A interface CommandLineRunner representa uma tarefa a ser executada após a inicialização do Spring Boot, ou seja, permite definir código para ser executado automaticamente quando o aplicativo é iniciado.</p>
+            <h2>Como Usar?</h2>
+            <p>A utilização é bem simples. Na própria classe principal da aplicação, podemos incluir para que se implemente a interface CommandLineRunner. Veja um exemplo:</p>
+            <pre>
+
+                @SpringBootApplication
+                public class MyCommandLineRunner implements CommandLineRunner {
+                   
+                   @Override
+                    public void run(String... args) throws Exception {
+                        System.out.println("Olá, Mundo!");
+                    }
+                }
+
+            </pre>
+            <p>Note que no exemplo acima, criamos uma classe chamada MyCommandLineRunner que implementa a interface CommandLineRunner. No método "run" inserimos a ação que desejamos que seja executada logo depois que a aplicação for iniciada, nesse caso, apenas printamos "Olá, Mundo!".</p>
+            <h2>Quando Usar?</h2>
+            <p>A interface CommandLineRunner é bem versátil e pode ser usada em diversas situações. Conforme mencionado anteriormente, ela pode ser usada para carregar dados para um banco de dados. Também pode ser usada para iniciar recursos, como conexões de rede, e para checar a integridade de determinados componentes ou serviços com os quais a aplicação irá interagir.</p>
+            <p>É importante lembrar que a CommandLineRunner é executada apenas na inicialização da aplicação, então não deve ser utilizada para tarefas que precisam ocorrer periodicamente durante o funcionamento da aplicação, para isso, Spring oferece outras ferramentas que serão mais adequadas.</p>
+            <h2>Motivação</h2>
+            <p>Vamos imaginar uma situação onde temos que carregar uma grande quantidade de dados em nosso banco de dados assim que nossa aplicação Spring iniciar. Bem, manualmente isso seria desafiador e demorado, no entanto, a interface CommandLineRunner torna essa tarefa extremamente mais simples.</p>
+            <p>Ao aprofundar seu conhecimento no Spring, você terá diversas opções para otimizar suas aplicações e tornar seu código mais limpo e eficaz. O Spring é um framework que facilita o desenvolvimento de aplicações em Java. Ele oferece um modelo de programação abrangente e simplificado, escondendo muitos dos detalhes de baixo nível. Como resultado, você pode se concentrar em escrever o seu código, sem se preocupar com uma infinidade de detalhes técnicos. </p>
+         </section>
     </main>
 </body>
 </html>
+
