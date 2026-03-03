@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converte Dados</title>
+    <link rel="stylesheet" href="css/anotacoesGerais.css">
+</head>
+<body>
+    <main>
+        <h1 class="titulo">Procedimento para converter dados</h1>
+        <ul class="ul">
+            <li>Criar uma classe ConverteDados, no pacote service</li>
+            <li>
+                <p>Criar um objeto ObjectMapper</p>
+                <p class="codigo">public ObjectMapper mapper = new ObjectMapper();</p>
+            </li>
+            <li>Criar uma interface IConverteDados</li>
+            <li>
+                <p>Criar o método obterDados</p>
+                <p>Este método retorna uma classe genérica &lt;T&gt; T</p>
+                <p>Ao chamar o método posso informar que vou receber uma String e informar a classe que irá retornar obterDados( String json, Class&lt;T&gt; classe)</p>
+                <p class="codigo"><T> T obterDados(String json, Class<T> classe);</p>
+            </li>
+            <li>
+                <p>Implementar a interface IConverteDados na classe ConverteDados</p>
+                <p class="codigo">public class ConverteDados implements <span class="function">IConverteDados</span> {}</p>
+            </li>
+            <li>
+                <p>O Método Obter dados utiliza readValue do objeto mapper para receber um json e tentar converter para a classe passada</p>
+                <pre>
+                    @Override
+                    public &lt;T&gt; T <strong class="function">obterDados</strong>(String json, Class<T> classe) {
+                        try {
+                            return <strong class="string">mapper</strong>.<strong class="var">readValue</strong>(json, classe);
+                        } catch (JacksonException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                </pre>
+            </li>
+            <li>
+                <p>Utilizando o conversor</p>
+                <pre>
+                    ConsumoAPI consumoAPI = new ConsumoAPI();
+                    var json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=77149450");
+                    System.out.println(json);
+
+                    <strong class="function">ConverteDados</strong> converteDados = new ConverteDados();
+
+                    DadosSerie dados = converteDados.<strong class="var">obterDados</strong>(json, DadosSerie.class);
+                    System.out.println(dados);
+                </pre>
+            </li>
+        </ul>
+    </main>
+    
+</body>
+</html>

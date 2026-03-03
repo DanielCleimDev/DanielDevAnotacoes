@@ -126,6 +126,7 @@ strong{
 .comment { color: #6a9955; } /* Verde */
 .number { color: #b5cea8; }  /* Verde claro */
 .function { color: #dcdcaa; } /* Amarelo claro */
+.red{color: red;}
 
 pre{
   background-color: #1e1e1e;
