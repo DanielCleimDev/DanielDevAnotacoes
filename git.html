@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git</title>
+    <link rel="stylesheet" href="css/anotacoesGerais.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="link">Voltar</a>
+        <a href="https://www.alura.com.br/artigos/o-que-e-git-github" class="link">Artigo: Git e Github: os primeiros passos</a>
+    </nav>
+    <h1 class="titulo">Comandos Básicos Git</h1>
+    <ul class="ul">
+        <li>
+            <h4>Para instalar o <strong>Git</strong> no Ubunto utilize o comando:</h3>
+            <p class="codigo">sudo apt-get install git</p>
+        </li>
+        <li>
+            <h4>Para instalar o <strong>GitHub</strong> cli com snap</h4>
+            <p class="codigo">sudo snap install gh</p>
+        </li>
+        <li>
+            <h4><strong>Autenticando</strong> no github</h4>
+            <p class="codigo">gh auth login</p>
+        </li>
+        <li>
+            <h4>Comando para <strong>Criar um novo Repositório </strong>com flags para facilitar o uso:</h4>
+            <p class="codigo" id="criarRepo">gh repo create <span class="string">nome-do-repositorio</span> --public --description <span class="string">"descrição do repositorio"</span></p>
+            <button id="btCopiarRepo" onclick="copiarCriarRepo()" style="display: none;">Copiar</button>
+            <button id="btCriarRepo" onclick="criarRepo()">Editar</button>
+        </li>
+        <li>
+            <h4>Para inicializar um repositório Git local</h4>
+            <p class="codigo">git init</p>
+        </li>
+        <li>
+            <h4>Para Adicionar os arquivos modificados</h4>
+            <p class="codigo">git add .</p>
+        </li>
+        <li>
+            <h4>Para fazer um commit</h4>
+            <p class="codigo">git commit -m "mensagem"</p>
+        </li>
+        <li id="LirepoRemoto">
+            <h4>Adicionando repositório remoto</h4>
+            <p class="codigo" id="repoRemoto">git remote add origin git@github.com:DanielCleimDev/<strong class="string">NOME-DO-REPOSITORIO.git</strong> </p>
+            <button onclick="editarRepoRemoto()" id="editarRepoRemoto">Editar</button>
+        </li>
+        <li>
+            <h4>Configurando a branch como main</h4>
+            <p class="codigo">git branch -M main</p>
+        </li>
+        <li>
+            <h4>Enviando arquivos para o repositório remoto</h4>
+            <p class="codigo">git push -u origin main</p>
+        </li>
+        <li>
+            <h4>Clonando Repositório</h4>
+            <p class="codigo">git clone git@github.com:DanielCleimDev/ -- NOME DO REPOSITÓRIO -- .git</p>
+        </li>
+        <li>
+            <h4>Checa as alterações feitas</h4>
+            <p class="codigo">git status </p>
+        </li>
+        <li>
+            <h4>Baixar commits do repositório remoto para o repositório local</h4>
+            <p class="codigo">git pull</p>
+        </li>
+
+    </ul>
+    
+</body>
+<script>
+
+    function copiar(codigo){
+        navigator.clipboard.writeText(codigo).then(() => {
+            alert(`${codigo} \n \n copiado para a área de transferência!`);
+            }).catch(err => {
+                alert("Erro ao copiar Código")
+                console.error('Erro ao copiar o código: ', err);
+            });
+    }
+       
+    function criarRepo(){
+        let nomeRepo = prompt("Informe o Nome do repositório: ");
+        let descrRepo = prompt("Informe a descrição do repositório: ");
+        let codigo =`gh repo create <strong class="string">${nomeRepo}</strong> --public --description <strong class="string">"${descrRepo}"</strong>`;
+
+        const pCriarRepo = document.getElementById("criarRepo").innerHTML = codigo;
+        const btCopiarRepo =document.getElementById("btCopiarRepo").style.display = "inline-block";
+        const btCriarRepo =document.getElementById("btCriarRepo").style.display = "none";
+        
+    }
+    
+    function copiarCriarRepo(){
+        copiar(document.getElementById("criarRepo").textContent);
+    }
+
+    function copiarRepoRemoto(){
+        copiar(document.getElementById("repoRemoto").textContent);
+    }
+
+    function editarRepoRemoto(){
+        let nomeRepo = prompt("Informe o Nome do repositório: ");
+        let codigo =`git remote add origin git@github.com:DanielCleimDev/<strong class="string">${nomeRepo}.git</strong>`;
+
+        const repoRemoto = document.getElementById("repoRemoto")
+        repoRemoto.innerHTML = codigo;
+        let bt = document.createElement("button");
+        bt.addEventListener("click", ()=> copiarRepoRemoto())
+        bt.textContent = "Copiar";
+        document.getElementById("LirepoRemoto").appendChild(bt);
+        
+        const bteditarRepoRemoto = document.getElementById("editarRepoRemoto").style.display = "none";
+    }
+</script>
+</html>
