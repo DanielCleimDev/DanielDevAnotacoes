@@ -12,6 +12,10 @@
   padding: 1rem;
 }
 
+.card a{
+  color: var(--cor-clara);
+}
+
 @media (min-width: 768px ) {
   .card {
     width: 60%;

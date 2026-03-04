@@ -14,7 +14,12 @@ section{
   padding: 1rem;
 }
 main{
-  padding: 2rem;
+  padding: 2rem 2rem 10rem 2rem;
+}
+a{
+  color: navy;
+  font-weight: bolder;
+  cursor: pointer;
 }
 
 h1, header{
