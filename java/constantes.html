@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constantes</title>
+    <link rel="stylesheet" href="../css/anotacoesGerais.css">
+</head>
+<body>
+    <nav><a href="java.html" class="link">Voltar</a></nav>
+    <main>
+        <h1 class="titulo">Constantes</h1>
+        <p>As constantes desempenham um papel importante na programação, permitindo que valores fixos e imutáveis sejam armazenados e utilizados ao longo do código. Elas são especialmente úteis quando temos valores que não devem ser alterados durante a execução do programa.</p>
+        <p>Ao declarar uma constante, é importante seguir algumas boas práticas. A nomenclatura das constantes deve ser clara e descritiva, utilizando letras maiúsculas e separando as palavras por underscore (_), seguindo o padrão conhecido como "snake_case". Isso torna o código mais legível e compreensível para outros desenvolvedores.</p>
+        <p>Em Java, podemos declarar uma constante utilizando a palavra-chave final. Por exemplo:</p>
+        <pre>
+            <span class="red">final</span> int <span class="string">ANO_ATUAL</span> = 2022;
+            <span class="red">final</span> String <span class="string">NOME_EMPRESA</span> = "Alura";
+        </pre>
+        <p>Nesse exemplo, ANO_ATUAL e NOME_EMPRESA são constantes que armazenam um valor inteiro e uma string, respectivamente. O uso da palavra-chave final indica que essas variáveis não podem ter seu valor alterado após a atribuição inicial.</p>
+        <p>Além disso, é uma boa prática declarar as constantes como static caso elas pertençam a uma classe e sejam compartilhadas por vários objetos. Dessa forma, as constantes podem ser acessadas diretamente através do nome da classe, sem a necessidade de instanciar um objeto.</p>
+        <pre>
+            public class ExemploConstantes {
+                public <strong class="pre1">static</strong> <strong class="red">final</strong> int ANO_ATUAL = 2022;
+                public <strong class="pre1">static</strong> <strong class="red">final</strong> String NOME_EMPRESA = "Alura";
+            }
+        </pre>
+        <p>No exemplo acima, as constantes ANO_ATUAL e NOME_EMPRESA são declaradas como static, permitindo que sejam acessadas diretamente através da classe ExemploConstantes. Veja por exemplo como poderíamos acessá-las a partir de nosso métodos main.</p>
+        <pre>
+            public class Principal {
+            public static void main(String[] args) {
+                System.out.println(“Eu trabalho na empresa “ +  <strong class="function">ExemploConstantes.</strong><strong class="var">NOME_EMPRESA</strong>);
+            }
+        }
+        </pre>
+        <p>O uso de constantes traz benefícios como facilitar a manutenção do código, evitar erros de digitação e tornar o código mais legível. Além disso, elas ajudam a evitar a repetição de valores em diferentes partes do código, promovendo a consistência e a reutilização.</p>
+        <p>Lembre-se de que as constantes devem ser utilizadas para valores que não devem ser alterados durante a execução do programa.</p>
+    </main>
+    
+</body>
+</html>
