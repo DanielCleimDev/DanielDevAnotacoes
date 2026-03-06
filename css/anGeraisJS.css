@@ -28,9 +28,6 @@ pre{
 .exemplo{
   color: green;
 }
-.atencao{
-  color: red;
-}
 
 @media (min-width: 768px ) {
   pre{

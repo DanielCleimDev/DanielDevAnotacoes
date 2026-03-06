@@ -64,7 +64,7 @@
     <section id="AddRemoveClasse">
       <h1>Adicionando e removendo classe com JavaScript</h1>
       <section>
-        <p>Para adicionar e remover classes em elementos HTML usando JavaScript, você pode utilizar os métodos da propriedade <span class="atencao">classList</span>. Aqui estão exemplos simples:</p>
+        <p>Para adicionar e remover classes em elementos HTML usando JavaScript, você pode utilizar os métodos da propriedade <span class="red">classList</span>. Aqui estão exemplos simples:</p>
 
         <h2>1. Adicionar uma classe</h2>
         <section>
@@ -78,12 +78,12 @@
           <p><span class="fundoCodigo">elemento.classList.remove('classe-antiga');</span></p>
         </section>
 
-        <h2>3. Alternar (<span class="atencao">toggle</span>) uma classe</h2>
+        <h2>3. Alternar (<span class="red">toggle</span>) uma classe</h2>
         <section>
           <p>Se você deseja adicionar a classe caso ela não exista ou removê-la caso já esteja presente:</p>
 
           <p>const elemento = document.querySelector('#meuElemento');</p>
-          <p><span class="fundoCodigo">elemento.classList.<span class="atencao">toggle</span>('classe-alternada');</span></p>
+          <p><span class="fundoCodigo">elemento.classList.<span class="red">toggle</span>('classe-alternada');</span></p>
         </section>
 
         <p>Esses métodos são muito úteis para manipular dinamicamente o estilo de elementos em uma página.</p>
@@ -111,25 +111,48 @@
   </div>
   <span style="color: blue;">&lt;/script&gt;</span>
     <div class="exemplo fundoCodigo">
-  /*
-  outra opção é utilizar uma string 
-  Exemplo
-  let string= `Código
-  Meu código identado
-    testado`;
-  function copiarCodigo() {
-    navigator.clipboard.writeText(string).then(() => {
-      alert('Código copiado para a área de transferência!');
-    }).catch(err => {
-      console.error('Erro ao copiar o código: ', err);
-    });
-  }
-  */
+        /*
+        outra opção é utilizar uma string 
+        Exemplo
+        let string= `Código
+        Meu código identado
+          testado`;
+        function copiarCodigo() {
+          navigator.clipboard.writeText(string).then(() => {
+            alert('Código copiado para a área de transferência!');
+          }).catch(err => {
+            console.error('Erro ao copiar o código: ', err);
+          });
+        }
+        */
       </div>
   </pre>
-
-
     </section>
+    <section>
+      <h1 class="titulo">Enviand variáeis com na url</h1>
+      <p class="codigo">let usuario = "João";</p>
+      <p>Criando a URL com parâmetros (encodeURIComponent é usado para segurança)</p>
+      <p class="codigo">let url = "cadastrarSetor.html?usuario=" + encodeURIComponent(usuario) + "&id=" + encodeURIComponent(id);</p>
+      <p>Redirecionando a página</p>
+      <p class="codigo">window.location.href = url;</p>
+    </section>
+    <section>
+      <h1 class="titulo">Guardando dados com SessionStorage</h1>
+      <p class="codigo">
+        sessionStorage.setItem('usuario', 'João')<br>
+        sessionStorage.getItem('usuario')
+      </p>
+    </section>
+    <section>
+      <h1 class="titulo">Tentando acessar um valor sem saber se tem</h1>
+      <h2>Optional Chaining</h2>
+      <p class="codigo">let meiosPagamento = array.find(item => item.id === "meiosPagamento")?.meiosPagamento ?? " ";</p>
+      <p>Operador Ternario ?</p>
+      <p class="codigo">let destino = usuarioLogado ? "Painel" : "Login";</p>
+      <p>Operador OU Lógico (||) </p>
+      <p class="codigo">let nomeParaExibir = nomeUsuario || "Visitante";</p>
+    </section>
+
   </main>
 </body>
 </html>
