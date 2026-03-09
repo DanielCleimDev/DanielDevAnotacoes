@@ -285,8 +285,8 @@
       <pre>
         .<strong class="function">container</strong> {
           <strong class="var">display</strong>: <strong class="string">grid</strong>;
-          <span class="comment">/* Define as 4 colunas de 21% cada */</span>
-          <strong class="var">grid-template-columns</strong>: <strong class="string">repeat(4, 21%)</strong>;
+          <span class="comment">/* Usa 1fr para que as 4 colunas dividam o espaço igualmente */</span>
+          <strong class="var">grid-template-columns</strong>: <strong class="string">repeat(4, 1fr)</strong>;
           <span class="comment">/* Define o gap de 3% entre as colunas */</span>
           <strong class="var">column-gap</strong>: <strong class="string">3%</strong>;
           <span class="comment">/* Define o espaço externo de 3.5% */</span>
