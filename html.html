@@ -280,6 +280,21 @@
       <p><span class="codigo"><span class="pre1">align-items</span> : <span class="prePropriedade"> stretch</span> ; </span></p>
       <p>Em alguns casos pode ser necessário utilizar a propriedade <span class="codigo"><span class="pre1">flex</span> : <span class="prePropriedade">1</span> ; </span> nos elementos filhos para crescerem para ocupar o espaço disponível./p>
     </section>
+    <section>
+      <h1>Utilizando Grid para criar 4 colunas responsivas</h1>
+      <pre>
+        .<strong class="function">container</strong> {
+          <strong class="var">display</strong>: <strong class="string">grid</strong>;
+          <span class="comment">/* Define as 4 colunas de 21% cada */</span>
+          <strong class="var">grid-template-columns</strong>: <strong class="string">repeat(4, 21%)</strong>;
+          <span class="comment">/* Define o gap de 3% entre as colunas */</span>
+          <strong class="var">column-gap</strong>: <strong class="string">3%</strong>;
+          <span class="comment">/* Define o espaço externo de 3.5% */</span>
+          <strong class="var">padding</strong>: <strong class="string">0 3.5%</strong>;
+          <strong class="var">row-gap</strong>: <strong class="string">20px</strong>;
+        }
+      </pre>
+    </section>
   </main>
 </body>
 </html>

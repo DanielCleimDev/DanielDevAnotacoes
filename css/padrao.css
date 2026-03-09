@@ -150,7 +150,7 @@ strong{
 .comment { color: #6a9955; } /* Verde */
 .number { color: #b5cea8; }  /* Verde claro */
 .function { color: #dcdcaa; } /* Amarelo claro */
-.red{color: red;}
+.red{color: rgba(255, 0, 0, 0.753);}
 
 pre{
   background-color: #1e1e1e;
@@ -171,7 +171,7 @@ pre{
   color: rgb(0, 132, 255);
 }
 .preAmarelo{
-  color: rgb(217, 255, 0);
+  color: rgb(255, 208, 0);
 }
 .prePropriedade{
   color: rgb(180, 51, 4);
